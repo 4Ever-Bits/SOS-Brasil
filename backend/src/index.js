@@ -10,4 +10,4 @@ app.get("/", (req, res) => {
   res.status(200).json({ status: "Server is running" });
 });
 
-app.listen(3333, () => console.log("Backend running in port 3333"));
+app.listen(3333, () => console.log("Server running on port 3333"));
