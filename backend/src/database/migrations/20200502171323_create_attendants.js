@@ -6,7 +6,7 @@ exports.up = function (knex) {
     table.string("code").notNullable();
     table.integer("account_id").unsigned();
     table.integer("service_id").unsigned();
-    table.timestamps();
+    table.timestamps(true);
 
     table.foreign("account_id").references("accounts.id");
     table.foreign("service_id").references("services.id");

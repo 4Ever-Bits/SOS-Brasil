@@ -8,7 +8,7 @@ exports.up = function (knex) {
     table.float("latitude");
     table.float("longitude");
     table.integer("account_id").unsigned();
-    table.timestamps();
+    table.timestamps(true);
 
     table.foreign("account_id").references("accounts.id");
   });

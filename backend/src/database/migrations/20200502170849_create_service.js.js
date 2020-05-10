@@ -4,7 +4,7 @@ exports.up = function (knex) {
     table.string("type").notNullable();
     table.string("phonenumber").notNullable();
     table.integer("vehicles_available").notNullable();
-    table.timestamps();
+    table.timestamps(true);
   });
 };
 
