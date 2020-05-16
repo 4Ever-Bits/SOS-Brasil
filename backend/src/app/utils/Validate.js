@@ -7,6 +7,14 @@ module.exports = {
     if (typeof value === "string" && !value.trim()) throw msg;
   },
 
+  email(email, msg) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    if (!re.test(email)) {
+      throw msg;
+    }
+  },
+
   cpf(cpf) {
     cpf = cpf.replace(".", "");
     cpf = cpf.replace(".", "");

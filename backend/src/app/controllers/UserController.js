@@ -1,24 +1,12 @@
-const connection = require("../../database/connection");
-
-const accountController = require("./AccountController");
-
+const User = require("../models/User");
 const Validate = require("../utils/Validate");
+
+var currentUser = null;
 
 module.exports = {
   //Show all users
   async index(req, res) {
-    const users = await connection("users")
-      .join("accounts", "accounts.id", "=", "users.account_id")
-      .select([
-        "users.id",
-        "users.first_name",
-        "users.last_name",
-        "accounts.email",
-        "users.phonenumber",
-        "users.cpf",
-        "users.latitude",
-        "users.longitude",
-      ]);
+    const users = await User.findAll();
     return res.json(users);
   },
 
@@ -34,6 +22,8 @@ module.exports = {
       Validate.isEmpty(email, "Email is empty");
       Validate.isEmpty(password, "Password is empty");
 
+      Validate.email(email, "Email is bad formated");
+
       //Separate name into first name and last name
       let nameArray = name.split(" ");
       let first_name = nameArray[0];
@@ -43,20 +33,21 @@ module.exports = {
       const isValid = Validate.cpf(cpf);
       if (!isValid) return res.status(400).json({ error: "CPF is not valid" });
 
-      //Return the ID of the created account
-      const account_id = await accountController.create(email, password);
-
-      //validate if email aready exist
-      if (isNaN(account_id)) return res.status(400).json({ error: account_id });
-
-      //Create the new user with current account ID
-      const [id] = await connection("users").insert({
+      const user = {
+        email,
+        password,
         first_name,
         last_name,
-        phonenumber: phone,
+        phone,
         cpf,
-        account_id,
-      });
+        // longitude,
+        // latitude
+      };
+
+      currentUser = new User(user);
+      const id = await currentUser.create();
+
+      if (isNaN(id)) return res.status(400).json(id);
 
       return res.status(200).json({ id });
     } catch (e) {
@@ -72,37 +63,11 @@ module.exports = {
     if (!isNaN(userData)) checkByID = true;
 
     if (checkByID) {
-      const dbResult = await connection("users")
-        .join("accounts", "accounts.id", "=", "users.account_id")
-        .where("users.id", userData)
-        .select([
-          "users.id",
-          "users.first_name",
-          "users.last_name",
-          "accounts.email",
-          "users.phonenumber",
-          "users.cpf",
-          "users.latitude",
-          "users.longitude",
-        ]);
-
-      if (dbResult.length > 0) return res.status(200).json(dbResult);
+      const dbResult = await User.findWhere({ "users.id": userData });
+      if (dbResult) return res.status(200).json(dbResult);
     } else {
-      const dbResult = await connection("users")
-        .join("accounts", "accounts.id", "=", "users.account_id")
-        .where("accounts.email", "like", `%${userData}%`)
-        .select([
-          "users.id",
-          "users.first_name",
-          "users.last_name",
-          "accounts.email",
-          "users.phonenumber",
-          "users.cpf",
-          "users.latitude",
-          "users.longitude",
-        ]);
-
-      if (dbResult.length > 0) return res.status(200).json(dbResult);
+      const dbResult = await User.findWhereLike("email", userData);
+      if (dbResult) return res.status(200).json(dbResult);
     }
 
     return res.status(404).json({ error: "User not found" });
@@ -110,46 +75,12 @@ module.exports = {
 
   //Delete specified user
   async delete(req, res) {
-    var checkByID = false;
     const userData = req.params.data;
 
-    if (!isNaN(userData)) checkByID = true;
+    const dbResult = await User.delete({ "users.id": userData });
 
-    if (checkByID) {
-      //Get the account ID of current user
-      const dbResult = await connection("users")
-        .join("accounts", "accounts.id", "=", "users.account_id")
-        .where("users.id", userData)
-        .select(["users.account_id"])
-        .first();
-
-      //Compare if user exist
-      if (!dbResult) return res.status(404).json({ error: "User not found" });
-
-      const account_id = dbResult.account_id;
-
-      await connection("users").where("id", userData).delete(); //Delete row in users
-      await accountController.delete(account_id); //Delete row in accounts
-
-      return res.status(200).json({});
-    } else {
-      //Get ID and account ID of current user
-      const dbResult = await connection("users")
-        .join("accounts", "accounts.id", "=", "users.account_id")
-        .where("accounts.email", userData)
-        .select(["users.id", "users.account_id"])
-        .first();
-
-      //Compare if user exist
-      if (!dbResult) return res.status(404).json({ error: "User not found" });
-
-      const id = dbResult.id;
-      const account_id = dbResult.account_id;
-
-      await connection("users").where("id", id).delete(); //Delete row in users
-      await accountController.delete(account_id); //Delete row in accounts
-
-      return res.status(200).json({});
-    }
+    //Compare if user exist
+    if (!dbResult) return res.status(404).json({ error: "User not found" });
+    return res.status(200).json({});
   },
 };
