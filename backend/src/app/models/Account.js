@@ -33,6 +33,10 @@ module.exports = Account = class Account {
 
   static async update(query, data) {
     try {
+      let { password } = data;
+      password = await cryptPsw(password);
+      data.password = password;
+
       const result = await connection("accounts").where(query).update(data);
       if (Boolean(result)) return true;
       else return false;

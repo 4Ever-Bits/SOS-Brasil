@@ -8,7 +8,7 @@ module.exports = {
   async sendEmail(req, res) {
     const { email } = req.body;
 
-    const token = crypto.randomBytes(20).toString("hex");
+    const token = crypto.randomBytes(3).toString("hex");
     const now = new Date();
     now.setHours(now.getHours() + 1);
 
@@ -17,7 +17,7 @@ module.exports = {
       to: email,
       subject: "Token",
       template: "auth/forgot_password",
-      context: { token },
+      context: { token: token.toUpperCase() },
     };
 
     const account = await Account.update(
@@ -48,7 +48,7 @@ module.exports = {
     const [account] = await Account.findWhere({ email: email });
     if (!account) return res.status(400).json({ error: "User not found" });
 
-    if (token !== account.passwordResetToken)
+    if (token.toLowerCase() !== account.passwordResetToken.toLowerCase())
       return res.status(400).json({ error: "Auth failed1" });
     if (new Date() > account.passwordResetExpires)
       return res.status(400).json({ error: "Auth failed2" });
