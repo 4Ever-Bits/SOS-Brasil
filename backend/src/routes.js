@@ -1,10 +1,11 @@
 const express = require("express");
 
+const attendantLoginController = require("./app/controllers/auth/Attendant/LoginController");
 const attendantController = require("./app/controllers/AttendantController");
 const serviceController = require("./app/controllers/ServiceController");
 
 const userController = require("./app/controllers/UserController");
-const loginController = require("./app/controllers/auth/LoginController");
+const loginController = require("./app/controllers/auth/User/LoginController");
 const forgotPassword = require("./app/controllers/auth/ForgotPassword");
 
 const routes = express.Router();
@@ -12,6 +13,8 @@ const routes = express.Router();
 //Signup and Signin of mobile users
 routes.post("/signup", userController.create);
 routes.post("/signin", loginController.login);
+
+routes.post("/attendant/signin", attendantLoginController.login);
 
 //Forgot password routes
 routes.post("/forgotpassword", forgotPassword.sendEmail);
