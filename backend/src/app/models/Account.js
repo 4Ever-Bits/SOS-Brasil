@@ -21,7 +21,7 @@ module.exports = Account = class Account {
     if (data.length > 0) return "Email already exists";
 
     // Encrypt password
-    let cryptPassword = cryptPsw(password);
+    let cryptPassword = await cryptPsw(password);
 
     const [id] = await connection("accounts").insert({
       email,
@@ -29,6 +29,17 @@ module.exports = Account = class Account {
     });
 
     return id;
+  }
+
+  static async update(query, data) {
+    try {
+      const result = await connection("accounts").where(query).update(data);
+      if (Boolean(result)) return true;
+      else return false;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
   }
 
   static async delete(query) {

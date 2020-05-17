@@ -1,10 +1,11 @@
 const bcrypt = require("bcrypt");
 
-const salt = bcrypt.genSalt(10, (salt) => salt);
+const salt = bcrypt.genSalt(10);
 /* Função usada para criptografar a senha, 
 retorna o hash da senha digitada pelo usuário */
 async function cryptPsw(password) {
-  return await bcrypt.hash(password, salt).then((hash) => hash);
+  const hash = await bcrypt.hash(password, await salt);
+  return hash;
 }
 /*Função usada para comparar senhas
   Recebe a senha digitada e a que está no database

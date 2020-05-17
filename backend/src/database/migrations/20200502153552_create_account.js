@@ -3,6 +3,8 @@ exports.up = function (knex) {
     table.increments();
     table.string("email");
     table.string("password");
+    table.string("passwordResetToken");
+    table.datetime("passwordResetExpires");
     table.timestamps(true);
   });
 };
