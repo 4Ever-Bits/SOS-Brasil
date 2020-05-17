@@ -67,7 +67,7 @@ module.exports = {
       if (dbResult) return res.status(200).json(dbResult);
     } else {
       const dbResult = await User.findWhereLike("email", userData);
-      if (dbResult) return res.status(200).json(dbResult);
+      if (dbResult.length > 0) return res.status(200).json(dbResult);
     }
 
     return res.status(404).json({ error: "User not found" });

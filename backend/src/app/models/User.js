@@ -96,13 +96,13 @@ module.exports = User = class User extends Account {
       ]);
 
     if (dbResult.length > 0) return dbResult;
-    else return { error: "User not found" };
+    else return false;
   }
 
-  static async findWhereLike(dbAttribute, value) {
+  static async findWhereLike(field, value) {
     const dbResult = await connection("users")
       .join("accounts", "accounts.id", "=", "users.account_id")
-      .where(`${dbAttribute}`, "like", `%${value}%`)
+      .where(`${field}`, "like", `%${value}%`)
       .select([
         "users.id",
         "users.first_name",
