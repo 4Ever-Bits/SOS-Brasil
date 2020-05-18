@@ -3,7 +3,46 @@ const Validate = require("../utils/Validate");
 const Call = require("../models/Call");
 
 module.exports = {
-  async index(req, res) {},
+  async index(req, res) {
+    const { page = 1 } = req.query;
+    const { limit = 10 } = req.query;
+    const { order = "id" } = req.query;
+    const { asc = "true" } = req.query;
+
+    const dbResult = await Call.findAll(page, limit, order, asc);
+
+    res.header("X-Total-Count", dbResult.count["count(*)"]);
+
+    res.json(dbResult.calls);
+  },
+
+  async show(req, res) {
+    try {
+      var checkByID = false;
+      const { field = "id", data } = req.params;
+
+      if (!isNaN(data)) checkByID = true;
+
+      if (checkByID && field === "id") {
+        const dbResult = await Call.findWhere({ "calls.id": data });
+        if (dbResult) return res.status(200).json(dbResult);
+      } else {
+        const dbResult = await Call.findWhereLike(
+          "calls." + field,
+          data,
+          req.query
+        );
+        if (dbResult.calls.length > 0) {
+          res.header("X-Total-Count", dbResult.count["count(*)"]);
+          return res.status(200).json(dbResult.calls);
+        }
+      }
+
+      return res.status(404).json({ error: "Call not found" });
+    } catch (e) {
+      return res.status(404).json({ error: "Call not found" });
+    }
+  },
 
   async create(req, res) {
     const fileArray = req.files;
@@ -36,10 +75,12 @@ module.exports = {
 
       //Compare if the files are audio ou image
       // and store them in respective var
-      for (file of fileArray) {
-        if (file.mimetype.includes("image") && file.fieldname === "image")
-          image_url = file.path;
-        else audio_url = file.path;
+      if (req.files) {
+        for (file of fileArray) {
+          if (file.mimetype.includes("image") && file.fieldname === "image")
+            image_url = file.path;
+          else audio_url = file.path;
+        }
       }
 
       //Put all data in an object
@@ -64,5 +105,13 @@ module.exports = {
     }
   },
 
-  async updateStatus(req, res) {},
+  async updateStatus(req, res) {
+    const { id } = req.params;
+    const data = req.body;
+
+    const dbResult = await Call.updateStatus(id, data);
+
+    if (dbResult) return res.send();
+    else return res.status(400).json({ error: "Couldn't update status" });
+  },
 };

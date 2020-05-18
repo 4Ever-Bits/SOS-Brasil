@@ -38,7 +38,7 @@ module.exports = Account = class Account {
       data.password = password;
 
       const result = await connection("accounts").where(query).update(data);
-      if (Boolean(result)) return true;
+      if (result) return true;
       else return false;
     } catch (e) {
       console.log(e);

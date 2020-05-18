@@ -7,9 +7,9 @@ const storage = multer.diskStorage({
 
   filename: (req, files, cb) => {
     var filename =
-      new Date().toLocaleString().replace(/\s/g, "") +
+      new Date().toLocaleString().replace(/\s/g, "_") +
       "-" +
-      files.originalname.replace(/\s/g, "");
+      files.originalname.replace(/\s/g, "_");
     filename = filename.replace(":", "-");
     filename = filename.replace(":", "-");
 

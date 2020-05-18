@@ -11,6 +11,7 @@ exports.up = function (knex) {
     table.integer("service_id").unsigned();
     table.integer("user_id").unsigned();
     table.integer("attendant_id").unsigned();
+    table.string("status");
     table.timestamps(true);
 
     table.foreign("service_id").references("services.id");
