@@ -5,8 +5,8 @@ exports.up = function (knex) {
     table.text("description");
     table.string("audio_url");
     table.string("image_url");
-    table.float("latitude").notNullable();
-    table.float("longitude").notNullable();
+    table.float("latitude", 10, 7).notNullable();
+    table.float("longitude", 10, 7).notNullable();
     table.boolean("ispersonal").notNullable();
     table.integer("service_id").unsigned();
     table.integer("user_id").unsigned();

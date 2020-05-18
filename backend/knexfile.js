@@ -4,10 +4,10 @@ module.exports = {
   development: {
     client: "mysql",
     connection: {
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.PASSWORD,
-      database: process.env.DB_NAME,
+      host: "127.0.0.1",
+      user: "root",
+      password: "",
+      database: "sosbrasil",
     },
     migrations: {
       directory: "./src/database/migrations",

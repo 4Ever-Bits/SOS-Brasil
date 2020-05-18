@@ -49,9 +49,9 @@ module.exports = {
     if (!account) return res.status(400).json({ error: "User not found" });
 
     if (token.toLowerCase() !== account.passwordResetToken.toLowerCase())
-      return res.status(400).json({ error: "Auth failed1" });
+      return res.status(400).json({ error: "Auth failed" });
     if (new Date() > account.passwordResetExpires)
-      return res.status(400).json({ error: "Auth failed2" });
+      return res.status(400).json({ error: "Auth failed" });
 
     const result = await Account.update(
       { email: email },

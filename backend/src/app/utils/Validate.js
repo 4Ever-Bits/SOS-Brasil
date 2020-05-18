@@ -15,6 +15,16 @@ module.exports = {
     }
   },
 
+  coordinates(coordinate, msg) {
+    var re = /^(-?\d+(\.\d+)?),\s*(-?\d+(\.\d+)?)$/;
+
+    console.log(re.test(coordinate));
+
+    if (!coordinate.match(re)) {
+      throw msg;
+    }
+  },
+
   cpf(cpf) {
     cpf = cpf.replace(".", "");
     cpf = cpf.replace(".", "");

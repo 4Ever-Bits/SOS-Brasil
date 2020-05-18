@@ -8,6 +8,10 @@ const userController = require("./app/controllers/UserController");
 const loginController = require("./app/controllers/auth/User/LoginController");
 const forgotPassword = require("./app/controllers/auth/ForgotPassword");
 
+const callController = require("./app/controllers/CallController");
+
+const uploads = require("./app/config/multer");
+
 const routes = express.Router();
 
 //Signup and Signin of mobile users
@@ -43,5 +47,8 @@ routes
 //Service route
 // !Need to be protected
 routes.post("/service/:type", serviceController.updateVehiclesNumber);
+
+//Call routes
+routes.post("/call", uploads.any(), callController.create);
 
 module.exports = routes;
