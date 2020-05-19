@@ -67,7 +67,7 @@ class HomePage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10)),
                         ),
                         SizedBox(
-                          height: 5,
+                          height: 10,
                         ),
                         FlatButton(
                           onPressed: () {
