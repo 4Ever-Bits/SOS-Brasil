@@ -24,6 +24,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+  mask_text_input_formatter: ^1.0.6
+  flutter_secure_storage: ^3.3.3
+  http: ^0.12.1
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3

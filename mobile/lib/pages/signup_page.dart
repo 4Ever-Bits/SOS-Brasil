@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/top_box.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class SignupPage extends StatefulWidget {
   SignupPage({Key key}) : super(key: key);
@@ -10,6 +11,8 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   final _formKey = GlobalKey<FormState>();
+
+  bool _obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +30,7 @@ class _SignupPageState extends State<SignupPage> {
                 title: "Cadastro",
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -50,6 +53,14 @@ class _SignupPageState extends State<SignupPage> {
                         children: <Widget>[
                           Flexible(
                             child: TextField(
+                              inputFormatters: [
+                                MaskTextInputFormatter(
+                                  mask: "(##) #####-####",
+                                  filter: {
+                                    "#": RegExp(r'[0-9]'),
+                                  },
+                                )
+                              ],
                               decoration: InputDecoration(
                                 prefixIcon: Padding(
                                   padding: const EdgeInsets.only(right: 20),
@@ -67,6 +78,14 @@ class _SignupPageState extends State<SignupPage> {
                           SizedBox(width: 20),
                           Flexible(
                             child: TextField(
+                              inputFormatters: [
+                                MaskTextInputFormatter(
+                                  mask: "###.###.###-##",
+                                  filter: {
+                                    "#": RegExp(r'[0-9]'),
+                                  },
+                                )
+                              ],
                               decoration: InputDecoration(
                                 prefixIcon: Padding(
                                   padding: const EdgeInsets.only(right: 20),
@@ -98,12 +117,30 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                       ),
                       TextFormField(
+                        obscureText: _obscureText,
                         decoration: InputDecoration(
                           prefixIcon: Padding(
                             padding: const EdgeInsets.only(right: 20),
                             child: Icon(Icons.vpn_key, size: 26),
                           ),
                           prefixIconConstraints: BoxConstraints(
+                            minWidth: 32,
+                            minHeight: 32,
+                          ),
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: IconButton(
+                              onPressed: () {
+                                _togglePswdVisibility();
+                              },
+                              icon: Icon(
+                                  _obscureText
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                  size: 26),
+                            ),
+                          ),
+                          suffixIconConstraints: BoxConstraints(
                             minWidth: 32,
                             minHeight: 32,
                           ),
@@ -117,7 +154,7 @@ class _SignupPageState extends State<SignupPage> {
               ),
               SizedBox(height: 10),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: FlatButton(
                   onPressed: () {},
                   child: Padding(
@@ -140,5 +177,11 @@ class _SignupPageState extends State<SignupPage> {
             ],
           ),
         ));
+  }
+
+  void _togglePswdVisibility() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
   }
 }

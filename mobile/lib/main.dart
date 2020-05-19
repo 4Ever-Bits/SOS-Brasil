@@ -1,21 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:mobile/pages/home_page.dart';
 import 'package:mobile/pages/signup_page.dart';
 import 'package:mobile/pages/login_page.dart';
 
 void main() {
-  runApp(MaterialApp(
-    title: "SOS Brasil",
-    home: HomePage(),
-    theme: ThemeData(
-      brightness: Brightness.light,
-      primaryColor: Colors.red[400],
-      accentColor: Colors.red,
-      fontFamily: "Roboto",
-    ),
-  ));
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(MaterialApp(
+      title: "SOS Brasil",
+      // home: HomePage(),
+      routes: {
+        "/": (context) => LandingPage(),
+        "/home": (context) => HomePage(),
+      },
+      theme: ThemeData(
+        brightness: Brightness.light,
+        primaryColor: Colors.red[400],
+        accentColor: Colors.red,
+        fontFamily: "Roboto",
+      ),
+    ));
+  });
 }
 
-class HomePage extends StatelessWidget {
+class LandingPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   @override
