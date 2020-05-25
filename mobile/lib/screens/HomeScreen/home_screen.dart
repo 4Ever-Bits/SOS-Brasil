@@ -34,8 +34,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print(user.firstName);
-
     return Scaffold(
       appBar: AppBar(
         title: Text("SOS Brasil"),
@@ -61,7 +59,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Container(
         child: Center(
-          child: Text(user.firstName == null ? "Sem Nome" : user.firstName),
+          child: Text("Home Screen"),
         ),
       ),
     );

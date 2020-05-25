@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mobile/screens/HomeScreen/home_screen.dart';
-import 'package:mobile/screens/signup_page.dart';
-import 'package:mobile/screens/login_page.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+import 'package:mobile/screens/HomeScreen/home_screen.dart';
+import 'package:mobile/screens/SignupScreen/signup_screen.dart';
+import 'package:mobile/screens/login_screen.dart';
+
 import 'package:mobile/animations/route_bottom_top.dart';
 
 // Create storage
@@ -87,8 +89,11 @@ class LandingPage extends StatelessWidget {
                     ),
                     SizedBox(height: 10),
                     FlatButton(
-                      onPressed: () {
-                        Navigator.of(context).push(createRoute(SignupPage()));
+                      onPressed: () async {
+                        dynamic response = await Navigator.of(context)
+                            .push(createRoute(SignupPage()));
+                        if (response != null && response)
+                          Navigator.of(context).popAndPushNamed("/home");
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
