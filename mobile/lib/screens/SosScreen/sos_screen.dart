@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/components/custom_bottombar.dart';
+import 'package:mobile/components/custom_close_fab.dart';
+import 'package:mobile/utils/sos_clipper.dart';
 
 class SOSScreen extends StatefulWidget {
   SOSScreen({Key key}) : super(key: key);
@@ -17,6 +19,8 @@ class _SOSScreenState extends State<SOSScreen>
   AnimationController _animationController;
   Animation<double> _animateIcon;
 
+  bool _hasCallSOS = false;
+
   @override
   void initState() {
     _animationController =
@@ -31,6 +35,7 @@ class _SOSScreenState extends State<SOSScreen>
     super.initState();
   }
 
+  //Animation methods
   @override
   dispose() {
     _animationController.dispose();
@@ -47,21 +52,12 @@ class _SOSScreenState extends State<SOSScreen>
     isOpened = !isOpened;
   }
 
-  Widget toggleFab() {
-    return Container(
-      height: 70,
-      width: 70,
-      child: FittedBox(
-        child: FloatingActionButton(
-          backgroundColor: Theme.of(context).primaryColor,
-          onPressed: animate,
-          child: AnimatedIcon(
-            icon: AnimatedIcons.menu_close,
-            progress: _animateIcon,
-          ),
-        ),
-      ),
-    );
+  //Main Method
+  _callSOS() {
+    setState(() {
+      _hasCallSOS = true;
+    });
+    print(_hasCallSOS);
   }
 
   @override
@@ -70,11 +66,46 @@ class _SOSScreenState extends State<SOSScreen>
       body: Column(
         children: <Widget>[
           buildHeader(context),
+          SizedBox(height: 60),
+          _hasCallSOS ? buildConfirmation(context) : SizedBox(),
         ],
       ),
       bottomNavigationBar: CustomBottomBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: toggleFab(),
+      floatingActionButton: _hasCallSOS
+          ? null
+          : CloseFAB(animate: animate, animateIcon: _animateIcon),
+    );
+  }
+
+  Container buildConfirmation(BuildContext context) {
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            "Mantenha a calma",
+            style: TextStyle(
+              color: Theme.of(context).primaryColor,
+              fontSize: 22,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          SizedBox(height: 10),
+          Text(
+            "Tente não se mover\nA ajuda está chegando",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16),
+          ),
+          SizedBox(height: 40),
+          FloatingActionButton(
+            heroTag: "Call",
+            onPressed: () {},
+            child: Icon(Icons.phone),
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+        ],
+      ),
     );
   }
 
@@ -99,9 +130,7 @@ class _SOSScreenState extends State<SOSScreen>
           bottom: 0,
           left: MediaQuery.of(context).size.width / 2 - 85,
           child: GestureDetector(
-            onDoubleTap: () {
-              print("pressed");
-            },
+            onDoubleTap: _hasCallSOS ? null : _callSOS,
             child: Container(
               height: 170,
               width: 170,
@@ -109,47 +138,9 @@ class _SOSScreenState extends State<SOSScreen>
                 child: FloatingActionButton(
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   heroTag: _heroTag,
-                  onPressed: () {},
+                  onPressed: _hasCallSOS ? null : () {},
                   elevation: 0,
-                  child: Padding(
-                    padding: EdgeInsets.all(1),
-                    child: Container(
-                      margin: EdgeInsets.all(1),
-                      height: double.infinity,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Theme.of(context).primaryColor,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.4),
-                            blurRadius: 6,
-                            offset: Offset(0, 2),
-                          )
-                        ],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(1.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              "S.O.S",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 11),
-                            ),
-                            SizedBox(height: 2),
-                            Text(
-                              "Clique 2 vezes",
-                              textAlign: TextAlign.center,
-                              style:
-                                  TextStyle(fontSize: 3.5, letterSpacing: 0.5),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                  child: buildFABShadow(context),
                 ),
               ),
             ),
@@ -158,22 +149,49 @@ class _SOSScreenState extends State<SOSScreen>
       ],
     );
   }
-}
 
-class MyClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    var path = Path();
-
-    path.lineTo(0, size.height - 110);
-    path.quadraticBezierTo(
-        size.width / 2, size.height, size.width, size.height - 110);
-    path.lineTo(size.width, 0);
-    path.close();
-
-    return path;
+  Padding buildFABShadow(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(1),
+      child: Container(
+        margin: EdgeInsets.all(1),
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Theme.of(context).primaryColor,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.4),
+              blurRadius: 6,
+              offset: Offset(0, 2),
+            )
+          ],
+        ),
+        child: buildFABText(),
+      ),
+    );
   }
 
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+  Padding buildFABText() {
+    return Padding(
+      padding: const EdgeInsets.all(1.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            "S.O.S",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 11),
+          ),
+          SizedBox(height: 2),
+          Text(
+            "Clique 2 vezes",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 3.5, letterSpacing: 0.5),
+          ),
+        ],
+      ),
+    );
+  }
 }

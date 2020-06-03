@@ -13,8 +13,6 @@ class LoginController {
 
     var response = await http.post(url, headers: header, body: body);
 
-    print(response.body);
-
     if (response.statusCode == 200) {
       return sessionFromJson(response.body);
     } else {

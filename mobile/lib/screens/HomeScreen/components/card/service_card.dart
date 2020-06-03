@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/models/service.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ServiceCard extends StatelessWidget {
   final Service service;
@@ -10,6 +11,7 @@ class ServiceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        print(service.imageUrl);
         print(service.name);
       },
       child: Stack(
@@ -38,6 +40,18 @@ class ServiceCard extends StatelessWidget {
                     color: Colors.white.withOpacity(.85),
                   ),
                   textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ),
+          Positioned.fill(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 30),
+                child: SvgPicture.asset(
+                  service.imageUrl,
+                  height: 90,
                 ),
               ),
             ),

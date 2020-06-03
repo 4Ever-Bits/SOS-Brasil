@@ -18,6 +18,7 @@ class _LoginPageState extends State<LoginPage> {
 
   String _email, _password;
   bool _isLoading = false;
+  bool _hasError = false;
 
   bool _obscureText = true;
 
@@ -28,7 +29,6 @@ class _LoginPageState extends State<LoginPage> {
       });
 
       bool isValid = _formKey.currentState.validate();
-      print(isValid);
       if (isValid) {
         _formKey.currentState.save();
 
@@ -43,6 +43,12 @@ class _LoginPageState extends State<LoginPage> {
       }
     } catch (e) {
       print(e);
+      _formKey.currentState.reset();
+      setState(() {
+        _isLoading = false;
+      });
+
+      //TODO: Show the error to user
     }
   }
 

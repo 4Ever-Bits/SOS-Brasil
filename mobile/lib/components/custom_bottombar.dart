@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CustomBottomBar extends StatelessWidget {
+  final Function showPhone;
+
   const CustomBottomBar({
     Key key,
+    this.showPhone,
   }) : super(key: key);
 
   @override
@@ -25,7 +28,7 @@ class CustomBottomBar extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: showPhone,
                 child: Icon(
                   Icons.phone,
                   color: Colors.white,
