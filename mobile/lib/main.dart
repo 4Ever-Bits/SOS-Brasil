@@ -30,6 +30,7 @@ void main() async {
           primaryColor: Colors.red[400],
           accentColor: Colors.red,
           scaffoldBackgroundColor: Colors.grey[300],
+          canvasColor: Colors.transparent,
           fontFamily: "Roboto",
         ),
       ));
