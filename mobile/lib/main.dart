@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'package:mobile/screens/HomeScreen/home_screen.dart';
+import 'package:mobile/screens/InfoScreen/info_screen.dart';
 import 'package:mobile/screens/SignupScreen/signup_screen.dart';
 import 'package:mobile/screens/login_screen.dart';
 
@@ -24,6 +25,7 @@ void main() async {
           "/": (context) => initWidget,
           "/home": (context) => HomePage(),
           "/start": (context) => LandingPage(),
+          "/info": (context) => InfoScreen(),
         },
         theme: ThemeData(
           brightness: Brightness.light,

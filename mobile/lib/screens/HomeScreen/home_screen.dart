@@ -1,4 +1,7 @@
+import 'dart:io';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/components/custom_drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -16,6 +19,8 @@ import 'package:mobile/screens/SosScreen/sos_screen.dart';
 import 'package:mobile/utils/numbers_list.dart';
 import 'package:mobile/utils/service_list.dart';
 
+import 'package:mobile/components/snackbar.dart';
+
 // Create storage
 final storage = new FlutterSecureStorage();
 
@@ -28,19 +33,43 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   final List<Service> services = getServiceList();
 
   User user;
 
   bool _isSOSActive = false;
+  bool hasInternet;
 
   @override
   void initState() {
     super.initState();
 
+    getStorageUser();
+
+    checkInternet();
+  }
+
+  getStorageUser() {
     storage.read(key: "user").then((value) {
       setState(() {
         user = userFromJson(value);
+      });
+    });
+  }
+
+  checkInternet() {
+    InternetAddress.lookup('google.com').then((result) {
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        setState(() {
+          hasInternet = true;
+        });
+      }
+    }).catchError((_) {
+      CustomSnackbar.showInternetError(context);
+      toggleBackdrop();
+      setState(() {
+        hasInternet = false;
       });
     });
   }
@@ -120,11 +149,14 @@ class _HomePageState extends State<HomePage>
     return Stack(
       children: <Widget>[
         Scaffold(
+          key: _scaffoldKey,
           appBar: CustomAppBar(
             appBar: AppBar(),
             context: context,
             user: user,
+            scaffoldKey: _scaffoldKey,
           ),
+          endDrawer: CustomDrawer(user: user),
           body: buildContainer(),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
@@ -142,11 +174,11 @@ class _HomePageState extends State<HomePage>
         padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
         child: Column(
           children: <Widget>[
-            ServiceCard(service: services[0]),
+            ServiceCard(service: services[0], hasInternet: hasInternet),
             SizedBox(height: 10),
-            ServiceCard(service: services[1]),
+            ServiceCard(service: services[1], hasInternet: hasInternet),
             SizedBox(height: 10),
-            ServiceCard(service: services[2]),
+            ServiceCard(service: services[2], hasInternet: hasInternet),
             SizedBox(height: 10),
           ],
         ),

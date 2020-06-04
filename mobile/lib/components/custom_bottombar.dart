@@ -20,16 +20,16 @@ class CustomBottomBar extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              GestureDetector(
-                onTap: () {},
-                child: Icon(
+              IconButton(
+                onPressed: () {},
+                icon: Icon(
                   Icons.menu,
                   color: Colors.white,
                 ),
               ),
-              GestureDetector(
-                onTap: showPhone,
-                child: Icon(
+              IconButton(
+                onPressed: showPhone,
+                icon: Icon(
                   Icons.phone,
                   color: Colors.white,
                 ),

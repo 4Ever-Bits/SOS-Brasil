@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/models/user.dart';
-import 'package:mobile/screens/HomeScreen/components/user/user_screen.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appBar;
   final User user;
+  final GlobalKey<ScaffoldState> scaffoldKey;
   final BuildContext context;
 
-  const CustomAppBar({Key key, this.user, this.appBar, this.context})
+  const CustomAppBar(
+      {Key key, this.user, this.appBar, this.context, this.scaffoldKey})
       : super(key: key);
-
-  void _handleUserClick() {
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => UserConfigTab(user: user),
-    ));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +18,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       leading: IconButton(
         icon: Icon(Icons.info, size: 30),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed("/info");
+        },
       ),
       actions: <Widget>[
         IconButton(
           icon: Icon(Icons.account_circle, size: 30),
           onPressed: () {
-            _handleUserClick();
+            // _handleUserClick();
+            scaffoldKey.currentState.openEndDrawer();
           },
         )
       ],

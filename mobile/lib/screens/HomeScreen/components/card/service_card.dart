@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/components/snackbar.dart';
 import 'package:mobile/models/service.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ServiceCard extends StatelessWidget {
   final Service service;
+  final bool hasInternet;
 
-  const ServiceCard({Key key, this.service}) : super(key: key);
+  const ServiceCard({Key key, this.service, this.hasInternet})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print(service.imageUrl);
-        print(service.name);
+        if (hasInternet) {
+          print(service.name);
+        } else {
+          CustomSnackbar.showInternetError(context);
+        }
       },
       child: Stack(
         children: <Widget>[
@@ -24,7 +30,7 @@ class ServiceCard extends StatelessWidget {
             right: 20,
             top: 15,
             child: Container(
-              width: 140,
+              width: MediaQuery.of(context).size.height / 4.8,
               decoration: BoxDecoration(
                   color: Colors.transparent,
                   border: Border.all(
