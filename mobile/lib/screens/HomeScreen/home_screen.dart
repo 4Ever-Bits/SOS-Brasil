@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+import 'package:mobile/models/service.dart';
+import 'package:mobile/models/user.dart';
+
 import 'package:mobile/components/backdrop_close_bar.dart';
 import 'package:mobile/components/custom_bottombar.dart';
 import 'package:mobile/components/custom_fab.dart';
-import 'package:mobile/models/service.dart';
-import 'package:mobile/models/user.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 import 'package:mobile/screens/HomeScreen/components/card/service_card.dart';
 import 'package:mobile/screens/HomeScreen/components/custom_appbar.dart';
-import 'package:mobile/screens/HomeScreen/components/user/user_screen.dart';
 import 'package:mobile/screens/SosScreen/sos_screen.dart';
+
 import 'package:mobile/utils/numbers_list.dart';
 import 'package:mobile/utils/service_list.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 // Create storage
 final storage = new FlutterSecureStorage();
