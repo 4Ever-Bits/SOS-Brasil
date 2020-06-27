@@ -126,7 +126,7 @@ module.exports = {
       const userData = req.params.data;
 
       // delete user and account field
-      await Account.destroy({
+      const account = await Account.destroy({
         where: {
           id: userData,
         },
@@ -140,7 +140,8 @@ module.exports = {
         ],
       });
 
-      return res.status(200).send();
+      if (account) return res.status(200).send();
+      else return res.status(404).json({ error: "User not found" });
     } catch (e) {
       return res.status(404).json({ error: "User not found" });
     }

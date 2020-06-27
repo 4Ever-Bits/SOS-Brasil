@@ -31,14 +31,6 @@ module.exports = {
         required: true,
         type: DataTypes.STRING(14),
       },
-      latitude: {
-        allowNull: true,
-        type: DataTypes.FLOAT,
-      },
-      longitude: {
-        allowNull: true,
-        type: DataTypes.FLOAT,
-      },
       AccountId: {
         allowNull: false,
         references: { model: "accounts", key: "id" },
