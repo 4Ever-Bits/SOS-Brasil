@@ -21,14 +21,17 @@ class UserController {
       "cpf": cpf,
     });
 
-    var response = await http.post(url, headers: header, body: payload);
+    var response = await http
+        .post(url, headers: header, body: payload)
+        .timeout(Duration(seconds: 5));
 
     print(response.body);
 
     if (response.statusCode == 200) {
       return await LoginController.login(email, password);
     } else {
-      throw Exception("Failed to load post");
+      var errorJson = json.decode(response.body);
+      throw Exception(errorJson["error"]);
     }
   }
 }

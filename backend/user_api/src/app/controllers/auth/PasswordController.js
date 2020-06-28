@@ -54,6 +54,19 @@ module.exports = {
     }
   },
 
+  async verifyCode(req, res) {
+    const { token } = req.body;
+
+    const account = await Account.findOne({
+      where: {
+        passwordResetToken: token,
+      },
+    });
+
+    if (account) return res.status(200).send();
+    else return res.status(400).send();
+  },
+
   async reset(req, res) {
     try {
       const { email, token, password } = req.body;

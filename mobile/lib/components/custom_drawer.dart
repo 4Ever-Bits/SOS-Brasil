@@ -2,13 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/models/user.dart';
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
   const CustomDrawer({
     Key key,
-    @required this.user,
+    // @required this.user,
   }) : super(key: key);
 
-  final User user;
+  @override
+  _CustomDrawerState createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
+  User _user;
+
+  @override
+  void initState() {
+    getStorageUser();
+    super.initState();
+  }
+
+  getStorageUser() {
+    storage.read(key: "user").then((value) {
+      setState(() {
+        _user = userFromJson(value);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +46,12 @@ class CustomDrawer extends StatelessWidget {
               color: Colors.red,
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40)),
             ),
-            accountName: Text(user.firstName + " " + user.lastName),
-            accountEmail: Text(user.email),
+            accountName: Text(
+                _user != null ? _user.firstName + " " + _user.lastName : ""),
+            accountEmail: Text(_user != null ? _user.email : ""),
             currentAccountPicture: CircleAvatar(
               child: Text(
-                user.email[0].toUpperCase(),
+                _user != null ? _user.email[0].toUpperCase() : "",
                 style: TextStyle(color: Colors.black87),
               ),
               backgroundColor: Colors.red[100],

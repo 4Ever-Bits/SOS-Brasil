@@ -35,7 +35,10 @@ module.exports = {
           type: "user",
         };
 
-        const user = account["Users"][0];
+        const user = {
+          ...account["Users"][0].dataValues,
+          email: account.email,
+        };
 
         const token = jwt.sign(payload, process.env.AUTH_SECRET);
 

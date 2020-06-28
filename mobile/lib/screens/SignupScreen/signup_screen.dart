@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:mobile/components/snackbar.dart';
 
 import 'package:mobile/components/top_box.dart';
 import 'package:mobile/main.dart';
@@ -30,26 +31,43 @@ class _SignupPageState extends State<SignupPage> {
 
   _onSubmit() async {
     try {
+      setState(() {
+        _isLoading = true;
+      });
+
+      //Local form validation
       bool isValid = _formKey.currentState.validate();
 
+      //If the form is valid
       if (isValid) {
-        setState(() {
-          _isLoading = true;
-        });
+        //Save the form values to use here
         _formKey.currentState.save();
+
+        //Signup in API and get an instance of Session
         Session session = await UserController.signup(
             _name, _phoneNumber, _cpf, _email, _password);
 
+        //Save the token on localStorage
         storage.write(key: "token", value: session.token);
 
+        //Get the user JSON of Session instance
         var userJson = userToJson(session.user);
-        print(userJson);
+        //Save user JSON in localStorage
         storage.write(key: "user", value: userJson);
 
+        //Move back to starter page
         Navigator.of(context).pop(true);
       }
+      //If the form ins't valid
+      else {
+        //Finish the loading
+        setState(() {
+          _isLoading = false;
+        });
+      }
     } catch (e) {
-      print(e);
+      CustomSnackbar.showAuthenticationError(context, e.message);
+
       setState(() {
         _isLoading = false;
       });
@@ -62,121 +80,133 @@ class _SignupPageState extends State<SignupPage> {
       color: Colors.white60,
       isLoading: _isLoading,
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
         appBar: AppBar(elevation: 0),
         body: Container(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                TopBox(title: "Cadastro"),
+                buildTextInputFields(),
+                buildSignupButton(context),
+                SizedBox(height: 30)
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container buildTextInputFields() {
+    return Container(
+      margin: EdgeInsets.only(bottom: 10),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Form(
+          key: _formKey,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              TopBox(title: "Cadastro"),
-              Container(
-                margin: EdgeInsets.only(bottom: 10),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: <Widget>[
-                        buildTextFormField(
-                          "Nome",
-                          Icons.person,
-                          null,
-                          (value) {
-                            setState(() {
-                              _name = value;
-                            });
-                          },
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Flexible(
-                              child: buildTextFormField(
-                                "Telefone",
-                                Icons.phone,
-                                MaskTextInputFormatter(
-                                  mask: "(##) #####-####",
-                                  filter: {
-                                    "#": RegExp(r'[0-9]'),
-                                  },
-                                ),
-                                (value) {
-                                  setState(() {
-                                    _phoneNumber = value;
-                                  });
-                                },
-                              ),
-                            ),
-                            SizedBox(width: 20),
-                            Flexible(
-                              child: buildTextFormField(
-                                "CPF",
-                                Icons.assignment,
-                                MaskTextInputFormatter(
-                                  mask: "###.###.###-##",
-                                  filter: {
-                                    "#": RegExp(r'[0-9]'),
-                                  },
-                                ),
-                                (value) {
-                                  setState(() {
-                                    _cpf = value;
-                                  });
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                        buildTextFormField(
-                          "Email",
-                          Icons.email,
-                          null,
-                          (value) {
-                            setState(() {
-                              _email = value;
-                            });
-                          },
-                        ),
-                        buildPasswordFormField(
-                          _togglePswdVisibility,
-                          _obscureText,
-                          (value) {
-                            setState(() {
-                              _password = value;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              buildTextFormField(
+                "Nome",
+                Icons.person,
+                null,
+                (value) {
+                  setState(() {
+                    _name = value;
+                  });
+                },
               ),
-              // SizedBox(height: 15),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: FlatButton(
-                  onPressed: _onSubmit,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      "Cadastrar",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                  color: Theme.of(context).primaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
+              buildPhoneCpfRow(),
+              buildEmailFormField(
+                "Email",
+                Icons.email,
+                null,
+                (value) {
+                  setState(() {
+                    _email = value;
+                  });
+                },
               ),
-              SizedBox(height: 30)
+              buildPasswordFormField(
+                _togglePswdVisibility,
+                _obscureText,
+                (value) {
+                  setState(() {
+                    _password = value;
+                  });
+                },
+              ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Padding buildSignupButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: FlatButton(
+        onPressed: _onSubmit,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Text(
+            "Cadastrar",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            ),
+          ),
+        ),
+        color: Theme.of(context).primaryColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+    );
+  }
+
+  Row buildPhoneCpfRow() {
+    return Row(
+      children: <Widget>[
+        Flexible(
+          child: buildPhoneFormField(
+            "Telefone",
+            Icons.phone,
+            MaskTextInputFormatter(
+              mask: "(##) #####-####",
+              filter: {
+                "#": RegExp(r'[0-9]'),
+              },
+            ),
+            (value) {
+              setState(() {
+                _phoneNumber = value;
+              });
+            },
+          ),
+        ),
+        SizedBox(width: 20),
+        Flexible(
+          child: buildCPFFormField(
+            "CPF",
+            Icons.assignment,
+            MaskTextInputFormatter(
+              mask: "###.###.###-##",
+              filter: {
+                "#": RegExp(r'[0-9]'),
+              },
+            ),
+            (value) {
+              setState(() {
+                _cpf = value;
+              });
+            },
+          ),
+        ),
+      ],
     );
   }
 

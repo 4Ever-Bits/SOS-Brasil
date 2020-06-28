@@ -6,8 +6,6 @@ module.exports = (sequelize, DataTypes) => {
       last_name: DataTypes.STRING,
       phonenumber: DataTypes.STRING,
       cpf: DataTypes.STRING(14),
-      latitude: DataTypes.FLOAT,
-      longitude: DataTypes.FLOAT,
       AccountId: {
         allowNull: false,
         required: true,

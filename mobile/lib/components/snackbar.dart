@@ -11,4 +11,14 @@ class CustomSnackbar {
       duration: Duration(seconds: 5),
     )..show(context);
   }
+
+  static Widget showAuthenticationError(BuildContext context, String message) {
+    return Flushbar(
+      title: "Erro",
+      flushbarPosition: FlushbarPosition.TOP,
+      message: message,
+      backgroundColor: Colors.yellow[600],
+      duration: Duration(seconds: 5),
+    )..show(context);
+  }
 }

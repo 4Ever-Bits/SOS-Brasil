@@ -11,7 +11,9 @@ class LoginController {
 
     var body = json.encode({"email": _email, "password": _password});
 
-    var response = await http.post(url, headers: header, body: body);
+    var response = await http
+        .post(url, headers: header, body: body)
+        .timeout(Duration(seconds: 5));
 
     if (response.statusCode == 200) {
       return sessionFromJson(response.body);

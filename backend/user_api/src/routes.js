@@ -12,6 +12,7 @@ routes.post("/signup", UserController.create);
 
 //Forgot password routes
 routes.post("/forgotpassword", PasswordController.sendEmail);
+routes.post("/verifyresetcode", PasswordController.verifyCode);
 routes.post("/resetpassword", PasswordController.reset);
 
 routes.route("/user").get(UserController.index);

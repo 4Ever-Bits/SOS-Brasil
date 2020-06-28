@@ -156,7 +156,7 @@ class _HomePageState extends State<HomePage>
             user: user,
             scaffoldKey: _scaffoldKey,
           ),
-          endDrawer: CustomDrawer(user: user),
+          endDrawer: CustomDrawer(),
           body: buildContainer(),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
