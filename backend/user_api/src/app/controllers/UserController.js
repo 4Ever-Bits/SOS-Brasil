@@ -94,10 +94,10 @@ module.exports = {
 
       // the parameter isn't an ID
       else {
-        const dbResult = await Account.findOne({
+        const dbResult = await Account.findAll({
           where: {
             email: {
-              [Op.like]: `%${userData}`,
+              [Op.substring]: `${userData}`,
             },
           },
           attributes: ["id", "email"],
