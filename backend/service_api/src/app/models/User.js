@@ -24,5 +24,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
+  User.associate = (models) => {
+    User.hasOne(models.Call, {
+      foreignKey: "attendant_id",
+    });
+  };
+
   return User;
 };

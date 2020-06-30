@@ -6,10 +6,15 @@ const { User } = require("../models");
 
 module.exports = {
   async index(req, res) {
-    const users = await User.findAll({
-      attributes: { exclude: ["password"] },
-    });
-    res.status(200).json(users);
+    try {
+      const users = await User.findAll({
+        attributes: { exclude: ["password"] },
+      });
+      res.status(200).json(users);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send();
+    }
   },
 
   async create(req, res) {
