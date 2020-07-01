@@ -16,11 +16,11 @@ module.exports = {
       now.setHours(now.getHours() + 1);
 
       var message = {
-        from: '"Test Server" <test@example.com>',
+        from: '"Equipe SOS Brasil" <suporte@sosbrasil.com>',
         to: email,
-        subject: "Token",
+        subject: "Alteração de senha",
         template: "auth/forgot_password",
-        context: { token: token.toUpperCase() },
+        context: { token: token.toUpperCase(), email: email },
       };
 
       const [account] = await Account.update(
