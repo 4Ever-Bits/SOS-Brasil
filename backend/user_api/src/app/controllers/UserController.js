@@ -143,8 +143,6 @@ module.exports = {
           },
         });
 
-        console.log(dbResult);
-
         if (dbResult.length > 0) {
           let dataArray = [];
 

@@ -1,6 +1,5 @@
 const { Call, User } = require("../models");
 const Validate = require("../utils/Validate");
-const { Op } = require("sequelize");
 const sequelize = require("sequelize");
 const axios = require("axios");
 
@@ -193,7 +192,7 @@ module.exports = {
       );
 
       if (call) res.status(200).send();
-      else res.status(500).send();
+      else res.status(404).json({ error: "Call not found" });
     } catch (error) {
       console.log(error);
       return res.status(500).send();
