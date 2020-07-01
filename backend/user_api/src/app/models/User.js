@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       last_name: DataTypes.STRING,
       phonenumber: DataTypes.STRING,
       cpf: DataTypes.STRING(14),
-      AccountId: {
+      account_id: {
         allowNull: false,
         required: true,
         type: DataTypes.INTEGER,
@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = (models) => {
     User.belongsTo(models.Account, {
-      foreignKey: "AccountId",
+      foreignKey: "account_id",
+      as: "user",
     });
   };
 

@@ -20,6 +20,7 @@ module.exports = {
         },
         include: {
           model: User,
+          as: "user",
           where: {
             AccountId: Sequelize.col("Account.id"),
           },
@@ -36,7 +37,7 @@ module.exports = {
         };
 
         const user = {
-          ...account["Users"][0].dataValues,
+          ...account.user.dataValues,
           email: account.email,
         };
 

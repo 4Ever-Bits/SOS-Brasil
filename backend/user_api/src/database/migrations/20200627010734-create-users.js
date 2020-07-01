@@ -31,7 +31,7 @@ module.exports = {
         required: true,
         type: DataTypes.STRING(14),
       },
-      AccountId: {
+      account_id: {
         allowNull: false,
         references: { model: "accounts", key: "id" },
         onDelete: "CASCADE",

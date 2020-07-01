@@ -13,12 +13,28 @@ module.exports = {
         attributes: ["id", "email"],
         include: {
           model: User,
-          where: {
-            AccountId: Sequelize.col("Account.id"),
+          as: "user",
+          attributes: {
+            exclude: ["id", "account_id", "createdAt", "updatedAt"],
           },
         },
       });
-      return res.json(users);
+
+      let dataArray = [];
+
+      for (account of users) {
+        const user = account.user;
+        delete account.dataValues.user;
+
+        const data = {
+          ...account.dataValues,
+          ...user.dataValues,
+        };
+
+        dataArray.push(data);
+      }
+
+      return res.json(dataArray);
     } catch (e) {
       console.log(e);
       return res.status(500).send();
@@ -64,7 +80,7 @@ module.exports = {
         cpf,
         // longitude,
         // latitude,
-        AccountId: account.id,
+        account_id: account.id,
       });
 
       return res.status(200).json({ user });
@@ -84,12 +100,29 @@ module.exports = {
 
       // the parameter is an ID
       if (checkByID) {
-        const dbResult = await User.findOne({
+        const dbResult = await Account.findOne({
           where: {
             id: userData,
           },
+          attributes: ["id", "email"],
+          include: {
+            model: User,
+            as: "user",
+            attributes: {
+              exclude: ["id", "account_id", "createdAt", "updatedAt"],
+            },
+          },
         });
-        if (dbResult) return res.status(200).json(dbResult);
+
+        const user = dbResult.user;
+        delete dbResult.dataValues.user;
+
+        const data = {
+          ...dbResult.dataValues,
+          ...user.dataValues,
+        };
+
+        if (dbResult) return res.status(200).json(data);
       }
 
       // the parameter isn't an ID
@@ -101,16 +134,34 @@ module.exports = {
             },
           },
           attributes: ["id", "email"],
-          include: [
-            {
-              model: User,
-              where: {
-                AccountId: Sequelize.col("Account.id"),
-              },
+          include: {
+            model: User,
+            as: "user",
+            attributes: {
+              exclude: ["id", "account_id", "createdAt", "updatedAt"],
             },
-          ],
+          },
         });
-        if (dbResult.length > 0) return res.status(200).json(dbResult);
+
+        console.log(dbResult);
+
+        if (dbResult.length > 0) {
+          let dataArray = [];
+
+          for (account of dbResult) {
+            const user = account.user;
+            delete account.dataValues.user;
+
+            const data = {
+              ...account.dataValues,
+              ...user.dataValues,
+            };
+
+            dataArray.push(data);
+          }
+
+          return res.status(200).json(dataArray);
+        }
       }
 
       return res.status(404).json({ error: "User not found" });
@@ -133,8 +184,9 @@ module.exports = {
         include: [
           {
             model: User,
+            as: "user",
             where: {
-              AccountId: Sequelize.col("Account.id"),
+              account_id: Sequelize.col("Account.id"),
             },
           },
         ],
