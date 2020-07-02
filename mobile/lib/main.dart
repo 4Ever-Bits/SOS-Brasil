@@ -5,10 +5,11 @@ import 'package:mobile/screens/ForgotPasswordScreen/fp_emailsend.dart';
 
 import 'package:mobile/screens/HomeScreen/home_screen.dart';
 import 'package:mobile/screens/InfoScreen/info_screen.dart';
+import 'package:mobile/screens/MapScreen/map_screen.dart';
 import 'package:mobile/screens/SignupScreen/signup_screen.dart';
 import 'package:mobile/screens/LoginScreen/login_screen.dart';
 
-import 'package:mobile/animations/route_bottom_top.dart';
+import 'package:mobile/animations/transitions.dart';
 
 // Create storage
 final storage = new FlutterSecureStorage();
@@ -28,6 +29,7 @@ void main() async {
           "/start": (context) => LandingPage(),
           "/info": (context) => InfoScreen(),
           "/forgotpassword": (context) => ForgotPasswordScreen(),
+          "/maps": (context) => MapScreen(),
         },
         theme: ThemeData(
           brightness: Brightness.light,
@@ -74,7 +76,7 @@ class LandingPage extends StatelessWidget {
                     OutlineButton(
                       onPressed: () async {
                         dynamic response = await Navigator.of(context)
-                            .push(createRoute(LoginPage()));
+                            .push(createSlideUpRoute(LoginPage()));
 
                         if (response != null && response)
                           Navigator.of(context).popAndPushNamed("/home");
@@ -96,7 +98,7 @@ class LandingPage extends StatelessWidget {
                     FlatButton(
                       onPressed: () async {
                         dynamic response = await Navigator.of(context)
-                            .push(createRoute(SignupPage()));
+                            .push(createSlideUpRoute(SignupPage()));
                         if (response != null && response)
                           Navigator.of(context).popAndPushNamed("/home");
                       },

@@ -35,7 +35,6 @@ class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final List<Service> services = getServiceList();
-
   User user;
 
   bool _isSOSActive = false;
@@ -174,11 +173,23 @@ class _HomePageState extends State<HomePage>
         padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
         child: Column(
           children: <Widget>[
-            ServiceCard(service: services[0], hasInternet: hasInternet),
+            ServiceCard(
+              service: services[0],
+              hasInternet: hasInternet,
+              context: context,
+            ),
             SizedBox(height: 10),
-            ServiceCard(service: services[1], hasInternet: hasInternet),
+            ServiceCard(
+              service: services[1],
+              hasInternet: hasInternet,
+              context: context,
+            ),
             SizedBox(height: 10),
-            ServiceCard(service: services[2], hasInternet: hasInternet),
+            ServiceCard(
+              service: services[2],
+              hasInternet: hasInternet,
+              context: context,
+            ),
             SizedBox(height: 10),
           ],
         ),
