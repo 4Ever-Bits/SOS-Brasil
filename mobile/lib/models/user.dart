@@ -29,7 +29,7 @@ class User {
         lastName: json["last_name"],
         phonenumber: json["phonenumber"],
         cpf: json["cpf"],
-        accountId: json["AccountId"],
+        accountId: json["account_id"],
         email: json["email"],
       );
 
@@ -39,7 +39,7 @@ class User {
         "last_name": lastName,
         "phonenumber": phonenumber,
         "cpf": cpf,
-        "AccountId": accountId,
+        "account_id": accountId,
         "email": email,
       };
 }

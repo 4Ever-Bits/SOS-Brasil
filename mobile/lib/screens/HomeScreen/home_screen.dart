@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 import 'package:mobile/components/custom_drawer.dart';
+import 'package:mobile/controllers/location_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -35,7 +37,10 @@ class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final List<Service> services = getServiceList();
+  final LocationController locationController = LocationController();
   User user;
+
+  Map<String, double> userLocation;
 
   bool _isSOSActive = false;
   bool hasInternet;
@@ -44,9 +49,24 @@ class _HomePageState extends State<HomePage>
   void initState() {
     super.initState();
 
-    getStorageUser();
+    try {
+      getStorageUser();
 
-    checkInternet();
+      checkInternet();
+
+      getUserLocation();
+    } catch (e) {}
+  }
+
+  getUserLocation() {
+    locationController.getCurrentLocation().then((location) {
+      print(location);
+      setState(() {
+        userLocation = location;
+      });
+    }).catchError((_) {
+      CustomSnackbar.showGeolocationError(context);
+    });
   }
 
   getStorageUser() {
@@ -175,18 +195,21 @@ class _HomePageState extends State<HomePage>
           children: <Widget>[
             ServiceCard(
               service: services[0],
+              location: userLocation,
               hasInternet: hasInternet,
               context: context,
             ),
             SizedBox(height: 10),
             ServiceCard(
               service: services[1],
+              location: userLocation,
               hasInternet: hasInternet,
               context: context,
             ),
             SizedBox(height: 10),
             ServiceCard(
               service: services[2],
+              location: userLocation,
               hasInternet: hasInternet,
               context: context,
             ),

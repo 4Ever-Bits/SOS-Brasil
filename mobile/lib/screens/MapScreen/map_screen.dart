@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
-import 'package:location/location.dart';
-import 'package:mapbox_search_flutter/mapbox_search_flutter.dart'
-    hide Location, Color;
+import 'package:mapbox_search_flutter/mapbox_search_flutter.dart' hide Color;
 
 class MapScreen extends StatefulWidget {
   final double latitude, longitude;
@@ -17,10 +15,10 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  Location location = Location();
   MapController controller = MapController();
 
   double latitude, longitude;
+  String strcoords;
 
   @override
   void initState() {
@@ -37,23 +35,27 @@ class _MapScreenState extends State<MapScreen> {
           buildMap(),
           buildButton(),
           buildFAB(),
-          Positioned(
-            child: Align(
-              alignment: Alignment.center,
-              child: Icon(
-                Icons.location_on,
-                color: widget.color,
-                size: 40,
-              ),
-            ),
-          ),
-          buildSerach(context),
+          buildMarker(),
+          buildSearch(context),
         ],
       ),
     );
   }
 
-  Padding buildSerach(BuildContext context) {
+  Positioned buildMarker() {
+    return Positioned(
+      child: Align(
+        alignment: Alignment.center,
+        child: Icon(
+          Icons.location_on,
+          color: widget.color,
+          size: 40,
+        ),
+      ),
+    );
+  }
+
+  Padding buildSearch(BuildContext context) {
     return Padding(
       padding: EdgeInsets.fromLTRB(10, 40, 10, 0),
       child: MapBoxPlaceSearchWidget(
@@ -66,12 +68,14 @@ class _MapScreenState extends State<MapScreen> {
         onSelected: (place) {
           double longitude = place.geometry.coordinates.first;
           double latitude = place.geometry.coordinates.last;
+          String strCoords = place.placeName;
 
           controller.move(LatLng(latitude, longitude), 17);
 
           setState(() {
             latitude = latitude;
             longitude = longitude;
+            strcoords = strCoords;
           });
         },
         context: context,
@@ -106,64 +110,23 @@ class _MapScreenState extends State<MapScreen> {
             urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             subdomains: ['a', 'b', 'c'],
           ),
-          // MarkerLayerOptions(
-          //   markers: [
-          //     Marker(
-          //       width: 80.0,
-          //       height: 80.0,
-          //       point: LatLng(widget.latitude, widget.longitude),
-          //       builder: (ctx) => Container(
-          //         child:
-          //       ),
-          //     ),
-          //   ],
-          // ),
-        ],
-      ),
-    );
-  }
-
-  Positioned buildSearch() {
-    return Positioned(
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(10, 50, 10, 0),
-          child: Container(
-            height: 70,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 6,
-                  color: Colors.black45,
-                  offset: Offset(0, 3),
-                )
-              ],
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: TextField(
-              onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => MapBoxAutoCompleteWidget(
-                //       apiKey:
-                //           "pk.eyJ1IjoicGgtZm1tIiwiYSI6ImNrYzN4dnhleTAyaTQyeW85N202aDJ2ZzIifQ.fZH-H487byxBzR5KCSB0tg",
-                //       hint: "Select starting point",
-                //       onSelect: (place) {
-                //         // TODO : Process the result gotten
-                //         // _startPointController.text = place.placeName;
-                //       },
-                //       limit: 10,
-                //     ),
-                //   ),
-                // );
-              },
-            ),
+          MarkerLayerOptions(
+            markers: [
+              Marker(
+                width: 80.0,
+                height: 80.0,
+                point: LatLng(widget.latitude, widget.longitude),
+                builder: (ctx) => Container(
+                  child: Icon(
+                    Icons.person_pin,
+                    size: 32,
+                    color: Colors.red,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ),
+        ],
       ),
     );
   }
@@ -206,7 +169,14 @@ class _MapScreenState extends State<MapScreen> {
                 String strCoords = controller.center.latitude.toString() +
                     ", " +
                     controller.center.longitude.toString();
-                Navigator.of(context).pop(strCoords);
+
+                Map<String, dynamic> data = {
+                  "latitude": controller.center.latitude,
+                  "longitude": controller.center.longitude,
+                  "strCoords": strcoords
+                };
+
+                Navigator.of(context).pop(data);
               },
             ),
           ),

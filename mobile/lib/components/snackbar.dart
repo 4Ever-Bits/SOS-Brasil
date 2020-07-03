@@ -21,4 +21,14 @@ class CustomSnackbar {
       duration: Duration(seconds: 5),
     )..show(context);
   }
+
+  static Widget showGeolocationError(BuildContext context) {
+    return Flushbar(
+      title: "Erro",
+      flushbarPosition: FlushbarPosition.TOP,
+      message: "Não foi possível recuperar sua localização",
+      backgroundColor: Colors.yellow[600],
+      duration: Duration(seconds: 5),
+    )..show(context);
+  }
 }

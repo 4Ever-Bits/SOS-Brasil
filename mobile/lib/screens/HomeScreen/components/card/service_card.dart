@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 import 'package:mobile/animations/transitions.dart';
 import 'package:mobile/components/snackbar.dart';
 import 'package:mobile/models/service.dart';
@@ -7,18 +8,20 @@ import 'package:mobile/screens/ServiceScreen/service_dialog.dart';
 import 'package:mobile/screens/ServiceScreen/service_screen.dart';
 
 class ServiceCard extends StatelessWidget {
+  final Map<String, double> location;
   final Service service;
   final bool hasInternet;
   final BuildContext context;
 
-  const ServiceCard({Key key, this.service, this.hasInternet, this.context})
+  const ServiceCard(
+      {Key key, this.service, this.hasInternet, this.context, this.location})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        return ServiceDialog().showServiceDialog(context, service);
+        return ServiceDialog().showServiceDialog(context, service, location);
       },
       child: Stack(
         children: <Widget>[

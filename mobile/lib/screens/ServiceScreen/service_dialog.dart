@@ -4,30 +4,38 @@ import 'package:mobile/models/service.dart';
 import 'package:mobile/screens/ServiceScreen/service_screen.dart';
 
 class ServiceDialog {
-  void verticalDrag(context, details, color, service) {
-    if (details.delta.dy > 10) {
-      Navigator.of(context).push(
-        createSlideDownRoute(
-          ServiceScreen(
-            color: color,
-            title: getModalTitle(service.name),
-          ),
+  Map<String, double> _userLocation;
+  BuildContext _context;
+  Service _service;
+  Color _color;
+
+  void pushToServiceScreen() {
+    Navigator.of(_context).push(
+      createSlideDownRoute(
+        ServiceScreen(
+          color: _color,
+          location: _userLocation,
+          title: getModalTitle(),
         ),
-      );
-    }
+      ),
+    );
   }
 
-  Future showServiceDialog(BuildContext context, Service service) {
-    Color color = getModalColor(service.name);
+  Future showServiceDialog(
+      BuildContext context, Service service, Map<String, double> userLocation) {
+    _color = getModalColor(service.name);
+    _userLocation = userLocation;
+    _context = context;
+    _service = service;
 
     return showGeneralDialog(
-      context: context,
+      context: _context,
       barrierDismissible: true,
       transitionDuration: Duration(milliseconds: 500),
       barrierLabel: MaterialLocalizations.of(context).dialogLabel,
       barrierColor: Colors.white.withOpacity(0.0),
       pageBuilder: (context, animation, secondaryAnimation) {
-        return buildPageBuilder(context, color, service);
+        return buildPageBuilder();
       },
       transitionBuilder: (context, animation, secondaryAnimation, child) {
         return buildServiceModalTransition(animation, child);
@@ -35,12 +43,18 @@ class ServiceDialog {
     );
   }
 
-  Column buildPageBuilder(BuildContext context, Color color, Service service) {
+  void verticalDrag(details) {
+    if (details.delta.dy > 10) {
+      pushToServiceScreen();
+    }
+  }
+
+  Column buildPageBuilder() {
     var boxDecoration = BoxDecoration(
       boxShadow: [
         BoxShadow(blurRadius: 5, color: Colors.black45, spreadRadius: 5)
       ],
-      color: color,
+      color: _color,
       borderRadius: BorderRadius.only(
         bottomLeft: Radius.circular(30),
         bottomRight: Radius.circular(30),
@@ -51,30 +65,21 @@ class ServiceDialog {
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         Container(
-          width: MediaQuery.of(context).size.width,
+          width: MediaQuery.of(_context).size.width,
           decoration: boxDecoration,
           child: GestureDetector(
-            onVerticalDragUpdate: (details) {
-              verticalDrag(context, details, color, service);
-            },
+            onVerticalDragUpdate: verticalDrag,
             onTap: () {
-              Navigator.of(context).push(
-                createSlideDownRoute(
-                  ServiceScreen(
-                    color: color,
-                    title: getModalTitle(service.name),
-                  ),
-                ),
-              );
+              pushToServiceScreen();
             },
-            child: buildCard(color, service, context),
+            child: buildCard(),
           ),
         ),
       ],
     );
   }
 
-  Card buildCard(Color color, Service service, context) {
+  Card buildCard() {
     return Card(
       elevation: 0,
       color: Colors.transparent,
@@ -84,7 +89,7 @@ class ServiceDialog {
         child: Column(
           children: <Widget>[
             Text(
-              "Deseja chamar uma ${service.name}?",
+              "Deseja chamar ${getModalTitle()}?",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 30, color: Colors.white),
             ),
@@ -94,8 +99,8 @@ class ServiceDialog {
                 child: Divider(
                   color: Colors.white,
                   thickness: 1,
-                  indent: (MediaQuery.of(context).size.width / 2) - 70,
-                  endIndent: (MediaQuery.of(context).size.width / 2) - 70,
+                  indent: (MediaQuery.of(_context).size.width / 2) - 70,
+                  endIndent: (MediaQuery.of(_context).size.width / 2) - 70,
                 ),
               ),
             )
@@ -125,8 +130,8 @@ class ServiceDialog {
     }
   }
 
-  getModalTitle(String serviceName) {
-    switch (serviceName) {
+  getModalTitle() {
+    switch (_service.name) {
       case "Ambulância":
         return "uma Ambulância";
         break;

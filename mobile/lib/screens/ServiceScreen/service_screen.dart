@@ -4,13 +4,18 @@ import 'package:mapbox_search_flutter/mapbox_search_flutter.dart'
     hide Location, Color;
 
 import 'package:mobile/components/backdrop_close_bar.dart';
+import 'package:mobile/controllers/location_controller.dart';
+import 'package:mobile/screens/CallWaitingScreen/waiting_screen.dart';
 import 'package:mobile/screens/MapScreen/map_screen.dart';
+import 'package:mobile/screens/ServiceScreen/service_personalchoose_screen.dart';
 
 class ServiceScreen extends StatefulWidget {
   final Color color;
   final String title;
+  final Map<String, double> location;
 
-  const ServiceScreen({Key key, this.color, this.title}) : super(key: key);
+  const ServiceScreen({Key key, this.color, this.title, this.location})
+      : super(key: key);
 
   @override
   _ServiceScreenState createState() => _ServiceScreenState();
@@ -20,6 +25,8 @@ class _ServiceScreenState extends State<ServiceScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _locationFieldControlller;
 
+  LocationController locationController = LocationController();
+
   String _title;
   String _description;
   String _coordinatePlace;
@@ -28,57 +35,13 @@ class _ServiceScreenState extends State<ServiceScreen> {
 
   @override
   void initState() {
-    getLocation().then((location) {
-      print(location);
-      double latitude = location.latitude;
-      double longitude = location.longitude;
+    _latitude = widget.location["latitude"];
+    _longitude = widget.location["longitude"];
 
-      //TODO Get place name from api
-      // var reverseGeoCoding = ReverseGeoCoding(
-      //   apiKey:
-      //       "pk.eyJ1IjoicGgtZm1tIiwiYSI6ImNrYzN4dnhleTAyaTQyeW85N202aDJ2ZzIifQ.fZH-H487byxBzR5KCSB0tg",
-      //   limit: 1,
-      // );
+    _locationFieldControlller =
+        TextEditingController(text: "Minha localização atual");
 
-      String text = latitude.toString() + ", " + longitude.toString();
-
-      _locationFieldControlller = TextEditingController(text: text);
-
-      setState(() {
-        _latitude = latitude;
-        _longitude = longitude;
-      });
-    });
     super.initState();
-  }
-
-  getLocation() async {
-    try {
-      Location location = new Location();
-
-      bool _serviceEnabled;
-      PermissionStatus _permissionGranted;
-
-      _serviceEnabled = await location.serviceEnabled();
-      if (!_serviceEnabled) {
-        _serviceEnabled = await location.requestService();
-        if (!_serviceEnabled) {
-          return;
-        }
-      }
-
-      _permissionGranted = await location.hasPermission();
-      if (_permissionGranted == PermissionStatus.denied) {
-        _permissionGranted = await location.requestPermission();
-        if (_permissionGranted != PermissionStatus.granted) {
-          return;
-        }
-      }
-
-      return await location.getLocation();
-    } catch (e) {
-      print(e);
-    }
   }
 
   void verticalDrag(context, details) {
@@ -97,59 +60,104 @@ class _ServiceScreenState extends State<ServiceScreen> {
 
   Widget buildBody() {
     return Container(
+      height: MediaQuery.of(context).size.height,
       child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 40, 20, 0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
-                        "Deseja chamar ${widget.title}?",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 25, color: Colors.white),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    buildFirstField(),
-                    buildSecondField(),
-                    buildThirdField(),
-                    SizedBox(height: 20),
-                    GestureDetector(
-                      onVerticalDragUpdate: (details) {
-                        verticalDrag(context, details);
-                      },
-                      child: Container(
-                        width: 160,
-                        height: 50,
-                        child: OutlineButton(
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Text(
-                              "Próximo",
-                              style: TextStyle(fontSize: 18),
-                            ),
-                          ),
-                          textColor: Colors.white,
-                          borderSide: BorderSide(color: Colors.white),
-                          highlightedBorderColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          onPressed: () {},
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  buildTitle(),
+                  buildFirstField(),
+                  buildSecondField(),
+                  buildThirdField(),
+                  SizedBox(height: 10),
+                  buildNextButton(),
+                  buildCloseBar(context),
+                ],
               ),
             ),
-            CloseBar(),
-          ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container buildCloseBar(BuildContext context) {
+    return Container(
+      height: 32,
+      child: Center(
+        child: Divider(
+          color: Colors.white,
+          thickness: 1,
+          indent: (MediaQuery.of(context).size.width / 2) - 50,
+          endIndent: (MediaQuery.of(context).size.width / 2) - 50,
+        ),
+      ),
+    );
+  }
+
+  Padding buildTitle() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      child: Text(
+        "Deseja chamar ${widget.title}?",
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 25, color: Colors.white),
+      ),
+    );
+  }
+
+  GestureDetector buildNextButton() {
+    return GestureDetector(
+      onVerticalDragUpdate: (details) {
+        verticalDrag(context, details);
+      },
+      child: Container(
+        width: 160,
+        height: 50,
+        child: OutlineButton(
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Text(
+              "Próximo",
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+          textColor: Colors.white,
+          borderSide: BorderSide(color: Colors.white),
+          highlightedBorderColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          onPressed: () {
+            bool isValid = _formKey.currentState.validate();
+            if (isValid) {
+              _formKey.currentState.save();
+
+              if (_title.isNotEmpty &&
+                  _description.isNotEmpty &&
+                  _latitude != null &&
+                  _longitude != null) {
+                print("$_title\n$_description\n$_latitude, $_longitude");
+
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => PersonalChooseScreen(
+                    title: _title,
+                    description: _description,
+                    latitude: _latitude,
+                    longitude: _longitude,
+                    color: widget.color,
+                  ),
+                ));
+              }
+            }
+          },
         ),
       ),
     );
@@ -180,6 +188,11 @@ class _ServiceScreenState extends State<ServiceScreen> {
               ),
               contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
             ),
+            onSaved: (newValue) {
+              setState(() {
+                _title = newValue;
+              });
+            },
           ),
         ],
       ),
@@ -218,12 +231,17 @@ class _ServiceScreenState extends State<ServiceScreen> {
                     ),
                     contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
                   ),
+                  onSaved: (newValue) {
+                    setState(() {
+                      _description = newValue;
+                    });
+                  },
                 ),
               ),
               Column(
                 children: <Widget>[
                   FloatingActionButton(
-                    heroTag: "mama2",
+                    heroTag: "audio",
                     elevation: 0,
                     backgroundColor: Colors.white,
                     child: Icon(
@@ -235,7 +253,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                   ),
                   SizedBox(height: 8),
                   FloatingActionButton(
-                    heroTag: "mama1",
+                    heroTag: "photo",
                     elevation: 0,
                     backgroundColor: Colors.white,
                     child: Icon(
@@ -272,6 +290,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                 width: (MediaQuery.of(context).size.width / 3) * 2,
                 child: TextFormField(
                   controller: _locationFieldControlller,
+                  enabled: false,
                   decoration: InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
@@ -279,7 +298,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                       borderSide: BorderSide(color: Colors.white, width: 1),
                       borderRadius: BorderRadius.circular(16),
                     ),
-                    enabledBorder: OutlineInputBorder(
+                    disabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white, width: 1),
                       borderRadius: BorderRadius.circular(16),
                     ),
@@ -288,7 +307,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                 ),
               ),
               FloatingActionButton(
-                heroTag: "mama",
+                heroTag: "location",
                 elevation: 0,
                 backgroundColor: Colors.white,
                 child: Icon(
@@ -297,9 +316,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                   size: 32,
                 ),
                 onPressed: () async {
-                  print(_latitude);
-                  print(_longitude);
-                  String strCoords = await Navigator.of(context).push(
+                  Map<String, dynamic> data = await Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => MapScreen(
                         latitude: _latitude,
@@ -309,9 +326,22 @@ class _ServiceScreenState extends State<ServiceScreen> {
                     ),
                   );
 
-                  print(strCoords);
+                  double latitude = data["latitude"];
+                  double longitude = data["longitude"];
+                  String strCoords = data["strCoords"];
 
-                  _locationFieldControlller.text = strCoords;
+                  if (strCoords != null) {
+                    _locationFieldControlller.text = strCoords;
+                  } else if (latitude != _latitude && _longitude != longitude) {
+                    _locationFieldControlller.text =
+                        "Localização personalizada";
+                  }
+
+                  setState(() {
+                    _latitude = latitude;
+                    _longitude = longitude;
+                    _coordinatePlace = strCoords;
+                  });
                 },
               ),
             ],
