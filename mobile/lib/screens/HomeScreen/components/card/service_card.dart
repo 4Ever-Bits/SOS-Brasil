@@ -1,27 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
-import 'package:mobile/animations/transitions.dart';
-import 'package:mobile/components/snackbar.dart';
-import 'package:mobile/models/service.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mobile/screens/ServiceScreen/service_dialog.dart';
-import 'package:mobile/screens/ServiceScreen/service_screen.dart';
+
+import 'package:mobile/models/service.dart';
+
+import 'package:mobile/screens/ServiceCallScreen/service_dialog.dart';
 
 class ServiceCard extends StatelessWidget {
   final Map<String, double> location;
+  final int userId;
   final Service service;
   final bool hasInternet;
   final BuildContext context;
 
   const ServiceCard(
-      {Key key, this.service, this.hasInternet, this.context, this.location})
+      {Key key,
+      this.service,
+      this.hasInternet,
+      this.context,
+      this.location,
+      this.userId})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        return ServiceDialog().showServiceDialog(context, service, location);
+        return ServiceDialog()
+            .showServiceDialog(context, service, location, userId);
       },
       child: Stack(
         children: <Widget>[

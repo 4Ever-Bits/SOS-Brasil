@@ -196,6 +196,7 @@ class _HomePageState extends State<HomePage>
             ServiceCard(
               service: services[0],
               location: userLocation,
+              userId: user != null ? user.id : null,
               hasInternet: hasInternet,
               context: context,
             ),
@@ -203,6 +204,7 @@ class _HomePageState extends State<HomePage>
             ServiceCard(
               service: services[1],
               location: userLocation,
+              userId: user != null ? user.id : null,
               hasInternet: hasInternet,
               context: context,
             ),
@@ -210,6 +212,7 @@ class _HomePageState extends State<HomePage>
             ServiceCard(
               service: services[2],
               location: userLocation,
+              userId: user != null ? user.id : null,
               hasInternet: hasInternet,
               context: context,
             ),

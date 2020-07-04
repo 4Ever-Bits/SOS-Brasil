@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/animations/transitions.dart';
+
 import 'package:mobile/models/service.dart';
-import 'package:mobile/screens/ServiceScreen/service_screen.dart';
+
+import 'package:mobile/screens/ServiceCallScreen/components/ServiceDialog/build_methods.dart';
+
+import 'package:mobile/screens/ServiceCallScreen/service_screen.dart';
+
+import 'package:mobile/animations/transitions.dart';
 
 class ServiceDialog {
   Map<String, double> _userLocation;
   BuildContext _context;
   Service _service;
   Color _color;
+  int _userId;
 
   void pushToServiceScreen() {
     Navigator.of(_context).push(
@@ -15,18 +21,20 @@ class ServiceDialog {
         ServiceScreen(
           color: _color,
           location: _userLocation,
-          title: getModalTitle(),
+          title: getModalTitle(_service.name),
+          userId: _userId,
         ),
       ),
     );
   }
 
-  Future showServiceDialog(
-      BuildContext context, Service service, Map<String, double> userLocation) {
+  Future showServiceDialog(BuildContext context, Service service,
+      Map<String, double> userLocation, int userId) {
     _color = getModalColor(service.name);
     _userLocation = userLocation;
     _context = context;
     _service = service;
+    _userId = userId;
 
     return showGeneralDialog(
       context: _context,
@@ -41,12 +49,6 @@ class ServiceDialog {
         return buildServiceModalTransition(animation, child);
       },
     );
-  }
-
-  void verticalDrag(details) {
-    if (details.delta.dy > 10) {
-      pushToServiceScreen();
-    }
   }
 
   Column buildPageBuilder() {
@@ -68,10 +70,12 @@ class ServiceDialog {
           width: MediaQuery.of(_context).size.width,
           decoration: boxDecoration,
           child: GestureDetector(
-            onVerticalDragUpdate: verticalDrag,
-            onTap: () {
-              pushToServiceScreen();
+            onVerticalDragUpdate: (details) {
+              if (details.delta.dy > 10) {
+                pushToServiceScreen();
+              }
             },
+            onTap: pushToServiceScreen,
             child: buildCard(),
           ),
         ),
@@ -89,7 +93,7 @@ class ServiceDialog {
         child: Column(
           children: <Widget>[
             Text(
-              "Deseja chamar ${getModalTitle()}?",
+              "Deseja chamar ${getModalTitle(_service.name)}?",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 30, color: Colors.white),
             ),
@@ -108,45 +112,5 @@ class ServiceDialog {
         ),
       ),
     );
-  }
-
-  getModalColor(String serviceName) {
-    switch (serviceName) {
-      case "Ambulância":
-        return Colors.red[400];
-        break;
-
-      case "Polícia":
-        return Colors.indigo;
-        break;
-
-      case "Bombeiros":
-        return Colors.deepOrange[400];
-        break;
-
-      default:
-        return Colors.red[400];
-        break;
-    }
-  }
-
-  getModalTitle() {
-    switch (_service.name) {
-      case "Ambulância":
-        return "uma Ambulância";
-        break;
-
-      case "Polícia":
-        return "uma Viatura";
-        break;
-
-      case "Bombeiros":
-        return "o Corpo de Bombeiros";
-        break;
-
-      default:
-        return "uma Ambulância";
-        break;
-    }
   }
 }
