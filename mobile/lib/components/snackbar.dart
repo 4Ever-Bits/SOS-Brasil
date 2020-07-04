@@ -31,4 +31,24 @@ class CustomSnackbar {
       duration: Duration(seconds: 5),
     )..show(context);
   }
+
+  static Widget showFileError(BuildContext context) {
+    return Flushbar(
+      title: "Erro",
+      flushbarPosition: FlushbarPosition.TOP,
+      message: "Não foi possível salvar o arquivo, tente novamente",
+      backgroundColor: Colors.yellow[600],
+      duration: Duration(seconds: 5),
+    )..show(context);
+  }
+
+  static Widget showFileSaveSuccess(BuildContext context) {
+    return Flushbar(
+      title: "Sucesso",
+      flushbarPosition: FlushbarPosition.TOP,
+      message: "Arquivo salvo com sucesso",
+      backgroundColor: Colors.green,
+      duration: Duration(seconds: 5),
+    )..show(context);
+  }
 }

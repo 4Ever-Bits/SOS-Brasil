@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 
+import 'package:mobile/models/call.dart';
+
 class PersonalChooseScreen extends StatefulWidget {
-  final double latitude, longitude;
-  final String title, description;
+  // final double latitude, longitude;
+  // final String title, description;
+  final Call call;
   final Color color;
 
-  const PersonalChooseScreen(
-      {Key key,
-      this.latitude,
-      this.longitude,
-      this.title,
-      this.description,
-      this.color})
+  const PersonalChooseScreen({Key key, this.call, this.color})
       : super(key: key);
 
   @override
@@ -20,6 +17,15 @@ class PersonalChooseScreen extends StatefulWidget {
 
 class _PersonalChooseScreenState extends State<PersonalChooseScreen> {
   int activeIndex;
+
+  Call call;
+
+  @override
+  void initState() {
+    call = widget.call;
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

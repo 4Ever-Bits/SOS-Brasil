@@ -1,13 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:location/location.dart';
-import 'package:mapbox_search_flutter/mapbox_search_flutter.dart'
-    hide Location, Color;
+import 'dart:io';
 
-import 'package:mobile/components/backdrop_close_bar.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+
 import 'package:mobile/controllers/location_controller.dart';
-import 'package:mobile/screens/CallWaitingScreen/waiting_screen.dart';
 import 'package:mobile/screens/MapScreen/map_screen.dart';
 import 'package:mobile/screens/ServiceScreen/service_personalchoose_screen.dart';
+
+import 'package:mobile/components/snackbar.dart';
+
+import 'package:mobile/models/call.dart';
 
 class ServiceScreen extends StatefulWidget {
   final Color color;
@@ -23,15 +25,16 @@ class ServiceScreen extends StatefulWidget {
 
 class _ServiceScreenState extends State<ServiceScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController _locationFieldControlller;
-
   LocationController locationController = LocationController();
+  TextEditingController _locationFieldControlller;
 
   String _title;
   String _description;
   String _coordinatePlace;
   double _latitude;
   double _longitude;
+
+  File imageFile;
 
   @override
   void initState() {
@@ -135,8 +138,9 @@ class _ServiceScreenState extends State<ServiceScreen> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          onPressed: () {
+          onPressed: () async {
             bool isValid = _formKey.currentState.validate();
+
             if (isValid) {
               _formKey.currentState.save();
 
@@ -146,12 +150,17 @@ class _ServiceScreenState extends State<ServiceScreen> {
                   _longitude != null) {
                 print("$_title\n$_description\n$_latitude, $_longitude");
 
+                Call call = Call(
+                  title: _title,
+                  description: _description,
+                  latitude: _latitude,
+                  longitude: _longitude,
+                  imageFile: imageFile,
+                );
+
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => PersonalChooseScreen(
-                    title: _title,
-                    description: _description,
-                    latitude: _latitude,
-                    longitude: _longitude,
+                    call: call,
                     color: widget.color,
                   ),
                 ));
@@ -261,7 +270,22 @@ class _ServiceScreenState extends State<ServiceScreen> {
                       color: widget.color,
                       size: 32,
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      try {
+                        ImagePicker picker = ImagePicker();
+
+                        var picture =
+                            await picker.getImage(source: ImageSource.camera);
+
+                        setState(() {
+                          imageFile = File(picture.path);
+                        });
+
+                        CustomSnackbar.showFileSaveSuccess(context);
+                      } catch (e) {
+                        CustomSnackbar.showFileError(context);
+                      }
+                    },
                   ),
                 ],
               )
