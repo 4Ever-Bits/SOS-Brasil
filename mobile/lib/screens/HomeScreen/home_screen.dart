@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:location/location.dart';
 import 'package:mobile/components/custom_drawer.dart';
 import 'package:mobile/controllers/location_controller.dart';
@@ -48,6 +49,8 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
+
+    print(DotEnv().env["APP_NAME"]);
 
     try {
       getStorageUser();

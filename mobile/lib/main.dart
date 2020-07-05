@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:mobile/screens/ForgotPasswordScreen/fp_emailsend.dart';
 
@@ -14,7 +15,9 @@ import 'package:mobile/animations/transitions.dart';
 // Create storage
 final storage = new FlutterSecureStorage();
 
-void main() async {
+Future main() async {
+  await DotEnv().load(".env");
+
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
