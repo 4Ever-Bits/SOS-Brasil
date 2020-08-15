@@ -28,8 +28,8 @@ dependencies:
   flutter_secure_storage: ^3.3.3
   loading_overlay: ^0.2.1
   http: ^0.12.1
-  flutter_svg: ^0.17.4
-  url_launcher: ^5.4.10
+  flutter_svg: ^0.18.0
+  url_launcher: ^5.5.0
   flushbar: ^1.10.4
   cpfcnpj: ^1.0.3
   pin_code_fields: ^3.1.2

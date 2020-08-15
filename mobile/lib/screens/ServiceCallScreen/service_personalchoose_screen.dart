@@ -11,8 +11,9 @@ import 'package:mobile/screens/CallWaitingScreen/waiting_screen.dart';
 class PersonalChooseScreen extends StatefulWidget {
   final Call call;
   final Color color;
+  final String url;
 
-  const PersonalChooseScreen({Key key, this.call, this.color})
+  const PersonalChooseScreen({Key key, this.call, this.color, this.url})
       : super(key: key);
 
   @override
@@ -46,6 +47,7 @@ class _PersonalChooseScreenState extends State<PersonalChooseScreen> {
       builder: (context) => WaitingScreen(
         call: call,
         color: widget.color,
+        url: widget.url,
       ),
     ));
   }

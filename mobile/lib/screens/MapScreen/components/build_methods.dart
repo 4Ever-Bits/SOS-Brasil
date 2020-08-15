@@ -31,13 +31,14 @@ Padding buildSearch(BuildContext context, Function onSelected) {
   );
 }
 
-Widget buildFAB(Function onClick) {
+Widget buildFAB(Function onClick, Color color) {
   return Positioned(
     right: 10,
     bottom: kBottomNavigationBarHeight + 40,
     child: FloatingActionButton(
       child: Icon(Icons.gps_fixed),
       onPressed: onClick,
+      backgroundColor: color,
     ),
   );
 }

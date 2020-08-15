@@ -14,6 +14,7 @@ class ServiceDialog {
   Service _service;
   Color _color;
   int _userId;
+  String _url;
 
   void pushToServiceScreen() {
     Navigator.of(_context).push(
@@ -23,18 +24,20 @@ class ServiceDialog {
           location: _userLocation,
           title: getModalTitle(_service.name),
           userId: _userId,
+          url: _url,
         ),
       ),
     );
   }
 
   Future showServiceDialog(BuildContext context, Service service,
-      Map<String, double> userLocation, int userId) {
+      Map<String, double> userLocation, int userId, String url) {
     _color = getModalColor(service.name);
     _userLocation = userLocation;
     _context = context;
     _service = service;
     _userId = userId;
+    _url = url;
 
     return showGeneralDialog(
       context: _context,

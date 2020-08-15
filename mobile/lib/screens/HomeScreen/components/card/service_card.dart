@@ -10,6 +10,7 @@ class ServiceCard extends StatelessWidget {
   final int userId;
   final Service service;
   final bool hasInternet;
+  final String url;
   final BuildContext context;
 
   const ServiceCard(
@@ -18,7 +19,8 @@ class ServiceCard extends StatelessWidget {
       this.hasInternet,
       this.context,
       this.location,
-      this.userId})
+      this.userId,
+      this.url})
       : super(key: key);
 
   @override
@@ -26,7 +28,7 @@ class ServiceCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         return ServiceDialog()
-            .showServiceDialog(context, service, location, userId);
+            .showServiceDialog(context, service, location, userId, url);
       },
       child: Stack(
         children: <Widget>[

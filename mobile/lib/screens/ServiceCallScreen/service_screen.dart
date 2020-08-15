@@ -20,10 +20,11 @@ class ServiceScreen extends StatefulWidget {
   final Color color;
   final String title;
   final int userId;
+  final String url;
   final Map<String, double> location;
 
   const ServiceScreen(
-      {Key key, this.color, this.title, this.location, this.userId})
+      {Key key, this.color, this.title, this.location, this.userId, this.url})
       : super(key: key);
 
   @override
@@ -134,6 +135,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
           builder: (context) => PersonalChooseScreen(
             call: call,
             color: widget.color,
+            url: widget.url,
           ),
         ));
       }

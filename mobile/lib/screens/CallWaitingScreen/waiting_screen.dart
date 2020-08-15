@@ -11,8 +11,10 @@ final storage = new FlutterSecureStorage();
 class WaitingScreen extends StatefulWidget {
   final Call call;
   final Color color;
+  final String url;
 
-  const WaitingScreen({Key key, this.call, this.color}) : super(key: key);
+  const WaitingScreen({Key key, this.call, this.color, this.url})
+      : super(key: key);
 
   @override
   _WaitingScreenState createState() => _WaitingScreenState();
@@ -28,28 +30,27 @@ class _WaitingScreenState extends State<WaitingScreen> {
   void initState() {
     call = widget.call;
 
-    print(call.userId);
-
-    getStorageToken();
-
-    CallController.create(call, token).then((value) {
-      if (value) {
-        setState(() {
-          _status = "Solicitação enviada com sucesso";
-        });
-      } else {
-        _status = "Houve um problema no envio do chamado";
-      }
-    });
+    sendData();
 
     super.initState();
   }
 
-  getStorageToken() {
+  sendData() {
+    //Get user token in localStorage
     storage.read(key: "token").then((value) {
-      print(value);
       setState(() {
         token = value;
+      });
+
+      //Send data to the server
+      CallController.create(call, value, widget.url).then((value) {
+        if (value) {
+          setState(() {
+            _status = "Solicitação enviada com sucesso";
+          });
+        } else {
+          _status = "Houve um problema no envio do chamado";
+        }
       });
     });
   }

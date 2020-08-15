@@ -2,16 +2,13 @@ import 'package:mobile/models/call.dart';
 import 'package:http/http.dart' as http;
 
 class CallController {
-  static final String _baseUrl = "http://192.168.0.2:3334";
-  static final _header = {"Content-Type": "application/json"};
-
-  static Future<bool> create(Call call, String token) async {
-    String url = _baseUrl + "/call";
+  static Future<bool> create(Call call, String token, String baseUrl) async {
+    String url = baseUrl + "/call";
 
     var req = http.MultipartRequest("POST", Uri.parse(url));
 
     req.headers["Content-Type"] = "multipart/form-data";
-    // req.headers["Authorization"] = "Bearer " + token;
+    req.headers["Authorization"] = "Bearer " + token;
 
     req.fields["title"] = call.title;
     req.fields["description"] = call.description;

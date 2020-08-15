@@ -5,6 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:location/location.dart';
 import 'package:mobile/components/custom_drawer.dart';
 import 'package:mobile/controllers/location_controller.dart';
+import 'package:mobile/controllers/service_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -42,6 +43,7 @@ class _HomePageState extends State<HomePage>
   User user;
 
   Map<String, double> userLocation;
+  Map<String, String> serverUrl;
 
   bool _isSOSActive = false;
   bool hasInternet;
@@ -49,9 +51,6 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
-
-    print(DotEnv().env["APP_NAME"]);
-
     try {
       getStorageUser();
 
@@ -63,9 +62,12 @@ class _HomePageState extends State<HomePage>
 
   getUserLocation() {
     locationController.getCurrentLocation().then((location) {
-      print(location);
+      Map<String, String> url = ServiceController()
+          .getUrl(location["latitude"], location["longitude"]);
+
       setState(() {
         userLocation = location;
+        serverUrl = url;
       });
     }).catchError((_) {
       CustomSnackbar.showGeolocationError(context);
@@ -201,6 +203,7 @@ class _HomePageState extends State<HomePage>
               location: userLocation,
               userId: user != null ? user.id : null,
               hasInternet: hasInternet,
+              url: serverUrl != null ? serverUrl["ambulance"] : null,
               context: context,
             ),
             SizedBox(height: 10),
@@ -209,6 +212,7 @@ class _HomePageState extends State<HomePage>
               location: userLocation,
               userId: user != null ? user.id : null,
               hasInternet: hasInternet,
+              url: serverUrl != null ? serverUrl["police"] : null,
               context: context,
             ),
             SizedBox(height: 10),
@@ -217,6 +221,7 @@ class _HomePageState extends State<HomePage>
               location: userLocation,
               userId: user != null ? user.id : null,
               hasInternet: hasInternet,
+              url: serverUrl != null ? serverUrl["firedep"] : null,
               context: context,
             ),
             SizedBox(height: 10),

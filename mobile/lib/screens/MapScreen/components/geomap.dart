@@ -6,12 +6,14 @@ class GeoMap extends StatelessWidget {
   final MapController controller;
   final double latitude;
   final double longitude;
+  final Color color;
 
   const GeoMap(
       {Key key,
       @required this.controller,
       @required this.latitude,
-      @required this.longitude})
+      @required this.longitude,
+      @required this.color})
       : super(key: key);
 
   @override
@@ -37,7 +39,7 @@ class GeoMap extends StatelessWidget {
                 child: Icon(
                   Icons.person_pin,
                   size: 32,
-                  color: Colors.red,
+                  color: color,
                 ),
               ),
             ),
