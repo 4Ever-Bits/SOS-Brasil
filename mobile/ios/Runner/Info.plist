@@ -41,5 +41,18 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<key>NSCameraUsageDescription</key>
+	<key>NSMicrophoneUsageDescription</key>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Record audio for playback</string>
+	<key>NSContactsUsageDescription</key>
+	<string>This app requires contacts access to function.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app requires access to your location when in use to show relevan information.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app requires always on access to to your location to notifiy you when are near a store.</string>
 </dict>
 </plist>
