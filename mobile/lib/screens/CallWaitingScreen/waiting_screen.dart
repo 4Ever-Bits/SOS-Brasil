@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:mobile/components/snackbar.dart';
 
 import 'package:mobile/models/call.dart';
 
@@ -78,7 +79,9 @@ class _WaitingScreenState extends State<WaitingScreen> {
                   width: 270,
                   height: 50,
                   child: FlatButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      CustomSnackbar.showBuildInProgress(context);
+                    },
                     child: Text(
                       "Acompanhar solicitação",
                       style: TextStyle(fontSize: 16),

@@ -7,9 +7,9 @@ class Phonenumber {
 
 List<Phonenumber> get phonelist {
   List<Phonenumber> list = [
-    Phonenumber("Ambulancia", "192"),
-    Phonenumber("Ambulancia", "192"),
-    Phonenumber("Ambulancia", "192"),
+    Phonenumber("Ambulância", "192"),
+    Phonenumber("Polícia", "190"),
+    Phonenumber("Corpo de Bombeiros", "193"),
   ];
   return list;
 }

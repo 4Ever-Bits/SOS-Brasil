@@ -50,8 +50,6 @@ Container buildSubmitButton(Function handleSubmit) {
 Color getCardColor(Color mainColor) {
   Color color;
 
-  print(mainColor);
-
   if (mainColor.value == Color(0xffef5350).value)
     color = Colors.red;
   else if (mainColor.value == Color(0xff3f51b5).value)
@@ -64,8 +62,6 @@ Color getCardColor(Color mainColor) {
 
 String getImageString(Color mainColor) {
   String str;
-
-  print(mainColor);
 
   if (mainColor.value == Color(0xffef5350).value)
     str = "Red";

@@ -110,7 +110,9 @@ class _ServiceScreenState extends State<ServiceScreen> {
     }
   }
 
-  handleRecordAudio() {}
+  handleRecordAudio() {
+    CustomSnackbar.showBuildInProgress(context);
+  }
 
   handleNextButtonClick() async {
     bool isValid = _formKey.currentState.validate();

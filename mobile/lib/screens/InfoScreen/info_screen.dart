@@ -1,11 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:package_info/package_info.dart';
 
-class InfoScreen extends StatelessWidget {
+class InfoScreen extends StatefulWidget {
+  @override
+  _InfoScreenState createState() => _InfoScreenState();
+}
+
+class _InfoScreenState extends State<InfoScreen> {
   TextStyle outsideStyle = TextStyle(color: Colors.black87, fontSize: 24);
+
   TextStyle insideStyle = TextStyle(color: Colors.white, fontSize: 20);
 
-  String aboutUs = "I ❤️ Flutter";
-  String appVersion = "1.0";
+  String aboutUs = "In progress...";
+  String appVersion = "0.0.0";
+
+  @override
+  void initState() {
+    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+      String version = packageInfo.version;
+
+      setState(() {
+        appVersion = version;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

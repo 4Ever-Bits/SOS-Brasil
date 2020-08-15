@@ -139,8 +139,6 @@ class _HomePageState extends State<HomePage>
                       } else {
                         throw 'Could not launch $number';
                       }
-
-                      print(number);
                     },
                     leading: Text(
                       phonelist[index].name,

@@ -36,7 +36,6 @@ class _LoginPageState extends State<LoginPage> {
         storage.write(key: "token", value: session.token);
 
         var userJson = userToJson(session.user);
-        print(userJson);
         storage.write(key: "user", value: userJson);
 
         Navigator.of(context).pop(true);
@@ -45,7 +44,6 @@ class _LoginPageState extends State<LoginPage> {
           _isLoading = false;
         });
     } catch (e) {
-      print(e);
       _formKey.currentState.reset();
       setState(() {
         _isLoading = false;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/components/snackbar.dart';
 import 'package:mobile/main.dart';
 import 'package:mobile/models/user.dart';
 
@@ -57,11 +58,26 @@ class _CustomDrawerState extends State<CustomDrawer> {
               backgroundColor: Colors.red[100],
             ),
           ),
-          ListTile(title: Text("Atualizar email")),
+          ListTile(
+            title: Text("Atualizar email"),
+            onTap: () {
+              CustomSnackbar.showBuildInProgress(context);
+            },
+          ),
           Divider(),
-          ListTile(title: Text("Atualizar senha")),
+          ListTile(
+            title: Text("Atualizar senha"),
+            onTap: () {
+              CustomSnackbar.showBuildInProgress(context);
+            },
+          ),
           Divider(),
-          ListTile(title: Text("Atualizar dados pessoais")),
+          ListTile(
+            title: Text("Atualizar dados pessoais"),
+            onTap: () {
+              CustomSnackbar.showBuildInProgress(context);
+            },
+          ),
           Divider(),
           ListTile(
             title: Text("Sair"),

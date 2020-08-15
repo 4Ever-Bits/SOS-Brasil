@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/components/snackbar.dart';
 
 class CustomBottomBar extends StatelessWidget {
   final Function showPhone;
@@ -21,7 +22,9 @@ class CustomBottomBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  CustomSnackbar.showBuildInProgress(context);
+                },
                 icon: Icon(
                   Icons.menu,
                   color: Colors.white,

@@ -39,8 +39,6 @@ class SessionController {
         .post(url, headers: _header, body: payload)
         .timeout(Duration(seconds: 5));
 
-    print(response.body);
-
     if (response.statusCode == 200) {
       return await login(email, password);
     } else {

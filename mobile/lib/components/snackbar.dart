@@ -51,4 +51,14 @@ class CustomSnackbar {
       duration: Duration(seconds: 5),
     )..show(context);
   }
+
+  static Widget showBuildInProgress(BuildContext context) {
+    return Flushbar(
+      title: "Erro",
+      flushbarPosition: FlushbarPosition.TOP,
+      message: "Não disponível nesta versão",
+      backgroundColor: Colors.yellow[600],
+      duration: Duration(seconds: 5),
+    )..show(context);
+  }
 }

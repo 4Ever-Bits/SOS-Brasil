@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/components/custom_bottombar.dart';
 import 'package:mobile/components/custom_close_fab.dart';
+import 'package:mobile/components/snackbar.dart';
 import 'package:mobile/utils/sos_clipper.dart';
 
 class SOSScreen extends StatefulWidget {
@@ -57,7 +58,6 @@ class _SOSScreenState extends State<SOSScreen>
     setState(() {
       _hasCallSOS = true;
     });
-    print(_hasCallSOS);
   }
 
   @override
@@ -100,7 +100,9 @@ class _SOSScreenState extends State<SOSScreen>
           SizedBox(height: 40),
           FloatingActionButton(
             heroTag: "Call",
-            onPressed: () {},
+            onPressed: () {
+              CustomSnackbar.showBuildInProgress(context);
+            },
             child: Icon(Icons.phone),
             backgroundColor: Theme.of(context).primaryColor,
           ),
