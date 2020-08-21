@@ -3,10 +3,10 @@ import 'package:mapbox_search_flutter/mapbox_search_flutter.dart';
 
 class ServiceController {
   final Map<String, double> _manausCoord = {
-    "maxLat": -2.9,
-    "minLat": -3.1,
-    "maxLong": -59.8,
-    "minLong": -60.2
+    "maxLat": -2.95,
+    "minLat": -3.16,
+    "maxLong": -59.9,
+    "minLong": -60.1
   };
 
   final Map<String, String> _manausUrl = {
