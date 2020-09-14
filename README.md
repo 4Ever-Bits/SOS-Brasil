@@ -13,6 +13,15 @@
 <li>Autores</li>
 </ul>
 
+<p align="center">
+ <a href="#objetivo">Objetivo</a> •
+ <a href="#status">Status do Projeto</a> • 
+ <a href="#features">Features</a> • 
+ <a href="#prerequisitos">Pré-requisitos</a> • 
+ <a href="#tecnologias">Tecnologias</a> • 
+ <a href="#contribuicao">Autores</a> • 
+</p>
+
 <h1>Objetivo</h1>
 
 <h1>Status do Projeto</h1>
