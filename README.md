@@ -12,3 +12,9 @@
  <a href="#licenc-a">Licença</a> • 
  <a href="#autor">Autor</a>
 </p>
+
+<h1 align="center">Status do Projeto</h1>
+
+<h4 align="center"> 
+	🚧 Em construção...  🚧
+</h4>
