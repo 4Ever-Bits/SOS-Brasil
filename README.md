@@ -18,3 +18,9 @@
 <h4 align="center"> 
 	🚧 Em construção...  🚧
 </h4>
+
+### Features
+
+- [x] Cadastro de usuário
+- [x] Cadastro de cliente
+- [ ] Cadastro de produtos
