@@ -4,15 +4,6 @@
 
 <h1 align="center">Tabela de Conteúdos</h1>
 
-<ul>
-<li>Objetivo</li>
-<li>Status do Projeto</li>
-<li>Features</li>
-<li>Pré-requisitos</li>
-<li>Tecnologias</li>
-<li>Autores</li>
-</ul>
-
 <p align="center">
  <a href="#objetivo">Objetivo</a> •
  <a href="#status">Status do Projeto</a> • 
