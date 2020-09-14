@@ -5,7 +5,7 @@
 <h1 align="center">Tabela de Conteúdos</h1>
 
 <p align="center">
- <a href="#objetivo">Objetivo</a> •
+ <a href="#objetivo">Auxiliar o usuário em um momento de emergência onde existe a necessidade de um atendimento rápido apenas com alguns cliques no celular</a> •
  <a href="#roadmap">Roadmap</a> • 
  <a href="#tecnologias">Tecnologias</a> • 
  <a href="#contribuicao">Contribuição</a> • 
