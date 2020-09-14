@@ -23,7 +23,7 @@
 
 <h1 align="center">Pré-requisitos</h1>
 
-### Tecnologias
+<h1 align="center">Tecnologias</h1>
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
