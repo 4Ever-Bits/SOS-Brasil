@@ -1,8 +1,8 @@
 <h1>SOS Brasil</h1>
 
-<p align="center">Aplicativo mobile que reduz o tempo de atendimento à vítimas necessitadas de ambulâncias, viaturas policiais e caminhões de bombeiros.</p>
+<p>Aplicativo mobile que reduz o tempo de atendimento à vítimas necessitadas de ambulâncias, viaturas policiais e caminhões de bombeiros.</p>
 
-<h1 align="center">Tabela de Conteúdos</h1>
+<h1>Tabela de Conteúdos</h1>
 
 <ul>
 <li>Objetivo</li>
@@ -21,17 +21,17 @@
  <a href="#autor">Autor</a>
 </p>
 
-<h1 align="center">Status do Projeto</h1>
+<h1>Status do Projeto</h1>
 
-<h4 align="center"> 
+<h4> 
 	🚧 Em construção...  🚧
 </h4>
 
-<h1 align="center">Features</h1>
+<h1>Features</h1>
 
-<h1 align="center">Pré-requisitos</h1>
+<h1>Pré-requisitos</h1>
 
-<h1 align="center">Tecnologias</h1>
+<h1>Tecnologias</h1>
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
@@ -43,4 +43,4 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [Socket.io](https://socket.io/)
 - [Insomnia](https://insomnia.rest/)
 
-<h1 align="center">Autores</h1>
+<h1>Autores</h1>
