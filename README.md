@@ -6,12 +6,13 @@
 
 <ul>
 <li>Objetivo</li>
-<li>Roadmap</li>
+<li>Status do Projeto</li>
+<li>Features</li>
+<li>Pré-requisitos</li>
 <li>Tecnologias</li>
-<li>Contribuição</li>
-<li>Licença</li>
+<li>Autores</li>
 </ul>
-
+//
 <p align="center">
  <a href="#objetivo">Objetivo</a> •
  <a href="#roadmap">Roadmap</a> • 
@@ -20,7 +21,7 @@
  <a href="#licenc-a">Licença</a> • 
  <a href="#autor">Autor</a>
 </p>
-
+//
 <h1>Status do Projeto</h1>
 
 <h4> 
