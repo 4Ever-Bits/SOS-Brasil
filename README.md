@@ -2,7 +2,7 @@
 
 <p>Aplicativo mobile que reduz o tempo de atendimento à vítimas necessitadas de ambulâncias, viaturas policiais e caminhões de bombeiros.</p>
 
-<h1>Tabela de Conteúdos</h1>
+<h1 align="center">Tabela de Conteúdos</h1>
 
 <ul>
 <li>Objetivo</li>
@@ -12,6 +12,8 @@
 <li>Tecnologias</li>
 <li>Autores</li>
 </ul>
+
+<h1>Objetivo</h1>
 
 <h1>Status do Projeto</h1>
 
