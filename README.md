@@ -34,3 +34,5 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [React Native](https://reactnative.dev/)
 - [Socket.io](https://socket.io/)
 - [Insomnia](https://insomnia.rest/)
+
+<h1 align="center">Autores</h1>
