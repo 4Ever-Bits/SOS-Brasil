@@ -19,7 +19,7 @@
 	🚧 Em construção...  🚧
 </h4>
 
-<h1 align="center">Status do Projeto</h1>
+<h1 align="center">Features</h1>
 
 - [x] Cadastro de usuário
 - [x] 
