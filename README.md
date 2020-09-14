@@ -21,6 +21,14 @@
 
 <h1 align="center">Features</h1>
 
-- [x] Cadastro de usuário
-- [x] 
-- [ ] 
+<h1 align="center">Pré-requisitos</h1>
+
+### 🛠 Tecnologias
+
+As seguintes ferramentas foram usadas na construção do projeto:
+
+- [Expo](https://expo.io/)
+- [Node.js](https://nodejs.org/en/)
+- [React](https://pt-br.reactjs.org/)
+- [React Native](https://reactnative.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
