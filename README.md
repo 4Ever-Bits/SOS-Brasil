@@ -19,8 +19,8 @@
 	🚧 Em construção...  🚧
 </h4>
 
-### Features
+<h1 align="center">Status do Projeto</h1>
 
 - [x] Cadastro de usuário
-- [x] Cadastro de cliente
-- [ ] Cadastro de produtos
+- [x] 
+- [ ] 
