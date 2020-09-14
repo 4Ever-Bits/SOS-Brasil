@@ -23,12 +23,14 @@
 
 <h1 align="center">Pré-requisitos</h1>
 
-### 🛠 Tecnologias
+### Tecnologias
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
-- [Expo](https://expo.io/)
+- [Flutter](https://flutter.dev/)
 - [Node.js](https://nodejs.org/en/)
+- [Express.js](https://expressjs.com/pt-br/)
 - [React](https://pt-br.reactjs.org/)
 - [React Native](https://reactnative.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
+- [Socket.io](https://socket.io/)
+- [nsomnia](https://insomnia.rest/)
