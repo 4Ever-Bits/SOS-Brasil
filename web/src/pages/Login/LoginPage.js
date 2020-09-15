@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 
 import RadioButtonUncheckedRoundedIcon from "@material-ui/icons/RadioButtonUncheckedRounded";
 import CheckCircleOutlineRoundedIcon from "@material-ui/icons/CheckCircleOutlineRounded";
@@ -10,7 +10,6 @@ import NotifSnackbar from "../../components/NotifSnackbar";
 import { LoginContainer } from "./components/LoginContainer";
 import { LoginInput } from "./components/LoginInput";
 import { LoginButton } from "./components/LoginButton";
-import { LoginAvatar } from "./components/LoginAvatar";
 
 import * as Session from "../../controllers/SessionController";
 
@@ -21,6 +20,7 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@material-ui/core";
+import Avatar from "../../components/SOSAvatar";
 
 export default class Login extends Component {
   constructor(props) {
@@ -34,6 +34,7 @@ export default class Login extends Component {
       pswd: "",
       rememberMe: false,
       isLoading: false,
+      hasLoggedIn: false,
       toast: {
         isOpen: false,
         message: "",
@@ -70,6 +71,11 @@ export default class Login extends Component {
 
       if (token) {
         this.setState({ isLoading: false });
+
+        localStorage.setItem("token", token);
+
+        this.setState({ hasLoggedIn: true });
+
         console.log(token);
       }
     } catch (error) {
@@ -91,6 +97,10 @@ export default class Login extends Component {
   };
 
   render() {
+    if (this.state.hasLoggedIn) {
+      return <Redirect to="/" />;
+    }
+
     return (
       <div className="login">
         <Grid
@@ -102,19 +112,7 @@ export default class Login extends Component {
           style={{ minHeight: "100vh" }}
         >
           <Grid item>
-            <Box
-              display="flex"
-              flexDirection="column"
-              justifyContent="center"
-              alignItems="center"
-              color="white"
-              m="20px"
-            >
-              <LoginAvatar />
-              <Typography variant="h4" component="h1">
-                SOS Brasil
-              </Typography>
-            </Box>
+            <Avatar />
           </Grid>
 
           <Grid item>
