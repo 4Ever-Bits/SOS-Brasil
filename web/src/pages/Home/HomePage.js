@@ -1,38 +1,24 @@
 import React from "react";
-import {
-  makeStyles,
-  Grid,
-  Container,
-  Box,
-  Typography,
-  withStyles,
-  Tab,
-  Tabs,
-} from "@material-ui/core";
+import { makeStyles, Grid, Box } from "@material-ui/core";
 import LeftDrawer from "./components/LeftDrawer";
 import Header from "./components/Header";
-import ResquestTable from "./components/ResquetTable";
-
-// import { Container } from './styles';
+import { useParams } from "react-router-dom";
+import TableContainer from "./components/TableContainer";
+import RequestContainer from "./components/RequestContainer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    height: "100vh",
-  },
-  container: {
-    borderRadius: 30,
-    background: "#FFF",
-    height: "80vh",
-    padding: "20px 50px",
-  },
-  box: {
-    marginLeft: 100,
+    maxHeight: "100vh",
+    overflow: "hidden",
   },
 }));
 
 export default function Home() {
   const classes = useStyles();
+  const { id } = useParams();
+
+  const data = testObjectArray;
 
   return (
     <Box className={classes.root}>
@@ -43,47 +29,13 @@ export default function Home() {
         direction="row"
       >
         <LeftDrawer />
-        <OperatorArea />
+        <OperatorArea id={id} data={data} />
       </Grid>
     </Box>
   );
 }
 
-const StyledTab = withStyles((theme) => ({
-  root: {
-    textTransform: "none",
-    color: "#000",
-    fontWeight: theme.typography.fontWeightRegular,
-    fontSize: theme.typography.pxToRem(15),
-    marginRight: theme.spacing(1),
-    "&:focus": {
-      opacity: 1,
-    },
-  },
-}))((props) => <Tab disableRipple {...props} />);
-
-const StyledTabs = withStyles({
-  indicator: {
-    display: "flex",
-    justifyContent: "center",
-    backgroundColor: "transparent",
-    "& > span": {
-      maxWidth: 120,
-      width: "100%",
-      backgroundColor: "#F44336",
-    },
-  },
-})((props) => <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />);
-
-function OperatorArea() {
-  const classes = useStyles();
-
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
+function OperatorArea({ id, data }) {
   return (
     <Grid item xs={10}>
       <Box
@@ -93,24 +45,128 @@ function OperatorArea() {
         paddingLeft={10}
       >
         <Header />
-        <Container className={classes.container}>
-          <Typography variant="h5" style={{ fontWeight: "bolder" }}>
-            Listas
-          </Typography>
-
-          <StyledTabs
-            value={value}
-            onChange={handleChange}
-            aria-label="styled tabs example"
-          >
-            <StyledTab label="Não atendidas" />
-            <StyledTab label="Atendidas" />
-          </StyledTabs>
-          <Typography className={classes.padding} />
-
-          <ResquestTable />
-        </Container>
+        {!id ? (
+          <TableContainer data={data} />
+        ) : (
+          <RequestContainer id={id} data={data} />
+        )}
       </Box>
     </Grid>
   );
 }
+
+const testObjectArray = [
+  {
+    id: 0,
+    title: "Mama",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dignissim eros quis ipsum pulvinar sodales. Proin et condimentum justo. Pellentesque ac finibus massa. In ultricies .",
+    image_url: "DataTypes.STRING",
+    audio_url: "DataTypes.STRING",
+    latitude: "DataTypes.FLOAT",
+    longitude: "DataTypes.FLOAT",
+    ispersonal: "DataTypes.BOOLEAN",
+    user_id: "DataTypes.INTEGER",
+    attendant_id: "DataTypes.INTEGER",
+    status: "DataTypes.BOOLEAN",
+    createdAt: "10/09/20",
+  },
+  {
+    id: 1,
+    title: "DataTypes.STRING",
+    description: "DataTypes.TEXT",
+    image_url: "DataTypes.STRING",
+    audio_url: "DataTypes.STRING",
+    latitude: "DataTypes.FLOAT",
+    longitude: "DataTypes.FLOAT",
+    ispersonal: "DataTypes.BOOLEAN",
+    user_id: "DataTypes.INTEGER",
+    attendant_id: "DataTypes.INTEGER",
+    status: "DataTypes.BOOLEAN",
+    createdAt: "10/09/20",
+  },
+  {
+    id: 2,
+    title: "DataTypes.STRING",
+    description: "DataTypes.TEXT",
+    image_url: "DataTypes.STRING",
+    audio_url: "DataTypes.STRING",
+    latitude: "DataTypes.FLOAT",
+    longitude: "DataTypes.FLOAT",
+    ispersonal: "DataTypes.BOOLEAN",
+    user_id: "DataTypes.INTEGER",
+    attendant_id: "DataTypes.INTEGER",
+    status: "DataTypes.BOOLEAN",
+    createdAt: "10/09/20",
+  },
+  {
+    id: 3,
+    title: "DataTypes.STRING",
+    description: "DataTypes.TEXT",
+    image_url: "DataTypes.STRING",
+    audio_url: "DataTypes.STRING",
+    latitude: "DataTypes.FLOAT",
+    longitude: "DataTypes.FLOAT",
+    ispersonal: "DataTypes.BOOLEAN",
+    user_id: "DataTypes.INTEGER",
+    attendant_id: "DataTypes.INTEGER",
+    status: "DataTypes.BOOLEAN",
+    createdAt: "10/09/20",
+  },
+  {
+    id: 4,
+    title: "DataTypes.STRING",
+    description: "DataTypes.TEXT",
+    image_url: "DataTypes.STRING",
+    audio_url: "DataTypes.STRING",
+    latitude: "DataTypes.FLOAT",
+    longitude: "DataTypes.FLOAT",
+    ispersonal: "DataTypes.BOOLEAN",
+    user_id: "DataTypes.INTEGER",
+    attendant_id: "DataTypes.INTEGER",
+    status: "DataTypes.BOOLEAN",
+    createdAt: "10/09/20",
+  },
+  {
+    id: 5,
+    title: "DataTypes.STRING",
+    description: "DataTypes.TEXT",
+    image_url: "DataTypes.STRING",
+    audio_url: "DataTypes.STRING",
+    latitude: "DataTypes.FLOAT",
+    longitude: "DataTypes.FLOAT",
+    ispersonal: "DataTypes.BOOLEAN",
+    user_id: "DataTypes.INTEGER",
+    attendant_id: "DataTypes.INTEGER",
+    status: "DataTypes.BOOLEAN",
+    createdAt: "10/09/20",
+  },
+  {
+    id: 6,
+    title: "DataTypes.STRING",
+    description: "DataTypes.TEXT",
+    image_url: "DataTypes.STRING",
+    audio_url: "DataTypes.STRING",
+    latitude: "DataTypes.FLOAT",
+    longitude: "DataTypes.FLOAT",
+    ispersonal: "DataTypes.BOOLEAN",
+    user_id: "DataTypes.INTEGER",
+    attendant_id: "DataTypes.INTEGER",
+    status: "DataTypes.BOOLEAN",
+    createdAt: "10/09/20",
+  },
+  {
+    id: 7,
+    title: "DataTypes.STRING",
+    description: "DataTypes.TEXT",
+    image_url: "DataTypes.STRING",
+    audio_url: "DataTypes.STRING",
+    latitude: "DataTypes.FLOAT",
+    longitude: "DataTypes.FLOAT",
+    ispersonal: "DataTypes.BOOLEAN",
+    user_id: "DataTypes.INTEGER",
+    attendant_id: "DataTypes.INTEGER",
+    status: "DataTypes.BOOLEAN",
+    createdAt: "10/09/20",
+  },
+];

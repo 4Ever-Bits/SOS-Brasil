@@ -14,7 +14,11 @@ export default function Avatar({ src, classes }) {
         m="20px"
       >
         <LoginAvatar src={src} />
-        <Typography variant="h4" component="h1" className={classes.title}>
+        <Typography
+          variant="h4"
+          component="h1"
+          className={classes ? classes.title : ""}
+        >
           SOS Brasil
         </Typography>
       </Box>

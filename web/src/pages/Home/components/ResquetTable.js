@@ -11,69 +11,28 @@ import {
   Box,
 } from "@material-ui/core";
 
-const testObjectArray = [
-  {
-    id: 0,
-    name: "Teste",
-    date: "04/09/2020",
-    time: "16:47",
-  },
-  {
-    id: 1,
-    name: "Teste",
-    date: "04/09/2020",
-    time: "16:47",
-  },
-  {
-    id: 2,
-    name: "Teste",
-    date: "04/09/2020",
-    time: "16:47",
-  },
-  {
-    id: 3,
-    name: "Teste",
-    date: "04/09/2020",
-    time: "16:47",
-  },
-  {
-    id: 4,
-    name: "Teste",
-    date: "04/09/2020",
-    time: "16:47",
-  },
-  {
-    id: 5,
-    name: "Teste",
-    date: "04/09/2020",
-    time: "16:47",
-  },
-  {
-    id: 6,
-    name: "Teste",
-    date: "04/09/2020",
-    time: "16:47",
-  },
-  {
-    id: 7,
-    name: "Teste",
-    date: "04/09/2020",
-    time: "16:47",
-  },
-];
+import "../../../styles/table.css";
+import { useHistory } from "react-router-dom";
 
 const useStyle = makeStyles({
   table: {
     border: "1px solid #C8C5C5",
+    borderRadius: 10,
     margin: "37px 0",
-    maxHeight: "80%",
-    minHeight: "80%",
+    maxHeight: "60vh",
     overflow: "hidden",
-    overflowY: "auto",
+    overflowY: "scroll",
   },
 
   head: {
     fontWeight: "bolder",
+    backgroundColor: "#fff",
+  },
+
+  row: {
+    "&.MuiTableRow-hover": {
+      cursor: "pointer",
+    },
   },
 
   body: {
@@ -85,36 +44,59 @@ const useStyle = makeStyles({
   },
 });
 
-export default function ResquestTable() {
+function buildRow({ id, title, createdAt }, classes, history) {
+  const handleRowClick = (id) => {
+    console.log(id);
+
+    history.push("/request/" + id);
+  };
+
+  return (
+    <TableRow
+      hover
+      role="checkbox"
+      key={id}
+      tabIndex={-1}
+      className={classes.row}
+      onClick={() => handleRowClick(id)}
+    >
+      <TableCell component="th" scope="row">
+        <Box display="flex" alignItems="center">
+          <Avatar className={classes.avatar} />
+          {title}
+        </Box>
+      </TableCell>
+      <TableCell align="right">{createdAt}</TableCell>
+      <TableCell align="right">{createdAt}</TableCell>
+    </TableRow>
+  );
+}
+
+function buildHead(classes) {
+  return (
+    <TableRow>
+      <TableCell className={classes.head}>Nome</TableCell>
+      <TableCell align="right" className={classes.head}>
+        Data
+      </TableCell>
+      <TableCell align="right" className={classes.head}>
+        Horário
+      </TableCell>
+    </TableRow>
+  );
+}
+
+export default function ResquestTable({ data }) {
   const classes = useStyle();
+
+  const history = useHistory();
 
   return (
     <TableContainer className={classes.table}>
-      <Table stickyHeader aria-label="sticky table">
-        <TableHead>
-          <TableRow>
-            <TableCell className={classes.head}>Nome</TableCell>
-            <TableCell align="right" className={classes.head}>
-              Data
-            </TableCell>
-            <TableCell align="right" className={classes.head}>
-              Horario
-            </TableCell>
-          </TableRow>
-        </TableHead>
+      <Table stickyHeader aria-label="sticky table" className={classes.body}>
+        <TableHead>{buildHead(classes)}</TableHead>
         <TableBody className={classes.body}>
-          {testObjectArray.map((row) => (
-            <TableRow hover role="checkbox" key={row.id} tabIndex={-1}>
-              <TableCell component="th" scope="row">
-                <Box display="flex" alignItems="center">
-                  <Avatar className={classes.avatar} />
-                  {row.name}
-                </Box>
-              </TableCell>
-              <TableCell align="right">{row.date}</TableCell>
-              <TableCell align="right">{row.time}</TableCell>
-            </TableRow>
-          ))}
+          {data.map((row) => buildRow(row, classes, history))}
         </TableBody>
       </Table>
     </TableContainer>
