@@ -15,6 +15,8 @@
 
 <h1>Objetivo</h1>
 
+<p> O sistema de emergência carece de tecnologias para o auxílio e melhoria do sistema para maior eficiência do processo. O aplicativo possui o objetivo de requisitar auxilio  de forma remota em uma fração de segundos, além do envio da localização em tempo real e contato direto com o assistente, com isso muitos casos de atraso de serviços de emergência e dificuldade de encontrar o destino serão evitados e mais pessoas serão atendidas e salvas.</p>
+
 <h1>Status do Projeto</h1>
 
 <h4> 
