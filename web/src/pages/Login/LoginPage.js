@@ -75,8 +75,6 @@ export default class Login extends Component {
         localStorage.setItem("token", token);
 
         this.setState({ hasLoggedIn: true });
-
-        console.log(token);
       }
     } catch (error) {
       this.setState({

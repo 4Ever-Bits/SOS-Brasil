@@ -15,11 +15,16 @@ module.exports = {
         limit: parseInt(limit),
         offset: (parseInt(page) - 1) * parseInt(limit),
         order: [[orderBy, direction]],
-        attributes: { exclude: ["attendant_id"] },
+        attributes: {
+          include: ["createdAt"],
+          exclude: ["attendant_id"],
+        },
         include: {
           model: User,
           as: "attendant",
-          attributes: { exclude: ["password", "createdAt", "updatedAt"] },
+          attributes: {
+            exclude: ["code", "password", "createdAt", "updatedAt"],
+          },
         },
       });
 
@@ -34,7 +39,10 @@ module.exports = {
         const user = response.data;
         delete call.dataValues["user_id"];
         delete user["AccountId"];
-        data.push({ ...call.dataValues, user });
+        data.push({
+          ...call.dataValues,
+          user,
+        });
       }
 
       res.header("X-Total-Count", calls_amount);
@@ -42,7 +50,7 @@ module.exports = {
       return res.status(200).json(data);
     } catch (error) {
       console.log(error);
-      return res.status(500).send();
+      return res.status(500).send(error);
     }
   },
 
@@ -78,7 +86,10 @@ module.exports = {
       // and store them in respective var
       if (req.files) {
         for (file of fileArray) {
-          if (file.mimetype.includes("image") && file.fieldname === "image")
+          if (
+            file.mimetype.includes("image") ||
+            file.fieldname.includes("image")
+          )
             image_url = file.path;
           else audio_url = file.path;
         }
@@ -117,11 +128,16 @@ module.exports = {
       if (checkByID) {
         const call = await Call.findOne({
           where: { id: data },
-          attributes: { exclude: ["attendant_id"] },
+          attributes: {
+            include: ["createdAt"],
+            exclude: ["attendant_id"],
+          },
           include: {
             model: User,
             as: "attendant",
-            attributes: { exclude: ["password", "createdAt", "updatedAt"] },
+            attributes: {
+              exclude: ["password", "createdAt", "updatedAt", "code"],
+            },
           },
         });
 
@@ -140,11 +156,16 @@ module.exports = {
           where: sequelize.where(sequelize.col(field), data),
           limit: parseInt(limit),
           order: [[field, direction]],
-          attributes: { exclude: ["attendant_id"] },
+          attributes: {
+            include: ["createdAt"],
+            exclude: ["attendant_id"],
+          },
           include: {
             model: User,
             as: "attendant",
-            attributes: { exclude: ["password", "createdAt", "updatedAt"] },
+            attributes: {
+              exclude: ["password", "createdAt", "updatedAt", "code"],
+            },
           },
         });
 

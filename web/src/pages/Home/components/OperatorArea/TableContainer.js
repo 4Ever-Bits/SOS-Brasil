@@ -1,7 +1,9 @@
 import React from "react";
 import { Container, Typography, makeStyles } from "@material-ui/core";
-import { StyledTabs, StyledTab, TabPanel } from "./TabComponent";
-import ResquestTable from "./ResquetTable";
+import { StyledTabs, StyledTab, TabPanel } from "./Table/TabComponent";
+import ResquestTable from "./Table/ResquetTable";
+import AttendedTable from "./Table/AttendedTable";
+import { getCalls } from "../../../../controllers/CallController";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -21,6 +23,12 @@ export default function TableContainer({ data }) {
     setTabIndex(newValue);
   };
 
+  const [calls, setCalls] = React.useState(data);
+
+  React.useEffect(() => {
+    setCalls(data);
+  }, [data]);
+
   return (
     <Container className={classes.container}>
       <Typography variant="h5" style={{ fontWeight: "bolder" }}>
@@ -37,7 +45,11 @@ export default function TableContainer({ data }) {
       </StyledTabs>
 
       <TabPanel value={tabIndex} index={0}>
-        <ResquestTable data={data} />
+        <ResquestTable data={calls} />
+      </TabPanel>
+
+      <TabPanel value={tabIndex} index={1}>
+        <AttendedTable data={calls} />
       </TabPanel>
     </Container>
   );

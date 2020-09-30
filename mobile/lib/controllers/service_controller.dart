@@ -10,9 +10,9 @@ class ServiceController {
   };
 
   final Map<String, String> _manausUrl = {
-    "ambulance": "http://192.168.0.2:3334",
-    "police": "http://192.168.0.2:3334",
-    "firedep": "http://192.168.0.2:3334",
+    "ambulance": "http://192.168.0.3:3334",
+    "police": "http://192.168.0.3:3334",
+    "firedep": "http://192.168.0.3:3334",
   };
 
   bool compareCoordinates(Location location, Map<String, double> city) {

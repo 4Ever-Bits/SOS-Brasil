@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:mobile/models/session.dart';
 
 class SessionController {
-  static final String _baseUrl = "http://192.168.0.2:3333";
+  static final String _baseUrl = "http://192.168.0.3:3000";
   static final _header = {"Content-Type": "application/json"};
 
   static Future<Session> login(String _email, String _password) async {

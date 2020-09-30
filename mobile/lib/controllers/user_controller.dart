@@ -6,7 +6,7 @@ import 'package:mobile/models/session.dart';
 class UserController {
   static Future<Session> signup(String name, String number, String cpf,
       String email, String password) async {
-    String url = "http://192.168.0.2:3000/signup";
+    String url = "http://192.168.0.3:3000/signup";
 
     var header = {"Content-Type": "application/json"};
 

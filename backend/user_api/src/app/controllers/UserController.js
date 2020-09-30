@@ -114,15 +114,17 @@ module.exports = {
           },
         });
 
-        const user = dbResult.user;
-        delete dbResult.dataValues.user;
+        if (dbResult) {
+          const user = dbResult.user;
+          delete dbResult.dataValues.user;
 
-        const data = {
-          ...dbResult.dataValues,
-          ...user.dataValues,
-        };
+          const data = {
+            ...dbResult.dataValues,
+            ...user.dataValues,
+          };
 
-        if (dbResult) return res.status(200).json(data);
+          return res.status(200).json(data);
+        }
       }
 
       // the parameter isn't an ID
