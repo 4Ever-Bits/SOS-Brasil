@@ -35,7 +35,6 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [Node.js](https://nodejs.org/en/)
 - [Express.js](https://expressjs.com/pt-br/)
 - [React](https://pt-br.reactjs.org/)
-- [React Native](https://reactnative.dev/)
 - [Socket.io](https://socket.io/)
 - [Insomnia](https://insomnia.rest/)
 
