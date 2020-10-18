@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/screens/ServiceCallScreen/components/ServiceScreen/next_button.dart';
+import 'package:SOS_Brasil/screens/ServiceCallScreen/components/ServiceScreen/next_button.dart';
 
 Padding buildTitle(String title) {
   return Padding(

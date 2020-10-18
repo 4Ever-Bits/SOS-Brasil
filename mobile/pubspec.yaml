@@ -1,4 +1,4 @@
-name: mobile
+name: SOS_Brasil
 description: An app made for people in trouble.
 
 # The following line prevents the package from being accidentally published to
@@ -29,7 +29,7 @@ dependencies:
   loading_overlay: ^0.2.1
   http: ^0.12.1
   flutter_svg: ^0.18.0
-  url_launcher: ^5.5.0
+  url_launcher: ^5.7.5
   flushbar: ^1.10.4
   cpfcnpj: ^1.0.3
   pin_code_fields: ^3.1.2
@@ -40,6 +40,7 @@ dependencies:
   image_picker: ^0.6.7+3
   flutter_dotenv: ^2.1.0
   package_info: ^0.4.1
+  socket_io_client: ^0.9.11
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

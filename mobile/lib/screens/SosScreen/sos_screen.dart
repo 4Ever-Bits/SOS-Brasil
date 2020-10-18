@@ -1,9 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile/components/custom_bottombar.dart';
-import 'package:mobile/components/custom_close_fab.dart';
-import 'package:mobile/components/snackbar.dart';
-import 'package:mobile/utils/sos_clipper.dart';
+import 'package:SOS_Brasil/components/custom_bottombar.dart';
+import 'package:SOS_Brasil/components/custom_close_fab.dart';
+import 'package:SOS_Brasil/components/snackbar.dart';
+import 'package:SOS_Brasil/utils/sos_clipper.dart';
 
 class SOSScreen extends StatefulWidget {
   SOSScreen({Key key}) : super(key: key);

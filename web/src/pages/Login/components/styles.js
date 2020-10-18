@@ -18,18 +18,18 @@ const style = {
       color: "black",
     },
     "& .MuiInput-underline:after": {
-      borderBottomColor: "white",
+      borderBottomColor: "transparent",
     },
     "& .MuiOutlinedInput-root": {
       "& fieldset": {
-        borderColor: "white",
+        borderColor: "transparent",
         borderRadius: 24,
       },
       "&:hover fieldset": {
-        borderColor: "white",
+        borderColor: "transparent",
       },
       "&.Mui-focused fieldset": {
-        borderColor: "white",
+        borderColor: "transparent",
       },
     },
   },

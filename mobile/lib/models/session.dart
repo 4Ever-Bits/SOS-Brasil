@@ -3,7 +3,7 @@
 //     final session = sessionFromJson(jsonString);
 
 import 'dart:convert';
-import 'package:mobile/models/user.dart';
+import 'package:SOS_Brasil/models/user.dart';
 
 Session sessionFromJson(String str) => Session.fromJson(json.decode(str));
 

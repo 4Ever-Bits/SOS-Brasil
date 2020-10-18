@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 
-import 'package:mobile/screens/MapScreen/components/build_methods.dart';
-import 'package:mobile/screens/MapScreen/components/geomap.dart';
-import 'package:mobile/screens/MapScreen/components/submit_button.dart';
+import 'package:SOS_Brasil/screens/MapScreen/components/build_methods.dart';
+import 'package:SOS_Brasil/screens/MapScreen/components/geomap.dart';
+import 'package:SOS_Brasil/screens/MapScreen/components/submit_button.dart';
 
 class MapScreen extends StatefulWidget {
   final double latitude, longitude;

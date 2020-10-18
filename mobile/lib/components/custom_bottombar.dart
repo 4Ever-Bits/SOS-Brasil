@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/components/snackbar.dart';
+import 'package:SOS_Brasil/components/snackbar.dart';
 
 class CustomBottomBar extends StatelessWidget {
   final Function showPhone;

@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:mobile/screens/ForgotPasswordScreen/fp_emailsend.dart';
+import 'package:SOS_Brasil/screens/ForgotPasswordScreen/fp_emailsend.dart';
 
-import 'package:mobile/screens/HomeScreen/home_screen.dart';
-import 'package:mobile/screens/InfoScreen/info_screen.dart';
-import 'package:mobile/screens/MapScreen/map_screen.dart';
-import 'package:mobile/screens/SignupScreen/signup_screen.dart';
-import 'package:mobile/screens/LoginScreen/login_screen.dart';
+import 'package:SOS_Brasil/screens/HomeScreen/home_screen.dart';
+import 'package:SOS_Brasil/screens/InfoScreen/info_screen.dart';
+import 'package:SOS_Brasil/screens/MapScreen/map_screen.dart';
+import 'package:SOS_Brasil/screens/SignupScreen/signup_screen.dart';
+import 'package:SOS_Brasil/screens/LoginScreen/login_screen.dart';
 
-import 'package:mobile/animations/transitions.dart';
+import 'package:SOS_Brasil/animations/transitions.dart';
 
 // Create storage
 final storage = new FlutterSecureStorage();

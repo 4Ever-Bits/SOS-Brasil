@@ -39,6 +39,7 @@ module.exports = {
         const user = {
           ...account.user.dataValues,
           email: account.email,
+          active: account.active
         };
 
         const token = jwt.sign(payload, process.env.AUTH_SECRET);

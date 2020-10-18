@@ -102,7 +102,15 @@ export default function AttendedTable({ data }) {
       <Table stickyHeader aria-label="sticky table" className={classes.body}>
         <TableHead>{buildHead(classes)}</TableHead>
         <TableBody className={classes.body}>
-          {calls.map((row) => buildRow(row, classes, history))}
+          {calls ? (
+            calls.length > 0 ? (
+              calls.map((row) => buildRow(row, classes, history))
+            ) : (
+              <></>
+            )
+          ) : (
+            <></>
+          )}
         </TableBody>
       </Table>
     </TableContainer>

@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { NavLink, Redirect } from "react-router-dom";
 
-import RadioButtonUncheckedRoundedIcon from "@material-ui/icons/RadioButtonUncheckedRounded";
-import CheckCircleOutlineRoundedIcon from "@material-ui/icons/CheckCircleOutlineRounded";
-
 import SimpleBackdrop from "../../components/SimpleBackdrop";
 import NotifSnackbar from "../../components/NotifSnackbar";
 
@@ -16,9 +13,7 @@ import * as Session from "../../controllers/SessionController";
 import {
   Box,
   Grid,
-  Typography,
-  FormControlLabel,
-  Checkbox,
+  Typography
 } from "@material-ui/core";
 import Avatar from "../../components/SOSAvatar";
 
@@ -139,21 +134,9 @@ export default class Login extends Component {
 
                 <Box
                   display="flex"
-                  justifyContent="space-between"
+                  justifyContent="flex-end"
                   alignItems="center"
                 >
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        icon={<RadioButtonUncheckedRoundedIcon />}
-                        checkedIcon={<CheckCircleOutlineRoundedIcon />}
-                        onChange={this.handleRememberMe}
-                        name="rememberMe"
-                        color="default"
-                      />
-                    }
-                    label="Lembre-se de mim"
-                  />
                   <NavLink
                     to="/about"
                     style={{

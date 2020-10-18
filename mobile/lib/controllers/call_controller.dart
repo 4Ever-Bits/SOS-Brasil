@@ -1,4 +1,4 @@
-import 'package:mobile/models/call.dart';
+import 'package:SOS_Brasil/models/call.dart';
 import 'package:http/http.dart' as http;
 
 class CallController {

@@ -12,7 +12,9 @@ import { Redirect, useParams } from "react-router-dom";
 import TableContainer from "./components/OperatorArea/TableContainer";
 import RequestContainer from "./components/Call/RequestContainer";
 
-import { getCalls, updateCall } from "../../controllers/CallController";
+import { getCalls } from "../../controllers/CallController";
+
+import socket from "../../services/websocket";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +35,8 @@ export default function Home() {
   const [calls, setCalls] = React.useState([]);
   const [open, setOpen] = React.useState(true);
 
+  socket.on("receive_post", (post) => console.log(` new post ${post.id}`));
+
   React.useEffect(() => {
     setOpen(true);
     getCalls().then((data) => {
@@ -50,7 +54,6 @@ export default function Home() {
       if (!aux) return <Redirect push to="/" />;
     }
   }
-
   return (
     <>
       <Box className={classes.root}>
@@ -69,14 +72,12 @@ export default function Home() {
               paddingLeft={10}
             >
               <Header />
-              {calls.length > 0 ? (
-                !id ? (
-                  <TableContainer data={calls} />
-                ) : (
-                  <RequestContainer id={id} data={calls} />
-                )
+              {!id ? (
+                <TableContainer data={calls} />
+              ) : calls.length > 0 ? (
+                <RequestContainer id={id} data={calls} />
               ) : (
-                <></>
+                <Redirect to="/" />
               )}
             </Box>
           </Grid>

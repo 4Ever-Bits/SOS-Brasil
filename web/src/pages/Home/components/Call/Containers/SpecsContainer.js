@@ -15,8 +15,8 @@ export default function SpecsContainer({ data }) {
     margin: "5px 0 20px 0",
   };
 
-  const imageURL = "http://192.168.0.3:3334/" + data.image_url;
-  const audioURL = "http://192.168.0.3:3334/" + data.audio_url;
+  const imageURL = "http://localhost:3002/" + data.image_url;
+  const audioURL = "http://localhost:3002/" + data.audio_url;
 
   const [call, setCall] = React.useState(data);
   React.useEffect(() => {

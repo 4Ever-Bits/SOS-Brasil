@@ -13,6 +13,7 @@ class User {
     this.cpf,
     this.accountId,
     this.email,
+    this.active,
   });
 
   int id;
@@ -22,16 +23,17 @@ class User {
   String cpf;
   int accountId;
   String email;
+  bool active;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json["id"],
-        firstName: json["first_name"],
-        lastName: json["last_name"],
-        phonenumber: json["phonenumber"],
-        cpf: json["cpf"],
-        accountId: json["account_id"],
-        email: json["email"],
-      );
+      id: json["id"],
+      firstName: json["first_name"],
+      lastName: json["last_name"],
+      phonenumber: json["phonenumber"],
+      cpf: json["cpf"],
+      accountId: json["account_id"],
+      email: json["email"],
+      active: json["active"]);
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -41,5 +43,6 @@ class User {
         "cpf": cpf,
         "account_id": accountId,
         "email": email,
+        "active": active
       };
 }

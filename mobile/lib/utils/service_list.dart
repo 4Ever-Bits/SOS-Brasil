@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/service.dart';
+import 'package:SOS_Brasil/models/service.dart';
 
 List<Service> getServiceList() {
   List<Service> services = [

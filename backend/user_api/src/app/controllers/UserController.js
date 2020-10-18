@@ -171,6 +171,29 @@ module.exports = {
     }
   },
 
+  //Update specified user
+  async update(req,res){
+    try{
+      const userData = req.params.data;
+
+      
+      // delete user and account field
+      const [account] = await Account.update(
+        {active: false},
+        {where: {
+          id: userData,
+        },  
+      });
+      console.log(account);
+
+      if (account) return res.status(200).send();
+      else return res.status(404).json({ error: "User not found" });
+
+    }catch(e){
+      return res.status(404).json({ error: "User not found" });
+    }
+  },
+
   //Delete specified user
   async delete(req, res) {
     try {

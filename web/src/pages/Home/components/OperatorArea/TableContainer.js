@@ -3,7 +3,6 @@ import { Container, Typography, makeStyles } from "@material-ui/core";
 import { StyledTabs, StyledTab, TabPanel } from "./Table/TabComponent";
 import ResquestTable from "./Table/ResquetTable";
 import AttendedTable from "./Table/AttendedTable";
-import { getCalls } from "../../../../controllers/CallController";
 
 const useStyles = makeStyles((theme) => ({
   container: {

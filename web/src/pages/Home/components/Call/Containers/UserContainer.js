@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   Divider,
+  Snackbar,
   Typography,
   withStyles,
 } from "@material-ui/core";
@@ -12,6 +13,7 @@ import PhoneIcon from "@material-ui/icons/Phone";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 import BlockIcon from "@material-ui/icons/Block";
 import LocationMap from "../../Map";
+import { Alert } from "@material-ui/lab";
 
 function UserDataField({ children, data }) {
   return (
@@ -50,6 +52,20 @@ export default function UserContainer({ data }) {
     "," +
     data.longitude +
     "&hl=pt&z=14&amp&output=embed";
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   return (
     <>
@@ -102,10 +118,16 @@ export default function UserContainer({ data }) {
 
         <CustomDivider />
 
-        <Button onClick={() => {}} style={buttonStyle}>
+        <Button onClick={handleClick} style={buttonStyle}>
           <BlockIcon style={iconStyle} /> Bloquear cliente
         </Button>
       </Box>
+
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="warning">
+          Não disponível nesta versão
+        </Alert>
+      </Snackbar>
     </>
   );
 }

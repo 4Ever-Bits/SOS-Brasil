@@ -18,6 +18,7 @@ routes.post("/resetpassword", PasswordController.reset);
 routes.route("/user").get(UserController.index);
 routes
   .route("/user/:data")
+  .put(UserController.update)
   .get(UserController.show)
   .delete(UserController.delete);
 

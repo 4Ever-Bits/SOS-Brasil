@@ -3,6 +3,8 @@ const Validate = require("../utils/Validate");
 const sequelize = require("sequelize");
 const axios = require("axios");
 
+const URL = process.env.USER_API_URL || "http://localhost:3000"
+
 module.exports = {
   async index(req, res) {
     try {
@@ -34,7 +36,7 @@ module.exports = {
       let data = [];
       for (call of calls) {
         const response = await axios.get(
-          process.env.USER_API_URL + `/user/${call.user_id}`
+          URL + `/user/${call.user_id}`
         );
         const user = response.data;
         delete call.dataValues["user_id"];
@@ -143,7 +145,7 @@ module.exports = {
 
         if (call) {
           const response = await axios.get(
-            process.env.USER_API_URL + `/user/${call.user_id}`
+            URL + `/user/${call.user_id}`
           );
           const user = response.data;
           delete call.dataValues["user_id"];
@@ -175,7 +177,7 @@ module.exports = {
         let dataJson = [];
         for (call of calls) {
           const response = await axios.get(
-            process.env.USER_API_URL + `/user/${call.user_id}`
+            URL + `/user/${call.user_id}`
           );
           const user = response.data;
           delete call.dataValues["user_id"];
