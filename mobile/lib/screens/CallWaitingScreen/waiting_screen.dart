@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:SOS_Brasil/components/snackbar.dart';
@@ -30,9 +27,9 @@ class _WaitingScreenState extends State<WaitingScreen> {
   Call call;
   String token;
 
-  String _status = "Enviando chamado";
+  String _status = "Conectando ao servidor...";
 
-  // IO.Socket socket;
+  IO.Socket socket;
 
   @override
   void initState() {
@@ -43,72 +40,61 @@ class _WaitingScreenState extends State<WaitingScreen> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    socket.disconnect();
+
+    super.dispose();
+  }
+
   sendData() {
     //Get user token in localStorage
-    storage.read(key: "token").then((value) async {
+    storage.read(key: "token").then((value) {
       setState(() {
         token = value;
       });
 
-      IO.Socket socket =
-          IO.io("http://201.75.9.143:3002/user", <String, dynamic>{
+      socket = IO.io("http://201.75.9.143:3002/user", <String, dynamic>{
         'transports': ['websocket'],
       });
       socket.connect();
 
-      socket.on("connect", (_) => print("connected"));
+      socket.on("connect", (_) {
+        if (_status != "Solicitação enviada com sucesso" &&
+            _status != "Tempo limite de conexão atingido" &&
+            _status != "Erro ao conectar ao servidor") {
+          setState(() {
+            _status = "Enviando o chamado...";
+          });
+        }
+      });
 
       socket.on("connect_error", (data) {
-        print("error");
-        print(data);
+        setState(() {
+          _status = "Erro ao conectar ao servidor";
+        });
       });
 
       socket.on("connect_timeout", (data) {
-        print("timeout");
-        print(data);
+        setState(() {
+          _status = "Erro ao conectar ao servidor";
+        });
       });
 
       socket.on("connecting", (_) => print("conectando"));
 
-      String title = call.title;
-      String description = call.description;
-      bool isPersonal = call.isPersonal;
-      double latitude = call.latitude;
-      double longitude = call.longitude;
-      int userId = call.userId;
-      File imageFile = call.imageFile;
-      File audioFile = call.audioFile;
-
-      final imageByte =
-          imageFile != null ? await imageFile.readAsBytes() : null;
-      final audioByte =
-          audioFile != null ? await audioFile.readAsBytes() : null;
-
-      Map<String, dynamic> callJson = {
-        "title": title,
-        "description": description,
-        "isPersonal": isPersonal.toString(),
-        "latitude": latitude.toString(),
-        "longitude": longitude.toString(),
-        "user_id": userId.toString(),
-        "audio_file": audioByte,
-        "image_file": imageByte,
-      };
-
-      print(callJson);
-
-      socket.emitWithBinary("create_call", callJson);
-
-      //Send data to the server
-      // CallController.create(call, value, widget.url).then((value) {
-      //   if (value) {
-      //     setState(() {
-      //       _status = "Solicitação enviada com sucesso";
-      //     });
-      //   } else {
-      //     _status = "Houve um problema no envio do chamado";
-      //   }
-      // });
+      // Send data to the server
+      CallController.create(call, value, "http://201.75.9.143:3002")
+          .then((value) {
+        if (value.isNotEmpty) {
+          setState(() {
+            _status = "Solicitação enviada com sucesso";
+          });
+          socket.emit("create_call", value);
+        } else {
+          _status = "Tempo limite de conexão atingido";
+        }
+      });
     });
   }
 

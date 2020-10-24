@@ -8,7 +8,7 @@ export async function getCalls() {
 
     return data;
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }
 
@@ -23,7 +23,7 @@ export async function updateCall(attendant_id, call_id, status) {
 
     return true;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return false;
   }
 }

@@ -3,7 +3,7 @@ const Validate = require("../utils/Validate");
 const sequelize = require("sequelize");
 const axios = require("axios");
 
-const URL = process.env.USER_API_URL || "http://localhost:3000"
+const URL = process.env.USER_API_URL || "http://localhost:3001";
 
 module.exports = {
   async index(req, res) {
@@ -35,9 +35,7 @@ module.exports = {
 
       let data = [];
       for (call of calls) {
-        const response = await axios.get(
-          URL + `/user/${call.user_id}`
-        );
+        const response = await axios.get(URL + `/user/${call.user_id}`);
         const user = response.data;
         delete call.dataValues["user_id"];
         delete user["AccountId"];
@@ -123,7 +121,7 @@ module.exports = {
       var checkByID = false;
       const { field = "id", data } = req.params;
       const { limit = 10 } = req.query;
-      const { direction = "ASC" } = req.query;
+      const { direction = "DESC" } = req.query;
 
       if (!isNaN(data) && field === "id") checkByID = true;
 
@@ -144,9 +142,7 @@ module.exports = {
         });
 
         if (call) {
-          const response = await axios.get(
-            URL + `/user/${call.user_id}`
-          );
+          const response = await axios.get(URL + `/user/${call.user_id}`);
           const user = response.data;
           delete call.dataValues["user_id"];
           delete user["AccountId"];
@@ -156,8 +152,8 @@ module.exports = {
       } else {
         const { count, rows } = await Call.findAndCountAll({
           where: sequelize.where(sequelize.col(field), data),
-          limit: parseInt(limit),
-          order: [[field, direction]],
+          // limit: parseInt(limit),
+          order: [["id", direction]],
           attributes: {
             include: ["createdAt"],
             exclude: ["attendant_id"],
@@ -176,9 +172,7 @@ module.exports = {
 
         let dataJson = [];
         for (call of calls) {
-          const response = await axios.get(
-            URL + `/user/${call.user_id}`
-          );
+          const response = await axios.get(URL + `/user/${call.user_id}`);
           const user = response.data;
           delete call.dataValues["user_id"];
           delete user["AccountId"];

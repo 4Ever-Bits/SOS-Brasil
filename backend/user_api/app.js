@@ -9,6 +9,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(routes);
 
-const PORT = process.env.APP_PORT || 3000;
+const PORT = process.env.APP_PORT || 3333;
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

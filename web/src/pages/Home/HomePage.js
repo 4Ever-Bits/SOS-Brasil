@@ -35,8 +35,6 @@ export default function Home() {
   const [calls, setCalls] = React.useState([]);
   const [open, setOpen] = React.useState(true);
 
-  socket.on("receive_post", (post) => console.log(` new post ${post.id}`));
-
   React.useEffect(() => {
     setOpen(true);
     getCalls().then((data) => {
@@ -44,6 +42,30 @@ export default function Home() {
       setOpen(false);
     });
   }, [setCalls]);
+
+  const getCallsCount = (calls) => {
+    var callcount = 0;
+
+    for (var aux of calls) {
+      if (aux.status === null) callcount++;
+    }
+
+    return callcount;
+  };
+
+  socket.emit("set_calls_length", getCallsCount(calls));
+
+  socket.on("new_call", (call) => {
+    var aux = calls;
+
+    var hasCall = false;
+    for (var c of aux) {
+      if (c.id === call.id) hasCall = true;
+    }
+    if (!hasCall) aux.unshift(call);
+
+    setCalls(aux);
+  });
 
   if (id) {
     if (calls.length > 0) {
@@ -54,6 +76,7 @@ export default function Home() {
       if (!aux) return <Redirect push to="/" />;
     }
   }
+
   return (
     <>
       <Box className={classes.root}>
