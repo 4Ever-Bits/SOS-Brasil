@@ -13,6 +13,7 @@ export const StyledTab = withStyles((theme) => ({
     marginRight: theme.spacing(1),
     "&:focus": {
       opacity: 1,
+      color: "#F00",
     },
   },
 }))((props) => <Tab disableRipple {...props} />);

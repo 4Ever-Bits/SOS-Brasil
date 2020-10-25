@@ -18,6 +18,7 @@ export default function Avatar({ src, classes }) {
           variant="h4"
           component="h1"
           className={classes ? classes.title : ""}
+          style={{ marginTop: 10 }}
         >
           SOS Brasil
         </Typography>

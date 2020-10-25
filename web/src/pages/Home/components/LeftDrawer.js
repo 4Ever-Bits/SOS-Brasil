@@ -5,6 +5,8 @@ import PhoneIcon from "@material-ui/icons/Phone";
 import SettingsIcon from "@material-ui/icons/Settings";
 import { useHistory } from "react-router-dom";
 
+import Logo from "../../../assets/images/image.png";
+
 const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: 24,
@@ -29,7 +31,7 @@ const LeftDrawer = () => {
     <Grid item xs={2}>
       <Grid container alignItems="center" justify="center">
         <Grid item sm>
-          <Avatar classes={classes} />
+          <Avatar classes={classes} src={Logo} />
         </Grid>
 
         <Grid item xs={12}>

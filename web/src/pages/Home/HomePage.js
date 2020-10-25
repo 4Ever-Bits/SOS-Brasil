@@ -14,7 +14,7 @@ import RequestContainer from "./components/Call/RequestContainer";
 
 import { getCalls } from "../../controllers/CallController";
 
-import socket from "../../services/websocket";
+// import socket from "../../services/websocket";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,39 +33,39 @@ export default function Home() {
   const { id } = useParams();
 
   const [calls, setCalls] = React.useState([]);
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
-  React.useEffect(() => {
-    setOpen(true);
-    getCalls().then((data) => {
-      setCalls(data);
-      setOpen(false);
-    });
-  }, [setCalls]);
+  // React.useEffect(() => {
+  //   setOpen(true);
+  //   getCalls().then((data) => {
+  //     setCalls(data);
+  //     setOpen(false);
+  //   });
+  // }, [setCalls]);
 
-  const getCallsCount = (calls) => {
-    var callcount = 0;
+  // const getCallsCount = (calls) => {
+  //   var callcount = 0;
 
-    for (var aux of calls) {
-      if (aux.status === null) callcount++;
-    }
+  //   for (var aux of calls) {
+  //     if (aux.status === null) callcount++;
+  //   }
 
-    return callcount;
-  };
+  //   return callcount;
+  // };
 
-  socket.emit("set_calls_length", getCallsCount(calls));
+  // socket.emit("set_calls_length", getCallsCount(calls));
 
-  socket.on("new_call", (call) => {
-    var aux = calls;
+  // socket.on("new_call", (call) => {
+  //   var aux = calls;
 
-    var hasCall = false;
-    for (var c of aux) {
-      if (c.id === call.id) hasCall = true;
-    }
-    if (!hasCall) aux.unshift(call);
+  //   var hasCall = false;
+  //   for (var c of aux) {
+  //     if (c.id === call.id) hasCall = true;
+  //   }
+  //   if (!hasCall) aux.unshift(call);
 
-    setCalls(aux);
-  });
+  //   setCalls(aux);
+  // });
 
   if (id) {
     if (calls.length > 0) {

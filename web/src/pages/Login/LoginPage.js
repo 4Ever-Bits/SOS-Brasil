@@ -10,12 +10,10 @@ import { LoginButton } from "./components/LoginButton";
 
 import * as Session from "../../controllers/SessionController";
 
-import {
-  Box,
-  Grid,
-  Typography
-} from "@material-ui/core";
+import { Box, Grid, Typography } from "@material-ui/core";
+
 import Avatar from "../../components/SOSAvatar";
+import Logo from "../../assets/images/image.png";
 
 export default class Login extends Component {
   constructor(props) {
@@ -105,7 +103,7 @@ export default class Login extends Component {
           style={{ minHeight: "100vh" }}
         >
           <Grid item>
-            <Avatar />
+            <Avatar src={Logo} />
           </Grid>
 
           <Grid item>

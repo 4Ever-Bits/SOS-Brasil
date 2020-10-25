@@ -20,7 +20,7 @@ export default function AlertDialog({ title, children, open, handleClose }) {
         <></>
       )}
       <DialogContent>{children}</DialogContent>
-      <DialogActions></DialogActions>
+      <DialogActions />
     </Dialog>
   );
 }
