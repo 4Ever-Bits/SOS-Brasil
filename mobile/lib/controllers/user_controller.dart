@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:SOS_Brasil/utils/server_url.dart';
 import 'package:http/http.dart' as http;
 import 'package:SOS_Brasil/controllers/login_controller.dart';
 import 'package:SOS_Brasil/models/session.dart';
@@ -6,7 +7,7 @@ import 'package:SOS_Brasil/models/session.dart';
 class UserController {
   static Future<Session> signup(String name, String number, String cpf,
       String email, String password) async {
-    String url = "http://201.75.9.143:3001/signup";
+    String url = user_server_url + "/signup";
 
     var header = {"Content-Type": "application/json"};
 

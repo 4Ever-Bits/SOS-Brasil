@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 import 'package:location/location.dart';
 import 'package:SOS_Brasil/components/custom_drawer.dart';
 import 'package:SOS_Brasil/controllers/location_controller.dart';
@@ -24,6 +25,7 @@ import 'package:SOS_Brasil/utils/numbers_list.dart';
 import 'package:SOS_Brasil/utils/service_list.dart';
 
 import 'package:SOS_Brasil/components/snackbar.dart';
+
 // Create storage
 final storage = new FlutterSecureStorage();
 
@@ -45,6 +47,7 @@ class _HomePageState extends State<HomePage>
   Map<String, String> serverUrl;
 
   bool _isSOSActive = false;
+  bool _isLoading = true;
   bool hasInternet;
 
   @override
@@ -67,9 +70,14 @@ class _HomePageState extends State<HomePage>
       setState(() {
         userLocation = location;
         serverUrl = url;
+        _isLoading = false;
       });
-    }).catchError((_) {
+    }).catchError((e) {
+      print(e);
       CustomSnackbar.showGeolocationError(context);
+      setState(() {
+        _isLoading = false;
+      });
     });
   }
 
@@ -172,25 +180,29 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Scaffold(
-          key: _scaffoldKey,
-          appBar: CustomAppBar(
-            appBar: AppBar(),
-            context: context,
-            user: user,
-            scaffoldKey: _scaffoldKey,
+    return LoadingOverlay(
+      color: Colors.white60,
+      isLoading: _isLoading,
+      child: Stack(
+        children: <Widget>[
+          Scaffold(
+            key: _scaffoldKey,
+            appBar: CustomAppBar(
+              appBar: AppBar(),
+              context: context,
+              user: user,
+              scaffoldKey: _scaffoldKey,
+            ),
+            endDrawer: CustomDrawer(),
+            body: buildContainer(),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+            floatingActionButton: CustomFAB(),
+            bottomNavigationBar: CustomBottomBar(showPhone: toggleBackdrop),
           ),
-          endDrawer: CustomDrawer(),
-          body: buildContainer(),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-          floatingActionButton: CustomFAB(),
-          bottomNavigationBar: CustomBottomBar(showPhone: toggleBackdrop),
-        ),
-        _isSOSActive ? Positioned(child: SOSScreen()) : SizedBox()
-      ],
+          _isSOSActive ? Positioned(child: SOSScreen()) : SizedBox()
+        ],
+      ),
     );
   }
 

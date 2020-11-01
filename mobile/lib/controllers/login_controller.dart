@@ -1,12 +1,13 @@
 import 'dart:convert';
 
+import 'package:SOS_Brasil/utils/server_url.dart';
 import 'package:http/http.dart' as http;
 import 'package:SOS_Brasil/models/session.dart';
 
 class LoginController {
   static Future<Session> login(String _email, String _password) async {
     try {
-      String url = "http://201.75.9.143:3001/signin";
+      String url = user_server_url + "/signin";
 
       var header = {"Content-Type": "application/json"};
 
@@ -14,7 +15,7 @@ class LoginController {
 
       var response = await http
           .post(url, headers: header, body: body)
-          .timeout(Duration(seconds: 5));
+          .timeout(Duration(seconds: 10));
 
       if (response.statusCode == 200) {
         return sessionFromJson(response.body);

@@ -1,5 +1,8 @@
+import 'package:SOS_Brasil/controllers/notification_controller.dart';
+import 'package:SOS_Brasil/main.dart';
 import 'package:SOS_Brasil/screens/CallTrackingScreen/call_tracking_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:SOS_Brasil/components/snackbar.dart';
 
@@ -39,7 +42,17 @@ class _WaitingScreenState extends State<WaitingScreen> {
   void initState() {
     call = widget.call;
 
-    // sendData();
+    socket = IO.io(widget.url, <String, dynamic>{
+      'transports': ['websocket'],
+    });
+    socket.connect();
+
+    socket.on("change_call_status", (status) {
+      NotificationController.cancellAll();
+      NotificationController.showStatusNotification(status);
+    });
+
+    _sendData();
 
     if (widget.color == Color(0xffef5350)) {
       bgImg = "assets/images/ambulancia_car.png";
@@ -49,29 +62,15 @@ class _WaitingScreenState extends State<WaitingScreen> {
       bgImg = "assets/images/police_car.png";
     }
 
-    print(widget.color);
-
     super.initState();
   }
 
-  @override
-  void dispose() {
-    socket.disconnect();
-
-    super.dispose();
-  }
-
-  sendData() {
+  _sendData() {
     //Get user token in localStorage
     storage.read(key: "token").then((value) {
       setState(() {
         token = value;
       });
-
-      socket = IO.io("http://201.75.9.143:3002/user", <String, dynamic>{
-        'transports': ['websocket'],
-      });
-      socket.connect();
 
       socket.on("connect", (_) {
         if (_status != "Solicitação enviada com sucesso" &&
@@ -98,13 +97,13 @@ class _WaitingScreenState extends State<WaitingScreen> {
       socket.on("connecting", (_) => print("conectando"));
 
       // Send data to the server
-      CallController.create(call, value, "http://201.75.9.143:3002")
-          .then((value) {
-        if (value.isNotEmpty) {
+      CallController.create(call, value, widget.url).then((returnedCall) {
+        if (returnedCall.isNotEmpty) {
+          NotificationController.showSendNotification();
           setState(() {
             _status = "Solicitação enviada com sucesso";
           });
-          socket.emit("create_call", value);
+          socket.emit("create_call", returnedCall);
         } else {
           _status = "Tempo limite de conexão atingido";
         }
@@ -112,15 +111,21 @@ class _WaitingScreenState extends State<WaitingScreen> {
     });
   }
 
-  trackCall() {
+  _trackCall() {
     CustomSnackbar.showBuildInProgress(context);
-
+    flutterLocalNotificationsPlugin.cancel(0);
     // Navigator.push(
     //   context,
     //   MaterialPageRoute(
     //     builder: (context) => CallTrackingScreen(),
     //   ),
     // );
+  }
+
+  @override
+  void dispose() async {
+    socket.disconnect();
+    super.dispose();
   }
 
   @override
@@ -159,7 +164,7 @@ class _WaitingScreenState extends State<WaitingScreen> {
                 width: 270,
                 height: 50,
                 child: FlatButton(
-                  onPressed: trackCall,
+                  onPressed: _trackCall,
                   child: Text(
                     "Acompanhar solicitação",
                     style: TextStyle(fontSize: 16),
