@@ -11,9 +11,9 @@ class ServiceController {
   };
 
   final Map<String, String> _manausUrl = {
-    "ambulance": service_server_url,
-    "police": service_server_url,
-    "firedep": service_server_url,
+    "ambulance": serviceServerUrl,
+    "police": serviceServerUrl,
+    "firedep": serviceServerUrl,
   };
 
   bool compareCoordinates(Location location, Map<String, double> city) {

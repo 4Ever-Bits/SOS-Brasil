@@ -1,6 +1,7 @@
 import 'package:SOS_Brasil/controllers/notification_controller.dart';
 import 'package:SOS_Brasil/main.dart';
 import 'package:SOS_Brasil/screens/CallTrackingScreen/call_tracking_screen.dart';
+import 'package:SOS_Brasil/utils/server_url.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -42,16 +43,6 @@ class _WaitingScreenState extends State<WaitingScreen> {
   void initState() {
     call = widget.call;
 
-    socket = IO.io(widget.url, <String, dynamic>{
-      'transports': ['websocket'],
-    });
-    socket.connect();
-
-    socket.on("change_call_status", (status) {
-      NotificationController.cancellAll();
-      NotificationController.showStatusNotification(status);
-    });
-
     _sendData();
 
     if (widget.color == Color(0xffef5350)) {
@@ -72,6 +63,17 @@ class _WaitingScreenState extends State<WaitingScreen> {
         token = value;
       });
 
+      socket = IO.io(widget.url + "/user", <String, dynamic>{
+        'transports': ['websocket'],
+        'extraHeaders': {'token': token}
+      });
+      socket.connect();
+
+      socket.on("change_call_status", (status) {
+        NotificationController.cancellAll();
+        NotificationController.showStatusNotification(status);
+      });
+
       socket.on("connect", (_) {
         if (_status != "Solicitação enviada com sucesso" &&
             _status != "Tempo limite de conexão atingido" &&
@@ -80,6 +82,7 @@ class _WaitingScreenState extends State<WaitingScreen> {
             _status = "Enviando o chamado...";
           });
         }
+        print("conectou");
       });
 
       socket.on("connect_error", (data) {

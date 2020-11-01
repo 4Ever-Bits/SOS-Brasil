@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:SOS_Brasil/models/session.dart';
 
 class SessionController {
-  static final String _baseUrl = user_server_url;
+  static final String _baseUrl = userServerUrl;
   static final _header = {"Content-Type": "application/json"};
 
   static Future<Session> login(String _email, String _password) async {

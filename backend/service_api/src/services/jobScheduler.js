@@ -11,16 +11,18 @@ module.exports = async function (attendantArray, call, io) {
     return 0;
   });
 
-  console.log(attendantArray, call);
+  console.log(
+    attendantArray,
+    io.sockets.connected[attendantArray[0].split("#")[1]].handshake.query
+      .callsCount
+  );
   call.status = null;
 
   const attId =
     io.sockets.connected[attendantArray[0].split("#")[1]].handshake.query.id;
 
   console.log(
-    `choosed attendant: ${attendantArray[0].split("#")[1]}`,
-    io.sockets.connected[attendantArray[0].split("#")[1]].handshake.query
-      .callsCount
+    `choosed attendant: ${attendantArray[0].split("#")[1]} with ID = ${attId}`
   );
 
   if (await assignAtt(attId, call.id)) {

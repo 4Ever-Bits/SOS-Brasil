@@ -7,7 +7,7 @@ import 'package:SOS_Brasil/models/session.dart';
 class LoginController {
   static Future<Session> login(String _email, String _password) async {
     try {
-      String url = user_server_url + "/signin";
+      String url = userServerUrl + "/signin";
 
       var header = {"Content-Type": "application/json"};
 
