@@ -7831,6 +7831,11 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
+pcm-player@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/pcm-player/-/pcm-player-0.0.10.tgz#b154af0d741f572bc4dd87256aec90dfe518cc46"
+  integrity sha512-nG+cVRTzuNMsXQOiGL+mc/m2vgg5JDFkeCaq/SUt3ENnzqP2K0IqReGelXSAH+97uK11R2cu4jlnVZ7Qj3oFBw==
+
 performance-now@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"

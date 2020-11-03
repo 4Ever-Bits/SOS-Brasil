@@ -1,3 +1,4 @@
+import 'package:SOS_Brasil/components/voice_recorder_fab.dart';
 import 'package:flutter/material.dart';
 import 'package:SOS_Brasil/screens/ServiceCallScreen/components/ServiceScreen/fabs.dart';
 
@@ -46,14 +47,14 @@ class TitleField extends StatelessWidget {
 class DescriptionField extends StatelessWidget {
   final Color color;
   final Function takePhoto;
-  final Function recordAudio;
+  final Function cbAudio;
   final Function onSaved;
 
   const DescriptionField(
       {Key key,
       @required this.color,
       @required this.takePhoto,
-      @required this.recordAudio,
+      @required this.cbAudio,
       @required this.onSaved})
       : super(key: key);
 
@@ -95,7 +96,7 @@ class DescriptionField extends StatelessWidget {
               ),
               Column(
                 children: <Widget>[
-                  AudioFAB(color: color, recordAudio: recordAudio),
+                  VoiceRecordFAB(color: color, callback: cbAudio),
                   SizedBox(height: 8),
                   PhotoFAB(color: color, takePhoto: takePhoto),
                 ],

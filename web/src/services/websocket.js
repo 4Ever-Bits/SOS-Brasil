@@ -6,9 +6,11 @@ const socket = io("http://localhost:3334/admin", { query: { id } });
 const getCallsCount = (calls) => {
   var callcount = 0;
 
-  for (var aux of calls) {
-    if (aux.status === null) callcount++;
-  }
+  if (calls) {
+    for (var aux of calls) {
+      if (aux.status === null) callcount++;
+    }
+  } else return 0;
 
   return callcount;
 };

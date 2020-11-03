@@ -7,6 +7,7 @@ import 'package:location/location.dart';
 import 'package:SOS_Brasil/components/custom_drawer.dart';
 import 'package:SOS_Brasil/controllers/location_controller.dart';
 import 'package:SOS_Brasil/controllers/service_controller.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -54,12 +55,20 @@ class _HomePageState extends State<HomePage>
   void initState() {
     super.initState();
     try {
+      getPermissions();
+
       getStorageUser();
 
       checkInternet();
 
       getUserLocation();
     } catch (e) {}
+  }
+
+  getPermissions() async {
+    await Permission.microphone.request();
+    await Permission.accessMediaLocation.request();
+    await Permission.location.request();
   }
 
   getUserLocation() {

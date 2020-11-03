@@ -43,6 +43,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
   double _longitude;
 
   File imageFile;
+  File audioFile;
 
   @override
   void initState() {
@@ -110,8 +111,11 @@ class _ServiceScreenState extends State<ServiceScreen> {
     }
   }
 
-  handleRecordAudio() {
-    CustomSnackbar.showBuildInProgress(context);
+  audioCallback(File file) {
+    setState(() {
+      audioFile = file;
+    });
+    print(file);
   }
 
   handleNextButtonClick() async {
@@ -130,6 +134,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
           latitude: _latitude,
           longitude: _longitude,
           imageFile: imageFile,
+          audioFile: audioFile,
           userId: widget.userId,
         );
 
@@ -159,7 +164,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
           DescriptionField(
             color: widget.color,
             onSaved: handleDescriptionField,
-            recordAudio: handleRecordAudio,
+            cbAudio: audioCallback,
             takePhoto: handleTakePhoto,
           ),
           LocationField(
