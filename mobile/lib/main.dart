@@ -1,3 +1,4 @@
+import 'package:SOS_Brasil/components/emergency_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -79,6 +80,25 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomAppBar(
+        elevation: 0,
+        color: Colors.red[400],
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            IconButton(
+              icon: Icon(Icons.phone),
+              color: Colors.white,
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) => EmergencyList(),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
       body: Theme(
         data: ThemeData(primaryColor: Colors.amber[100]),
         child: Container(

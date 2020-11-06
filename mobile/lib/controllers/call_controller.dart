@@ -35,9 +35,7 @@ class CallController {
       }
 
       var res = await req.send().timeout(Duration(seconds: 30));
-      print(res.statusCode);
       if (res.statusCode == 200) {
-        print("enviou");
         return await res.stream.bytesToString();
       } else
         return "";

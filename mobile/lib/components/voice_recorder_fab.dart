@@ -67,7 +67,7 @@ class _VoiceRecordFABState extends State<VoiceRecordFAB> {
 
   Future<IOSink> createFile() async {
     Directory tempDir = await getTemporaryDirectory();
-    _mPath = '${tempDir.path}/flutter_sound_example.pcm';
+    _mPath = '${tempDir.path}/emergency.pcm';
     _outputFile = File(_mPath);
     if (_outputFile.existsSync()) await _outputFile.delete();
     return _outputFile.openWrite();

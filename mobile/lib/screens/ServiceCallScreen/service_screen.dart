@@ -115,7 +115,6 @@ class _ServiceScreenState extends State<ServiceScreen> {
     setState(() {
       audioFile = file;
     });
-    print(file);
   }
 
   handleNextButtonClick() async {

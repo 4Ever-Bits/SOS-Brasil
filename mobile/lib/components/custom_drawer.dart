@@ -34,7 +34,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
   Widget build(BuildContext context) {
     void _logout() async {
       await storage.deleteAll();
-      Navigator.of(context).popAndPushNamed("/start");
+      Navigator.of(context).pushNamedAndRemoveUntil("/start", (r) => false);
     }
 
     return Container(
