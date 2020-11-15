@@ -10,6 +10,7 @@ import 'package:SOS_Brasil/screens/ForgotPasswordScreen/fp_emailsend.dart';
 import 'package:SOS_Brasil/screens/HomeScreen/home_screen.dart';
 import 'package:SOS_Brasil/screens/InfoScreen/info_screen.dart';
 import 'package:SOS_Brasil/screens/MapScreen/map_screen.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 // Create storage
 final storage = new FlutterSecureStorage();

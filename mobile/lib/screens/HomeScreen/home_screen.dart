@@ -52,20 +52,12 @@ class _HomePageState extends State<HomePage>
   void initState() {
     super.initState();
     try {
-      getPermissions();
-
       getStorageUser();
 
       checkInternet();
 
       getUserLocation();
     } catch (e) {}
-  }
-
-  getPermissions() async {
-    await Permission.microphone.request();
-    await Permission.accessMediaLocation.request();
-    await Permission.location.request();
   }
 
   getUserLocation() {

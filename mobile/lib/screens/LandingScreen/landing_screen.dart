@@ -6,9 +6,27 @@ import 'package:SOS_Brasil/components/emergency_list.dart';
 
 import 'package:SOS_Brasil/screens/LoginScreen/login_screen.dart';
 import 'package:SOS_Brasil/screens/SignupScreen/signup_screen.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class LandingScreen extends StatelessWidget {
+class LandingScreen extends StatefulWidget {
+  @override
+  _LandingScreenState createState() => _LandingScreenState();
+}
+
+class _LandingScreenState extends State<LandingScreen> {
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    Permission.location.request().then((_) {
+      Permission.microphone.request().then((_) {
+        Permission.accessMediaLocation.request().then((_) {
+          print("has permissions");
+        });
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
