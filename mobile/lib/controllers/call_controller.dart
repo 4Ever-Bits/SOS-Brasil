@@ -1,5 +1,6 @@
-import 'package:SOS_Brasil/models/call.dart';
 import 'package:http/http.dart' as http;
+
+import 'package:SOS_Brasil/models/call.dart';
 
 class CallController {
   static Future<String> create(Call call, String token, String baseUrl) async {

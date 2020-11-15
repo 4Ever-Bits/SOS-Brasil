@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+
 import 'package:image_picker/image_picker.dart';
 
 import 'package:SOS_Brasil/models/call.dart';
@@ -9,12 +10,11 @@ import 'package:SOS_Brasil/controllers/location_controller.dart';
 
 import 'package:SOS_Brasil/components/snackbar.dart';
 
+import 'package:SOS_Brasil/screens/MapScreen/map_screen.dart';
+import 'package:SOS_Brasil/screens/ServiceCallScreen/service_personalchoose_screen.dart';
 import 'package:SOS_Brasil/screens/ServiceCallScreen/components/ServiceScreen/build_methods.dart';
 import 'package:SOS_Brasil/screens/ServiceCallScreen/components/ServiceScreen/fields.dart';
 import 'package:SOS_Brasil/screens/ServiceCallScreen/components/ServiceScreen/service_form.dart';
-
-import 'package:SOS_Brasil/screens/MapScreen/map_screen.dart';
-import 'package:SOS_Brasil/screens/ServiceCallScreen/service_personalchoose_screen.dart';
 
 class ServiceScreen extends StatefulWidget {
   final Color color;

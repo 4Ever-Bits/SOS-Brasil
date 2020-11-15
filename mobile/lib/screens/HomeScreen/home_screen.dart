@@ -1,32 +1,28 @@
 import 'dart:io';
-import 'package:SOS_Brasil/components/emergency_list.dart';
-import 'package:flushbar/flushbar.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 import 'package:loading_overlay/loading_overlay.dart';
-import 'package:location/location.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+import 'package:SOS_Brasil/components/snackbar.dart';
+import 'package:SOS_Brasil/components/custom_fab.dart';
 import 'package:SOS_Brasil/components/custom_drawer.dart';
+import 'package:SOS_Brasil/components/emergency_list.dart';
+import 'package:SOS_Brasil/components/custom_bottombar.dart';
+
 import 'package:SOS_Brasil/controllers/location_controller.dart';
 import 'package:SOS_Brasil/controllers/service_controller.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'package:SOS_Brasil/models/service.dart';
 import 'package:SOS_Brasil/models/user.dart';
-
-import 'package:SOS_Brasil/components/backdrop_close_bar.dart';
-import 'package:SOS_Brasil/components/custom_bottombar.dart';
-import 'package:SOS_Brasil/components/custom_fab.dart';
 
 import 'package:SOS_Brasil/screens/HomeScreen/components/card/service_card.dart';
 import 'package:SOS_Brasil/screens/HomeScreen/components/custom_appbar.dart';
 import 'package:SOS_Brasil/screens/SosScreen/sos_screen.dart';
 
-import 'package:SOS_Brasil/utils/numbers_list.dart';
 import 'package:SOS_Brasil/utils/service_list.dart';
-
-import 'package:SOS_Brasil/components/snackbar.dart';
 
 // Create storage
 final storage = new FlutterSecureStorage();

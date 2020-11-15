@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:SOS_Brasil/models/service.dart';
 
 import 'package:SOS_Brasil/screens/ServiceCallScreen/components/ServiceDialog/build_methods.dart';
-
 import 'package:SOS_Brasil/screens/ServiceCallScreen/service_screen.dart';
 
 import 'package:SOS_Brasil/animations/transitions.dart';

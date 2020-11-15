@@ -1,7 +1,8 @@
 import 'dart:convert';
 
-import 'package:SOS_Brasil/utils/server_url.dart';
 import 'package:http/http.dart' as http;
+
+import 'package:SOS_Brasil/utils/server_url.dart';
 import 'package:SOS_Brasil/models/session.dart';
 
 class LoginController {

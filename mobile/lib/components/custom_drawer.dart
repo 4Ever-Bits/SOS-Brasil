@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:SOS_Brasil/components/snackbar.dart';
+
 import 'package:SOS_Brasil/main.dart';
+
+import 'package:SOS_Brasil/components/snackbar.dart';
+
 import 'package:SOS_Brasil/models/user.dart';
 
 class CustomDrawer extends StatefulWidget {

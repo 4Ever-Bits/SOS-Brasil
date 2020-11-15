@@ -1,5 +1,6 @@
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+
+import 'package:flushbar/flushbar.dart';
 
 class CustomSnackbar {
   static Widget showInternetError(BuildContext context) {

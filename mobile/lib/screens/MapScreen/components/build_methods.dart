@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 import 'package:mapbox_search_flutter/mapbox_search_flutter.dart' hide Color;
 
 Positioned buildMarker(Color color) {
@@ -16,11 +16,14 @@ Positioned buildMarker(Color color) {
 }
 
 Padding buildSearch(BuildContext context, Function onSelected) {
+  String _apiKey =
+      "pk.eyJ1IjoicGgtZm1tIiwiYSI6ImNrYzN4dnhleTAyaTQyeW85N202aDJ2ZzIifQ.fZH-H487byxBzR5KCSB0tg";
+
   return Padding(
     padding: EdgeInsets.fromLTRB(10, 40, 10, 0),
     child: MapBoxPlaceSearchWidget(
       popOnSelect: false,
-      apiKey: DotEnv().env["MAPBOX_API_KEY"],
+      apiKey: _apiKey,
       limit: 10,
       language: "pt",
       searchHint: 'Localização',
