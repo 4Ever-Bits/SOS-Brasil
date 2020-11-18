@@ -1,7 +1,11 @@
 import io from "socket.io-client";
 
-const { id } = JSON.parse(localStorage.getItem("user"));
-const socket = io("http://192.168.0.150:3334/admin", { query: { id } });
+const userRaw = localStorage.getItem("user");
+
+const { id } = JSON.parse(userRaw ? userRaw : '{"id": 0}');
+const socket = io("http://192.168.0.150:3334/admin", {
+  query: { id: id ? id : 0 },
+});
 
 const getCallsCount = (calls) => {
   var callcount = 0;
