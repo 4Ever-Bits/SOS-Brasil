@@ -46,8 +46,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SpecsContainer({ data }) {
-  const imageURL = "http://localhost:3002/" + data.image_url;
-  const audioURL = "http://localhost:3002/" + data.audio_url;
+  const imageURL = "http://192.168.0.150:3002/" + data.image_url;
+  const audioURL = "http://192.168.0.150:3002/" + data.audio_url;
 
   const classes = useStyles();
 
