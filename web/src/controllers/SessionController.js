@@ -13,3 +13,9 @@ export async function login({ email, password }) {
     throw Error(error.message);
   }
 }
+
+export function logout() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+  window.location.reload();
+}

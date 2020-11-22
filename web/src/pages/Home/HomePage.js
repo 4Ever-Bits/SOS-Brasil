@@ -33,29 +33,36 @@ export default function Home() {
 
   const [calls, setCalls] = React.useState([]);
   const [open, setOpen] = React.useState(false);
+  const [length, setLength] = React.useState(0);
 
   React.useEffect(() => {
     setOpen(true);
     getCalls().then((data) => {
       setCalls(data);
       setOpen(false);
+      setLength(data.length);
     });
   }, [setCalls]);
 
   React.useEffect(() => {
-    emitCallsCount(calls);
-  }, [calls]);
+    emitCallsCount(length);
+  }, [length]);
 
   subscribeToCalls((err, call) => {
-    var aux = calls;
+    if (!err) {
+      var aux = calls;
 
-    var hasCall = false;
-    for (var c of aux) {
-      if (c.id === call.id) hasCall = true;
+      var hasCall = false;
+      if (calls.length > 0) {
+        for (var c of aux) {
+          if (c.id === call.id) hasCall = true;
+        }
+      }
+      if (!hasCall) aux.unshift(call);
+
+      setCalls(aux);
+      setLength(length + 1);
     }
-    if (!hasCall) aux.unshift(call);
-
-    setCalls(aux);
   });
 
   if (id) {

@@ -1,39 +1,23 @@
 import React from "react";
 
-import {
-  Box,
-  Container,
-  Fab,
-  IconButton,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import { Box, Container, Fab, makeStyles, Typography } from "@material-ui/core";
 
 import ClearRoundedIcon from "@material-ui/icons/ClearRounded";
 import CheckRoundedIcon from "@material-ui/icons/CheckRounded";
-import PlayArrowIcon from "@material-ui/icons/PlayArrow";
-import PauseIcon from "@material-ui/icons/Pause";
-import ReplayIcon from "@material-ui/icons/Replay";
+
+import AudioPlayer from "../../../../../components/AudioPlayer";
+
+import { updateCall } from "../../../../../controllers/CallController";
 
 import "../../../../../styles/list.css";
 import "../../../../../styles/audio.css";
-import { updateCall } from "../../../../../controllers/CallController";
-import PCMPlayer from "../../../../../utils/pcmPlayer";
-import Axios from "axios";
 
 const titleStyle = {
   fontWeight: "bold",
   margin: "5px 0 20px 0",
 };
 
-const player = new PCMPlayer({
-  inputCodec: "Int16",
-  channels: 1,
-  sampleRate: 8000,
-  flushTime: 200,
-});
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   audioContainer: {
     backgroundColor: "#f44336",
     width: "auto",
@@ -53,6 +37,12 @@ export default function SpecsContainer({ data }) {
 
   const [call, setCall] = React.useState(data);
 
+  //Fetch data if props change
+  React.useEffect(() => {
+    setCall(data);
+  }, [data]);
+
+  //Main actions
   const handleAcceptClick = async () => {
     const { id } = JSON.parse(localStorage.getItem("user"));
     const call_id = data.id;
@@ -70,46 +60,6 @@ export default function SpecsContainer({ data }) {
       window.location.reload();
     }
   };
-
-  const handlePlayClick = async () => {
-    await player.continue();
-  };
-
-  const handlePauseClick = async () => {
-    await player.pause();
-  };
-
-  const handleReplay = async () => {
-    const response = await Axios.get(audioURL, {
-      responseType: "arraybuffer",
-    });
-
-    player.feed(response.data);
-  };
-
-  React.useEffect(() => {
-    setCall(data);
-  }, [data]);
-
-  React.useEffect(() => {
-    async function getPCMData() {
-      const response = await Axios.get(audioURL, {
-        responseType: "arraybuffer",
-      });
-
-      player.feed(response.data);
-    }
-
-    async function destroy() {
-      await player.pause();
-    }
-
-    getPCMData();
-
-    return () => {
-      destroy();
-    };
-  }, [audioURL]);
 
   return (
     <Container style={{ padding: "0 10px" }}>
@@ -138,21 +88,7 @@ export default function SpecsContainer({ data }) {
         </Typography>
 
         {call.audio_url !== null && call.audio_url !== "" ? (
-          <Box display="flex" justifyContent="center" alignItems="center">
-            <Container className={classes.audioContainer}>
-              <IconButton onClick={handlePlayClick}>
-                <PlayArrowIcon htmlColor="#FFF" />
-              </IconButton>
-
-              <IconButton onClick={handlePauseClick}>
-                <PauseIcon htmlColor="#FFF" />
-              </IconButton>
-
-              <IconButton onClick={handleReplay}>
-                <ReplayIcon htmlColor="#FFF" />
-              </IconButton>
-            </Container>
-          </Box>
+          <AudioPlayer className={classes.audioContainer} src={audioURL} />
         ) : (
           <></>
         )}
