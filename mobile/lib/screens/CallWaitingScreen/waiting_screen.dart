@@ -1,3 +1,4 @@
+import 'package:SOS_Brasil/screens/CallTrackingScreen/call_tracking_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -29,8 +30,10 @@ class WaitingScreen extends StatefulWidget {
 class _WaitingScreenState extends State<WaitingScreen> {
   Call call;
   String token;
+  String stringfiedCall;
 
   String bgImg = "assets/images/ambulancia_car.png";
+  String service = "ambulance";
 
   String _status = "Conectando ao servidor...";
 
@@ -44,10 +47,13 @@ class _WaitingScreenState extends State<WaitingScreen> {
 
     if (widget.color == Color(0xffef5350)) {
       bgImg = "assets/images/ambulancia_car.png";
+      service = "ambulance";
     } else if (widget.color == Color(0xff3f51b5)) {
       bgImg = "assets/images/bombeiro_car.png";
+      service = "fireman";
     } else {
       bgImg = "assets/images/police_car.png";
+      service = "police";
     }
 
     super.initState();
@@ -102,6 +108,7 @@ class _WaitingScreenState extends State<WaitingScreen> {
           NotificationController.showSendNotification();
           setState(() {
             _status = "Solicitação enviada com sucesso";
+            call = callFromJson(returnedCall);
           });
           socket.emit("create_call", returnedCall);
         } else {
@@ -112,14 +119,17 @@ class _WaitingScreenState extends State<WaitingScreen> {
   }
 
   _trackCall() {
-    CustomSnackbar.showBuildInProgress(context);
-    flutterLocalNotificationsPlugin.cancel(0);
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => CallTrackingScreen(),
-    //   ),
-    // );
+    // CustomSnackbar.showBuildInProgress(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CallTrackingScreen(
+          color: widget.color,
+          service: service,
+          call: call,
+        ),
+      ),
+    );
   }
 
   @override

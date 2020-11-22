@@ -40,8 +40,13 @@ class _VoiceRecordFABState extends State<VoiceRecordFAB> {
       myRecorder.closeAudioSession();
     }
 
-    _sink.close();
-    _recordingDataController.close();
+    if (_sink != null) {
+      _sink.close();
+    }
+
+    if (_recordingDataController != null) {
+      _recordingDataController.close();
+    }
     super.dispose();
   }
 

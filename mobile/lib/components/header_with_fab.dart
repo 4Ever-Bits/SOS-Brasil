@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:SOS_Brasil/components/snackbar.dart';
 
 import 'package:SOS_Brasil/utils/sos_clipper.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HeaderWithFAB extends StatelessWidget {
   const HeaderWithFAB({
@@ -10,14 +11,14 @@ class HeaderWithFAB extends StatelessWidget {
     @required this.context,
     this.child,
     this.flag: false,
-    this.color: Colors.red,
+    this.color,
     this.onFabDoubleClick,
     this.fabTag: "HeaderWithFAB",
     this.headerText: "Solicitação Enviada!",
   }) : super(key: key);
 
   final BuildContext context;
-  final MaterialColor color;
+  final Color color;
   final Widget child;
   final Function onFabDoubleClick;
   final String fabTag;
@@ -26,6 +27,25 @@ class HeaderWithFAB extends StatelessWidget {
   final String headerText;
 
   final double _buttonSize = 130;
+
+  List<Color> getColorArray() {
+    print(color);
+    if (color == Color(0xffef5350)) {
+      return <Color>[
+        Colors.red[200],
+        Colors.red[200],
+        Colors.red,
+      ];
+    } else if (color == Color(0xffff7043)) {
+      return <Color>[
+        Colors.deepOrange[200],
+        Colors.deepOrange[200],
+        Colors.deepOrange
+      ];
+    } else {
+      return <Color>[Colors.indigo[200], Colors.indigo[200], Colors.indigo];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +63,7 @@ class HeaderWithFAB extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
-                colors: [color[200], color[200], color],
+                colors: getColorArray(),
               ),
             ),
             child: Align(
@@ -97,7 +117,7 @@ class HeaderWithFAB extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Theme.of(context).primaryColor,
+          color: color,
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.4),
@@ -116,9 +136,13 @@ class ConfirmText extends StatelessWidget {
   const ConfirmText({
     Key key,
     @required this.context,
+    this.service,
+    this.color: Colors.red,
   }) : super(key: key);
 
   final BuildContext context;
+  final Color color;
+  final String service;
 
   final double _buttonSize = 40;
 
@@ -131,7 +155,7 @@ class ConfirmText extends StatelessWidget {
           Text(
             "Mantenha a calma",
             style: TextStyle(
-              color: Theme.of(context).primaryColor,
+              color: color,
               fontSize: 22,
               fontWeight: FontWeight.w800,
             ),
@@ -149,11 +173,26 @@ class ConfirmText extends StatelessWidget {
             child: FittedBox(
               child: FloatingActionButton(
                 heroTag: "Call",
-                onPressed: () {
+                onPressed: () async {
                   CustomSnackbar.showBuildInProgress(context);
+                  String number;
+
+                  if (service == "ambulance") {
+                    number = "tel: 192";
+                  } else if (service == "police") {
+                    number = "tel: 190";
+                  } else {
+                    number = "tel: 193";
+                  }
+
+                  if (await canLaunch(number)) {
+                    await launch(number);
+                  } else {
+                    throw 'Could not launch $number';
+                  }
                 },
                 child: Icon(Icons.phone),
-                backgroundColor: Theme.of(context).primaryColor,
+                backgroundColor: color,
               ),
             ),
           ),

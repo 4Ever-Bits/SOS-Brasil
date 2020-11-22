@@ -1,3 +1,5 @@
+import 'package:SOS_Brasil/main.dart';
+import 'package:SOS_Brasil/models/call.dart';
 import 'package:flutter/material.dart';
 
 import 'package:SOS_Brasil/components/header_with_fab.dart';
@@ -5,12 +7,14 @@ import 'package:SOS_Brasil/components/header_with_fab.dart';
 class CallTrackingScreen extends StatelessWidget {
   CallTrackingScreen({
     Key key,
-    this.color,
-    this.headerText,
+    @required this.color,
+    @required this.call,
+    @required this.service,
   }) : super(key: key);
 
+  final String service;
   final Color color;
-  final String headerText;
+  final Call call;
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +25,18 @@ class CallTrackingScreen extends StatelessWidget {
             flag: true,
             context: context,
             child: buildFABText(),
-            // color: color,
-            // headerText: headerText,
+            color: color,
           ),
           SizedBox(height: 60),
-          ConfirmText(context: context),
+          ConfirmText(
+            context: context,
+            color: color,
+            service: service,
+          ),
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Theme.of(context).primaryColor,
+        color: color,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: SizedBox(height: kBottomNavigationBarHeight - 10),
@@ -38,8 +45,10 @@ class CallTrackingScreen extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: color,
         onPressed: () {
           Navigator.pop(context);
+          flutterLocalNotificationsPlugin.cancel(0);
         },
         child: Icon(
           Icons.close,

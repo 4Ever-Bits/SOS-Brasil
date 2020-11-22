@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-getModalColor(String serviceName) {
+Color getModalColor(String serviceName) {
   switch (serviceName) {
     case "Ambulância":
       return Colors.red[400];
