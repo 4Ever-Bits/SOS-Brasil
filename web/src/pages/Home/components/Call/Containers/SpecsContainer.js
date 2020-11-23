@@ -30,8 +30,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function SpecsContainer({ data }) {
-  const imageURL = "http://192.168.0.150:3002/" + data.image_url;
-  const audioURL = "http://192.168.0.150:3002/" + data.audio_url;
+  const imageURL = "http://201.75.9.143:3002/" + data.image_url;
+  const audioURL = "http://201.75.9.143:3002/" + data.audio_url;
 
   const classes = useStyles();
 

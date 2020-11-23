@@ -9,6 +9,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 30,
     background: "#FFF",
     minHeight: "80vh",
+    maxWidth: "none",
+    width: "100%",
     padding: "20px 50px",
   },
 }));

@@ -14,6 +14,7 @@ import RequestContainer from "./components/Call/RequestContainer";
 
 import { getCalls } from "../../controllers/CallController";
 import { subscribeToCalls, emitCallsCount } from "../../services/websocket";
+import NotifSnackbar from "../../components/NotifSnackbar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,6 +35,7 @@ export default function Home() {
   const [calls, setCalls] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [length, setLength] = React.useState(0);
+  const [alert, setAlert] = React.useState(false);
 
   React.useEffect(() => {
     setOpen(true);
@@ -62,6 +64,7 @@ export default function Home() {
 
       setCalls(aux);
       setLength(length + 1);
+      setAlert(true);
     }
   });
 
@@ -104,6 +107,12 @@ export default function Home() {
           </Grid>
         </Grid>
       </Box>
+      <NotifSnackbar
+        open={alert}
+        onClose={() => setAlert(false)}
+        severity="warning"
+        message="Nova emergência!"
+      />
       <Backdrop className={classes.backdrop} open={open}>
         <CircularProgress color="inherit" />
       </Backdrop>
