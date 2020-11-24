@@ -4,10 +4,12 @@ import 'package:SOS_Brasil/components/snackbar.dart';
 
 class CustomBottomBar extends StatelessWidget {
   final Function showPhone;
+  final GlobalKey<ScaffoldState> scaffoldKey;
 
   const CustomBottomBar({
     Key key,
     this.showPhone,
+    this.scaffoldKey,
   }) : super(key: key);
 
   @override
@@ -24,7 +26,7 @@ class CustomBottomBar extends StatelessWidget {
             children: <Widget>[
               IconButton(
                 onPressed: () {
-                  CustomSnackbar.showBuildInProgress(context);
+                  scaffoldKey.currentState.openDrawer();
                 },
                 icon: Icon(
                   Icons.menu,

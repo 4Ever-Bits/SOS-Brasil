@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:SOS_Brasil/components/custom_left_drawer.dart';
 import 'package:flutter/material.dart';
 
 import 'package:loading_overlay/loading_overlay.dart';
@@ -130,12 +131,16 @@ class _HomePageState extends State<HomePage>
               user: user,
               scaffoldKey: _scaffoldKey,
             ),
+            drawer: CustomLeftDrawer(),
             endDrawer: CustomDrawer(),
             body: buildContainer(),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
             floatingActionButton: CustomFAB(),
-            bottomNavigationBar: CustomBottomBar(showPhone: toggleBackdrop),
+            bottomNavigationBar: CustomBottomBar(
+              scaffoldKey: _scaffoldKey,
+              showPhone: toggleBackdrop,
+            ),
           ),
           _isSOSActive ? Positioned(child: SOSScreen()) : SizedBox()
         ],
