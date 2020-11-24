@@ -32,18 +32,22 @@ class HeaderWithFAB extends StatelessWidget {
     print(color);
     if (color == Color(0xffef5350)) {
       return <Color>[
-        Colors.red[200],
-        Colors.red[200],
+        Colors.red[300],
+        Colors.red[300],
         Colors.red,
       ];
     } else if (color == Color(0xffff7043)) {
       return <Color>[
-        Colors.deepOrange[200],
-        Colors.deepOrange[200],
+        Colors.deepOrange[300],
+        Colors.deepOrange[300],
         Colors.deepOrange
       ];
     } else {
-      return <Color>[Colors.indigo[200], Colors.indigo[200], Colors.indigo];
+      return <Color>[
+        Colors.indigo[300],
+        Colors.indigo[300],
+        Colors.indigo,
+      ];
     }
   }
 

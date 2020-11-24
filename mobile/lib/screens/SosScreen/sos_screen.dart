@@ -70,6 +70,7 @@ class _SOSScreenState extends State<SOSScreen>
             onFabDoubleClick: _callSOS,
             child: buildFABText(),
             flag: _hasCallSOS,
+            color: Colors.red[400],
           ),
           SizedBox(height: 60),
           _hasCallSOS ? ConfirmText(context: context) : SizedBox(),
