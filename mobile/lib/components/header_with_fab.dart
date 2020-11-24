@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:SOS_Brasil/components/snackbar.dart';
 
 import 'package:SOS_Brasil/utils/sos_clipper.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class HeaderWithFAB extends StatelessWidget {
   const HeaderWithFAB({
@@ -178,21 +178,26 @@ class ConfirmText extends StatelessWidget {
               child: FloatingActionButton(
                 heroTag: "Call",
                 onPressed: () async {
-                  CustomSnackbar.showBuildInProgress(context);
-                  String number;
+                  if (service != null) {
+                    String number;
 
-                  if (service == "ambulance") {
-                    number = "tel: 192";
-                  } else if (service == "police") {
-                    number = "tel: 190";
-                  } else {
-                    number = "tel: 193";
-                  }
+                    print(service);
 
-                  if (await canLaunch(number)) {
-                    await launch(number);
+                    if (service == "ambulance") {
+                      number = "tel: 192";
+                    } else if (service == "police") {
+                      number = "tel: 190";
+                    } else {
+                      number = "tel: 193";
+                    }
+
+                    if (await canLaunch(number)) {
+                      await launch(number);
+                    } else {
+                      throw 'Could not launch $number';
+                    }
                   } else {
-                    throw 'Could not launch $number';
+                    CustomSnackbar.showBuildInProgress(context);
                   }
                 },
                 child: Icon(Icons.phone),

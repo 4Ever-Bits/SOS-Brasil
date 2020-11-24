@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flushbar/flushbar.dart';
 
 class CustomSnackbar {

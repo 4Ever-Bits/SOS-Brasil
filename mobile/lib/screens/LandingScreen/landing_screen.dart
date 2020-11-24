@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'package:SOS_Brasil/animations/transitions.dart';
 
@@ -6,7 +7,6 @@ import 'package:SOS_Brasil/components/emergency_list.dart';
 
 import 'package:SOS_Brasil/screens/LoginScreen/login_screen.dart';
 import 'package:SOS_Brasil/screens/SignupScreen/signup_screen.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class LandingScreen extends StatefulWidget {
   @override

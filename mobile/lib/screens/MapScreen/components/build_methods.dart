@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:mapbox_search_flutter/mapbox_search_flutter.dart' hide Color;
 
 Positioned buildMarker(Color color) {

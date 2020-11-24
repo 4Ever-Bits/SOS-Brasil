@@ -1,17 +1,13 @@
-import 'package:SOS_Brasil/screens/CallTrackingScreen/call_tracking_screen.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
-
-import 'package:SOS_Brasil/main.dart';
 
 import 'package:SOS_Brasil/controllers/notification_controller.dart';
 import 'package:SOS_Brasil/controllers/call_controller.dart';
 
-import 'package:SOS_Brasil/components/snackbar.dart';
-
 import 'package:SOS_Brasil/models/call.dart';
+
+import 'package:SOS_Brasil/screens/CallTrackingScreen/call_tracking_screen.dart';
 
 final storage = new FlutterSecureStorage();
 
@@ -45,10 +41,12 @@ class _WaitingScreenState extends State<WaitingScreen> {
 
     _sendData();
 
+    print(widget.color);
+
     if (widget.color == Color(0xffef5350)) {
       bgImg = "assets/images/ambulancia_car.png";
       service = "ambulance";
-    } else if (widget.color == Color(0xff3f51b5)) {
+    } else if (widget.color == Color(0xffff7043)) {
       bgImg = "assets/images/bombeiro_car.png";
       service = "fireman";
     } else {

@@ -1,13 +1,12 @@
 import 'dart:io';
 
-import 'package:SOS_Brasil/controllers/compress_file.dart';
 import 'package:flutter/material.dart';
-
 import 'package:image_picker/image_picker.dart';
 
 import 'package:SOS_Brasil/models/call.dart';
 
 import 'package:SOS_Brasil/controllers/location_controller.dart';
+import 'package:SOS_Brasil/controllers/compress_file_controller.dart';
 
 import 'package:SOS_Brasil/components/snackbar.dart';
 

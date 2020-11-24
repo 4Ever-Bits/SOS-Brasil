@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 

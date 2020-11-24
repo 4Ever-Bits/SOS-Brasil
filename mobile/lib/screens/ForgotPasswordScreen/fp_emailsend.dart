@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:loading_overlay/loading_overlay.dart';
 
 import 'package:SOS_Brasil/components/snackbar.dart';

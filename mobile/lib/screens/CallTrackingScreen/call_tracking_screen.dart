@@ -1,7 +1,10 @@
-import 'package:SOS_Brasil/controllers/notification_controller.dart';
-import 'package:SOS_Brasil/main.dart';
-import 'package:SOS_Brasil/models/call.dart';
 import 'package:flutter/material.dart';
+
+import 'package:SOS_Brasil/main.dart';
+
+import 'package:SOS_Brasil/controllers/notification_controller.dart';
+
+import 'package:SOS_Brasil/models/call.dart';
 
 import 'package:SOS_Brasil/components/header_with_fab.dart';
 

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:SOS_Brasil/components/snackbar.dart';
-
 class CustomBottomBar extends StatelessWidget {
   final Function showPhone;
   final GlobalKey<ScaffoldState> scaffoldKey;

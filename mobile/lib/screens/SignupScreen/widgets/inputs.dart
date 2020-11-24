@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:cpfcnpj/cpfcnpj.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
