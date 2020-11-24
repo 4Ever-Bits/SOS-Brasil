@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/Ph-FMM/S.O.S-Flutter-TCC/blob/master/Logo%20SOS%20Brasil.png" alt="Logo"/>
+</p>
+
 <h1>SOS Brasil</h1>
 
 <p>Aplicativo mobile que reduz o tempo de atendimento à vítimas necessitadas de ambulâncias, viaturas policiais e caminhões de bombeiros.</p>
