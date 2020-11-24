@@ -1,3 +1,4 @@
+import 'package:SOS_Brasil/controllers/notification_controller.dart';
 import 'package:SOS_Brasil/main.dart';
 import 'package:SOS_Brasil/models/call.dart';
 import 'package:flutter/material.dart';
@@ -46,9 +47,9 @@ class CallTrackingScreen extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: color,
-        onPressed: () {
+        onPressed: () async {
+          await NotificationController.cancellAll();
           Navigator.pop(context);
-          flutterLocalNotificationsPlugin.cancel(0);
         },
         child: Icon(
           Icons.close,

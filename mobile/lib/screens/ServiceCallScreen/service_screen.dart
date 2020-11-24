@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:SOS_Brasil/controllers/compress_file.dart';
 import 'package:flutter/material.dart';
 
 import 'package:image_picker/image_picker.dart';
@@ -101,12 +102,16 @@ class _ServiceScreenState extends State<ServiceScreen> {
 
       var picture = await picker.getImage(source: ImageSource.camera);
 
+      File compressedImageFile =
+          await CompressFile.compressImage(File(picture.path));
+
       setState(() {
-        imageFile = File(picture.path);
+        imageFile = compressedImageFile;
       });
 
       CustomSnackbar.showFileSaveSuccess(context);
     } catch (e) {
+      print(e);
       CustomSnackbar.showFileError(context);
     }
   }

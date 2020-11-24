@@ -17,11 +17,11 @@ class NotificationController {
     }
   }
 
-  static void cancellAll() async {
+  static Future<void> cancellAll() async {
     await flutterLocalNotificationsPlugin.cancelAll();
   }
 
-  static void cancel(int id) async {
+  static Future<void> cancel(int id) async {
     await flutterLocalNotificationsPlugin.cancel(id);
   }
 
