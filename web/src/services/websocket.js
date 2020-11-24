@@ -1,26 +1,18 @@
 import io from "socket.io-client";
 
-const { id } = JSON.parse(localStorage.getItem("user"));
-const socket = io("http://localhost:3334/admin", { query: { id } });
+const userRaw = localStorage.getItem("user");
 
-const getCallsCount = (calls) => {
-  var callcount = 0;
-
-  if (calls) {
-    for (var aux of calls) {
-      if (aux.status === null) callcount++;
-    }
-  } else return 0;
-
-  return callcount;
-};
+const { id } = JSON.parse(userRaw ? userRaw : '{"id": 0}');
+const socket = io("http://201.75.9.143:3334/admin", {
+  query: { id: id ? id : 0 },
+});
 
 function subscribeToCalls(cb) {
   socket.on("new_call", (call) => cb(null, call));
 }
 
-function emitCallsCount(calls) {
-  socket.emit("set_calls_length", getCallsCount(calls));
+function emitCallsCount(length) {
+  socket.emit("set_calls_length", length);
 }
 
 export { subscribeToCalls, emitCallsCount };

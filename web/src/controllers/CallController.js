@@ -1,4 +1,5 @@
 import api from "../config/axios";
+import { logout } from "./SessionController";
 
 export async function getCalls() {
   try {
@@ -9,6 +10,7 @@ export async function getCalls() {
     return data;
   } catch (err) {
     console.error(err);
+    logout();
   }
 }
 

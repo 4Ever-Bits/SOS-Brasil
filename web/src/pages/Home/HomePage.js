@@ -14,6 +14,7 @@ import RequestContainer from "./components/Call/RequestContainer";
 
 import { getCalls } from "../../controllers/CallController";
 import { subscribeToCalls, emitCallsCount } from "../../services/websocket";
+import NotifSnackbar from "../../components/NotifSnackbar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,29 +34,38 @@ export default function Home() {
 
   const [calls, setCalls] = React.useState([]);
   const [open, setOpen] = React.useState(false);
+  const [length, setLength] = React.useState(0);
+  const [alert, setAlert] = React.useState(false);
 
   React.useEffect(() => {
     setOpen(true);
     getCalls().then((data) => {
       setCalls(data);
       setOpen(false);
+      setLength(data.length);
     });
   }, [setCalls]);
 
   React.useEffect(() => {
-    emitCallsCount(calls);
-  }, [calls]);
+    emitCallsCount(length);
+  }, [length]);
 
   subscribeToCalls((err, call) => {
-    var aux = calls;
+    if (!err) {
+      var aux = calls;
 
-    var hasCall = false;
-    for (var c of aux) {
-      if (c.id === call.id) hasCall = true;
+      var hasCall = false;
+      if (calls.length > 0) {
+        for (var c of aux) {
+          if (c.id === call.id) hasCall = true;
+        }
+      }
+      if (!hasCall) aux.unshift(call);
+
+      setCalls(aux);
+      setLength(length + 1);
+      setAlert(true);
     }
-    if (!hasCall) aux.unshift(call);
-
-    setCalls(aux);
   });
 
   if (id) {
@@ -97,6 +107,12 @@ export default function Home() {
           </Grid>
         </Grid>
       </Box>
+      <NotifSnackbar
+        open={alert}
+        onClose={() => setAlert(false)}
+        severity="warning"
+        message="Nova emergência!"
+      />
       <Backdrop className={classes.backdrop} open={open}>
         <CircularProgress color="inherit" />
       </Backdrop>

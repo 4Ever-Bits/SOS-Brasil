@@ -11,6 +11,7 @@ import HelpOutlinedIcon from "@material-ui/icons/HelpOutlined";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { useHistory } from "react-router-dom";
 import AlertDialog from "../../../components/AlertDialog";
+import { logout } from "../../../controllers/SessionController";
 
 const useStyles = makeStyles({
   icon: {
@@ -51,9 +52,7 @@ export default function Header() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    window.location.reload();
+    logout();
   };
 
   return (
