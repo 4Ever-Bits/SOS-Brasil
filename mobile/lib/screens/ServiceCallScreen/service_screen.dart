@@ -120,6 +120,8 @@ class _ServiceScreenState extends State<ServiceScreen> {
     setState(() {
       audioFile = file;
     });
+
+    CustomSnackbar.showFileSaveSuccess(context);
   }
 
   handleNextButtonClick() async {
@@ -129,7 +131,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
       _formKey.currentState.save();
 
       if (_title.isNotEmpty &&
-          _description.isNotEmpty &&
+          (_description.isNotEmpty || audioFile != null) &&
           _latitude != null &&
           _longitude != null) {
         Call call = Call(
@@ -149,6 +151,9 @@ class _ServiceScreenState extends State<ServiceScreen> {
             url: widget.url,
           ),
         ));
+      } else {
+        CustomSnackbar.showAuthenticationError(
+            context, "Insira todos os dados");
       }
     }
   }
