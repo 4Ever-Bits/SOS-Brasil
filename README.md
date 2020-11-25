@@ -4,7 +4,9 @@
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/007d3a0507b745889d87aaaf203b7fef)](https://app.codacy.com/gh/Ph-FMM/S.O.S-Flutter-TCC?utm_source=github.com&utm_medium=referral&utm_content=Ph-FMM/S.O.S-Flutter-TCC&utm_campaign=Badge_Grade_Settings)
+![GitHub issues](https://img.shields.io/github/issues/Ph-FMM/SOS-Brasil)
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+![GitHub](https://img.shields.io/github/license/Ph-FMM/SOS-Brasil)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 SOS Brasil é um aplicativo mobile que reduz o tempo de atendimento à vítimas necessitadas de ambulâncias, viaturas policiais e/ou caminhões de bombeiros.
