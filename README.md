@@ -3,6 +3,7 @@
 </h1>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/007d3a0507b745889d87aaaf203b7fef)](https://app.codacy.com/gh/Ph-FMM/S.O.S-Flutter-TCC?utm_source=github.com&utm_medium=referral&utm_content=Ph-FMM/S.O.S-Flutter-TCC&utm_campaign=Badge_Grade_Settings)
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
