@@ -81,7 +81,6 @@ class _InsertPasswordCodeState extends State<InsertPasswordCode> {
             SizedBox(height: 10),
             PinCodeTextField(
               length: 6,
-              obsecureText: false,
               animationType: AnimationType.fade,
               animationDuration: Duration(milliseconds: 300),
               errorAnimationController: errorController,
@@ -102,6 +101,7 @@ class _InsertPasswordCodeState extends State<InsertPasswordCode> {
                 buildShowDialog(text);
                 return false;
               },
+              appContext: context,
             ),
             GestureDetector(
               onTap: () {},

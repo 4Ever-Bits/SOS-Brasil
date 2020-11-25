@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
 Call callFromJson(String str) => Call.fromJson(json.decode(str));
 
 String callToJson(Call data) => json.encode(data.toJson());
@@ -15,15 +17,16 @@ class Call {
   File imageFile;
   File audioFile;
 
-  Call(
-      {@required this.title,
-      @required this.description,
-      this.isPersonal,
-      @required this.latitude,
-      @required this.longitude,
-      this.userId,
-      this.imageFile,
-      this.audioFile});
+  Call({
+    @required this.title,
+    @required this.description,
+    this.isPersonal,
+    @required this.latitude,
+    @required this.longitude,
+    this.userId,
+    this.imageFile,
+    this.audioFile,
+  });
 
   factory Call.fromJson(Map<String, dynamic> json) => Call(
         title: json["title"],
