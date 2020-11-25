@@ -1,4 +1,4 @@
-name: mobile
+name: SOS_Brasil
 description: An app made for people in trouble.
 
 # The following line prevents the package from being accidentally published to
@@ -15,7 +15,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 0.0.0-alpha+002
+version: 0.0.3-beta
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -24,22 +24,28 @@ dependencies:
   flutter:
     sdk: flutter
 
-  mask_text_input_formatter: ^1.0.6
-  flutter_secure_storage: ^3.3.3
+  mask_text_input_formatter: ^1.1.0
+  flutter_secure_storage: ^3.3.5
   loading_overlay: ^0.2.1
-  http: ^0.12.1
+  http: ^0.12.2
   flutter_svg: ^0.18.0
-  url_launcher: ^5.5.0
+  url_launcher: ^5.7.5
   flushbar: ^1.10.4
   cpfcnpj: ^1.0.3
-  pin_code_fields: ^3.1.2
-  location: ^3.0.0
+  pin_code_fields: ^6.0.1
+  location: ^3.1.0
   flutter_map: any
   latlong: ^0.6.1
   mapbox_search_flutter: any
-  image_picker: ^0.6.7+3
-  flutter_dotenv: ^2.1.0
-  package_info: ^0.4.1
+  image_picker: ^0.6.7+14
+  package_info: ^0.4.3+2
+  socket_io_client: ^0.9.11
+  flutter_local_notifications: ^3.0.1+2
+  flutter_sound: ^6.4.2+1
+  path_provider: ^1.6.24
+  permission_handler: ^5.0.1+1
+  flutter_image_compress: ^0.7.0
+  flutter_launcher_icons: ^0.8.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -48,6 +54,14 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  ios: true
+  android: true
+  image_path_ios: "assets/icons/icon.png"
+  image_path_android: "assets/icons/icon.png"
+  adaptive_icon_background: "assets/icons/background.png"
+  adaptive_icon_foreground: "assets/icons/foreground.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -62,8 +76,7 @@ flutter:
   assets:
     - assets/images/
     - assets/svgs/
-
-    - .env
+    - assets/icons/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

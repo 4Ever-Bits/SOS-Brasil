@@ -1,5 +1,5 @@
 class Sos {
-  static Future<bool> callSOS() async {}
+  // static Future<bool> callSOS() async {}
 
-  static void callToSomeone() {}
+  // static void callToSomeone() {}
 }

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:mobile/models/call.dart';
+import 'package:SOS_Brasil/models/call.dart';
 
-import 'package:mobile/screens/ServiceCallScreen/components/PersonalChoose/build_methods.dart';
-import 'package:mobile/screens/ServiceCallScreen/components/PersonalChoose/central_card.dart';
-import 'package:mobile/screens/ServiceCallScreen/components/PersonalChoose/choices_cards.dart';
-
-import 'package:mobile/screens/CallWaitingScreen/waiting_screen.dart';
+import 'package:SOS_Brasil/screens/CallWaitingScreen/waiting_screen.dart';
+import 'package:SOS_Brasil/screens/ServiceCallScreen/components/PersonalChoose/build_methods.dart';
+import 'package:SOS_Brasil/screens/ServiceCallScreen/components/PersonalChoose/central_card.dart';
+import 'package:SOS_Brasil/screens/ServiceCallScreen/components/PersonalChoose/choices_cards.dart';
 
 class PersonalChooseScreen extends StatefulWidget {
   final Call call;

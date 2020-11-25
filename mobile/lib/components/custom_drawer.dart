@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/components/snackbar.dart';
-import 'package:mobile/main.dart';
-import 'package:mobile/models/user.dart';
+
+import 'package:SOS_Brasil/main.dart';
+
+import 'package:SOS_Brasil/components/snackbar.dart';
+
+import 'package:SOS_Brasil/models/user.dart';
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({
@@ -34,7 +37,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
   Widget build(BuildContext context) {
     void _logout() async {
       await storage.deleteAll();
-      Navigator.of(context).popAndPushNamed("/start");
+      Navigator.of(context).pushNamedAndRemoveUntil("/start", (r) => false);
     }
 
     return Container(

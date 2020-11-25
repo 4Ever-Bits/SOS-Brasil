@@ -3,6 +3,8 @@ const Validate = require("../utils/Validate");
 const sequelize = require("sequelize");
 const axios = require("axios");
 
+const URL = process.env.USER_API_URL || "http://localhost:3001";
+
 module.exports = {
   async index(req, res) {
     try {
@@ -15,11 +17,16 @@ module.exports = {
         limit: parseInt(limit),
         offset: (parseInt(page) - 1) * parseInt(limit),
         order: [[orderBy, direction]],
-        attributes: { exclude: ["attendant_id"] },
+        attributes: {
+          include: ["createdAt"],
+          exclude: ["attendant_id"],
+        },
         include: {
           model: User,
           as: "attendant",
-          attributes: { exclude: ["password", "createdAt", "updatedAt"] },
+          attributes: {
+            exclude: ["code", "password", "createdAt", "updatedAt"],
+          },
         },
       });
 
@@ -28,13 +35,14 @@ module.exports = {
 
       let data = [];
       for (call of calls) {
-        const response = await axios.get(
-          process.env.USER_API_URL + `/user/${call.user_id}`
-        );
+        const response = await axios.get(URL + `/user/${call.user_id}`);
         const user = response.data;
         delete call.dataValues["user_id"];
         delete user["AccountId"];
-        data.push({ ...call.dataValues, user });
+        data.push({
+          ...call.dataValues,
+          user,
+        });
       }
 
       res.header("X-Total-Count", calls_amount);
@@ -42,7 +50,7 @@ module.exports = {
       return res.status(200).json(data);
     } catch (error) {
       console.log(error);
-      return res.status(500).send();
+      return res.status(500).send(error);
     }
   },
 
@@ -78,7 +86,10 @@ module.exports = {
       // and store them in respective var
       if (req.files) {
         for (file of fileArray) {
-          if (file.mimetype.includes("image") && file.fieldname === "image")
+          if (
+            file.mimetype.includes("image") ||
+            file.fieldname.includes("image")
+          )
             image_url = file.path;
           else audio_url = file.path;
         }
@@ -110,25 +121,28 @@ module.exports = {
       var checkByID = false;
       const { field = "id", data } = req.params;
       const { limit = 10 } = req.query;
-      const { direction = "ASC" } = req.query;
+      const { direction = "DESC" } = req.query;
 
       if (!isNaN(data) && field === "id") checkByID = true;
 
       if (checkByID) {
         const call = await Call.findOne({
           where: { id: data },
-          attributes: { exclude: ["attendant_id"] },
+          attributes: {
+            include: ["createdAt"],
+            exclude: ["attendant_id"],
+          },
           include: {
             model: User,
             as: "attendant",
-            attributes: { exclude: ["password", "createdAt", "updatedAt"] },
+            attributes: {
+              exclude: ["password", "createdAt", "updatedAt", "code"],
+            },
           },
         });
 
         if (call) {
-          const response = await axios.get(
-            process.env.USER_API_URL + `/user/${call.user_id}`
-          );
+          const response = await axios.get(URL + `/user/${call.user_id}`);
           const user = response.data;
           delete call.dataValues["user_id"];
           delete user["AccountId"];
@@ -138,13 +152,18 @@ module.exports = {
       } else {
         const { count, rows } = await Call.findAndCountAll({
           where: sequelize.where(sequelize.col(field), data),
-          limit: parseInt(limit),
-          order: [[field, direction]],
-          attributes: { exclude: ["attendant_id"] },
+          // limit: parseInt(limit),
+          order: [["id", direction]],
+          attributes: {
+            include: ["createdAt"],
+            exclude: ["attendant_id"],
+          },
           include: {
             model: User,
             as: "attendant",
-            attributes: { exclude: ["password", "createdAt", "updatedAt"] },
+            attributes: {
+              exclude: ["password", "createdAt", "updatedAt", "code"],
+            },
           },
         });
 
@@ -153,9 +172,7 @@ module.exports = {
 
         let dataJson = [];
         for (call of calls) {
-          const response = await axios.get(
-            process.env.USER_API_URL + `/user/${call.user_id}`
-          );
+          const response = await axios.get(URL + `/user/${call.user_id}`);
           const user = response.data;
           delete call.dataValues["user_id"];
           delete user["AccountId"];

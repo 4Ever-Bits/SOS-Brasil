@@ -3,10 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loading_overlay/loading_overlay.dart';
-import 'package:mobile/components/snackbar.dart';
-import 'package:mobile/controllers/session_controller.dart';
-import 'package:mobile/screens/ForgotPasswordScreen/fp_newpassword.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+
+import 'package:SOS_Brasil/components/snackbar.dart';
+
+import 'package:SOS_Brasil/controllers/session_controller.dart';
+
+import 'package:SOS_Brasil/screens/ForgotPasswordScreen/fp_newpassword.dart';
 
 class InsertPasswordCode extends StatefulWidget {
   InsertPasswordCode({Key key, this.email}) : super(key: key);

@@ -114,15 +114,17 @@ module.exports = {
           },
         });
 
-        const user = dbResult.user;
-        delete dbResult.dataValues.user;
+        if (dbResult) {
+          const user = dbResult.user;
+          delete dbResult.dataValues.user;
 
-        const data = {
-          ...dbResult.dataValues,
-          ...user.dataValues,
-        };
+          const data = {
+            ...dbResult.dataValues,
+            ...user.dataValues,
+          };
 
-        if (dbResult) return res.status(200).json(data);
+          return res.status(200).json(data);
+        }
       }
 
       // the parameter isn't an ID
@@ -166,6 +168,29 @@ module.exports = {
     } catch (e) {
       console.log(e);
       return res.status(500).send();
+    }
+  },
+
+  //Update specified user
+  async update(req,res){
+    try{
+      const userData = req.params.data;
+
+      
+      // delete user and account field
+      const [account] = await Account.update(
+        {active: false},
+        {where: {
+          id: userData,
+        },  
+      });
+      console.log(account);
+
+      if (account) return res.status(200).send();
+      else return res.status(404).json({ error: "User not found" });
+
+    }catch(e){
+      return res.status(404).json({ error: "User not found" });
     }
   },
 

@@ -3,18 +3,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'package:mobile/models/call.dart';
+import 'package:SOS_Brasil/models/call.dart';
 
-import 'package:mobile/controllers/location_controller.dart';
+import 'package:SOS_Brasil/controllers/location_controller.dart';
+import 'package:SOS_Brasil/controllers/compress_file_controller.dart';
 
-import 'package:mobile/components/snackbar.dart';
+import 'package:SOS_Brasil/components/snackbar.dart';
 
-import 'package:mobile/screens/ServiceCallScreen/components/ServiceScreen/build_methods.dart';
-import 'package:mobile/screens/ServiceCallScreen/components/ServiceScreen/fields.dart';
-import 'package:mobile/screens/ServiceCallScreen/components/ServiceScreen/service_form.dart';
-
-import 'package:mobile/screens/MapScreen/map_screen.dart';
-import 'package:mobile/screens/ServiceCallScreen/service_personalchoose_screen.dart';
+import 'package:SOS_Brasil/screens/MapScreen/map_screen.dart';
+import 'package:SOS_Brasil/screens/ServiceCallScreen/service_personalchoose_screen.dart';
+import 'package:SOS_Brasil/screens/ServiceCallScreen/components/ServiceScreen/build_methods.dart';
+import 'package:SOS_Brasil/screens/ServiceCallScreen/components/ServiceScreen/fields.dart';
+import 'package:SOS_Brasil/screens/ServiceCallScreen/components/ServiceScreen/service_form.dart';
 
 class ServiceScreen extends StatefulWidget {
   final Color color;
@@ -43,6 +43,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
   double _longitude;
 
   File imageFile;
+  File audioFile;
 
   @override
   void initState() {
@@ -100,18 +101,26 @@ class _ServiceScreenState extends State<ServiceScreen> {
 
       var picture = await picker.getImage(source: ImageSource.camera);
 
+      File compressedImageFile =
+          await CompressFile.compressImage(File(picture.path));
+
       setState(() {
-        imageFile = File(picture.path);
+        imageFile = compressedImageFile;
       });
 
       CustomSnackbar.showFileSaveSuccess(context);
     } catch (e) {
+      print(e);
       CustomSnackbar.showFileError(context);
     }
   }
 
-  handleRecordAudio() {
-    CustomSnackbar.showBuildInProgress(context);
+  audioCallback(File file) {
+    setState(() {
+      audioFile = file;
+    });
+
+    CustomSnackbar.showFileSaveSuccess(context);
   }
 
   handleNextButtonClick() async {
@@ -121,7 +130,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
       _formKey.currentState.save();
 
       if (_title.isNotEmpty &&
-          _description.isNotEmpty &&
+          (_description.isNotEmpty || audioFile != null) &&
           _latitude != null &&
           _longitude != null) {
         Call call = Call(
@@ -130,6 +139,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
           latitude: _latitude,
           longitude: _longitude,
           imageFile: imageFile,
+          audioFile: audioFile,
           userId: widget.userId,
         );
 
@@ -140,6 +150,9 @@ class _ServiceScreenState extends State<ServiceScreen> {
             url: widget.url,
           ),
         ));
+      } else {
+        CustomSnackbar.showAuthenticationError(
+            context, "Insira todos os dados");
       }
     }
   }
@@ -159,7 +172,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
           DescriptionField(
             color: widget.color,
             onSaved: handleDescriptionField,
-            recordAudio: handleRecordAudio,
+            cbAudio: audioCallback,
             takePhoto: handleTakePhoto,
           ),
           LocationField(

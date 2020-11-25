@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       passwordResetToken: DataTypes.STRING,
       passwordResetExpires: DataTypes.DATE,
+      active: DataTypes.BOOLEAN
     },
     {
       defaultScope: {

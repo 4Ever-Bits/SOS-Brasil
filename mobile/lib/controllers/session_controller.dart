@@ -1,10 +1,13 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:mobile/models/session.dart';
+
+import 'package:SOS_Brasil/utils/server_url.dart';
+
+import 'package:SOS_Brasil/models/session.dart';
 
 class SessionController {
-  static final String _baseUrl = "http://192.168.0.2:3333";
+  static final String _baseUrl = userServerUrl;
   static final _header = {"Content-Type": "application/json"};
 
   static Future<Session> login(String _email, String _password) async {

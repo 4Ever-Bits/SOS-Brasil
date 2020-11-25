@@ -12,6 +12,10 @@ const storage = multer.diskStorage({
       files.originalname.replace(/\s/g, "_");
     filename = filename.replace(":", "-");
     filename = filename.replace(":", "-");
+    filename = filename.replace("/", "-");
+    filename = filename.replace("/", "-");
+
+    console.log(filename);
 
     cb(null, filename);
   },

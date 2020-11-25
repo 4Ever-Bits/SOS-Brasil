@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/screens/SosScreen/sos_screen.dart';
+
+import 'package:SOS_Brasil/screens/SosScreen/sos_screen.dart';
 
 class CustomFAB extends StatelessWidget {
   final String _heroTag = "SOS_BUTTON";

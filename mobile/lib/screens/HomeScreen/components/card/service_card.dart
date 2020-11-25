@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:mobile/models/service.dart';
+import 'package:SOS_Brasil/models/service.dart';
 
-import 'package:mobile/screens/ServiceCallScreen/service_dialog.dart';
+import 'package:SOS_Brasil/screens/ServiceCallScreen/service_dialog.dart';
 
 class ServiceCard extends StatelessWidget {
   final Map<String, double> location;

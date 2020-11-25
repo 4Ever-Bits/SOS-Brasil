@@ -1,5 +1,5 @@
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flushbar/flushbar.dart';
 
 class CustomSnackbar {
   static Widget showInternetError(BuildContext context) {
@@ -46,7 +46,7 @@ class CustomSnackbar {
     return Flushbar(
       title: "Sucesso",
       flushbarPosition: FlushbarPosition.TOP,
-      message: "Arquivo salvo com sucesso",
+      message: "Arquivo anexado com sucesso",
       backgroundColor: Colors.green,
       duration: Duration(seconds: 5),
     )..show(context);
