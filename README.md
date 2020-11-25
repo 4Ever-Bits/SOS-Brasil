@@ -11,16 +11,17 @@
 
 SOS Brasil é um aplicativo mobile que reduz o tempo de atendimento à vítimas necessitadas de ambulâncias, viaturas policiais e/ou caminhões de bombeiros.
 
-<h1>🚑 Tabela de Conteúdos</h1>
+<h1 align="center">🚑 Tabela de Conteúdos</h1>
 
-<p>• <a href="#objetivo">Objetivo</a></p>
-<p>• <a href="#status">Status do Projeto</a></p>
-<p>• <a href="#funcionalidades">Funcionalidades</a></p>
-<p>• <a href="#instrucoes">Instruções de Instalação</a></p>
-<p>• <a href="#tecnologias">Tecnologias</a></p>
-<p>• <a href="#autores">Autores</a></p>
-<p>• <a href="#licenca">Licença</a></p>
-<p>• <a href="#contribuindo">Contribuindo</a>
+<p align="center">• 
+ <a href="#objetivo">Objetivo</a> •
+ <a href="#status">Status do Projeto</a> • 
+ <a href="#funcionalidades">Funcionalidades</a> • 
+ <a href="#instrucoes">Instruções de Instalação</a> • 
+ <a href="#tecnologias">Tecnologias</a> • 
+ <a href="#autores">Autores</a> • 
+ <a href="#licenca">Licença</a>
+</p>
 
 <h1 id="objetivo">🚓 Objetivo</h1>
 
