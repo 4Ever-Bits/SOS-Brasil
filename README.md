@@ -3,7 +3,7 @@
 </h1>
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 SOS Brasil é um aplicativo mobile que reduz o tempo de atendimento à vítimas necessitadas de ambulâncias, viaturas policiais e/ou caminhões de bombeiros.
@@ -54,6 +54,7 @@ Obrigado a essas pessoas maravilhosas:
 <table>
   <tr>
     <td align="center"><a href="https://www.linkedin.com/in/pedroharaujo1952/"><img src="https://avatars2.githubusercontent.com/u/38022427?v=4" width="100px;" alt=""/><br /><sub><b>Pedro Henrique Souza Araújo</b></sub></a><br /><a href="https://github.com/Ph-FMM/S.O.S-Flutter-TCC/commits?author=Ph-FMM" title="Code">💻</a> <a href="#design-Ph-FMM" title="Design">🎨</a> <a href="#projectManagement-Ph-FMM" title="Project Management">📆</a></td>
+    <td align="center"><a href="https://github.com/Mei-Cavalcante"><img src="https://avatars3.githubusercontent.com/u/60802498?v=4" width="100px;" alt=""/><br /><sub><b>Meily Cristini Frois Ribeiro Cavalcante</b></sub></a><br /><a href="#design-Mei-Cavalcante" title="Design">🎨</a> <a href="https://github.com/Ph-FMM/S.O.S-Flutter-TCC/commits?author=Mei-Cavalcante" title="Documentation">📖</a></td>
   </tr>
 </table>
 
