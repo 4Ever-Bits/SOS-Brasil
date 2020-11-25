@@ -1,15 +1,14 @@
-<p align="center">
+<h1 align="center">
+	<img src="https://imgur.com/jhFINiM.png"/>
+
+
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
-  <img src="https://github.com/Ph-FMM/S.O.S-Flutter-TCC/blob/master/Logo%20SOS%20Brasil.png" alt="Logo"/>
-</p>
 
-<h1>SOS Brasil</h1>
+SOS Brasil é um aplicativo mobile que reduz o tempo de atendimento à vítimas necessitadas de ambulâncias, viaturas policiais e/ou caminhões de bombeiros.
 
-<p>Aplicativo mobile que reduz o tempo de atendimento à vítimas necessitadas de ambulâncias, viaturas policiais e caminhões de bombeiros.</p>
-
-<h1 align="center">Tabela de Conteúdos</h1>
+<h2 align="center">Tabela de Conteúdos</h1>
 
 <p align="center">
  <a href="#objetivo">Objetivo</a> •
@@ -17,24 +16,24 @@
  <a href="#features">Features</a> • 
  <a href="#prerequisitos">Pré-requisitos</a> • 
  <a href="#tecnologias">Tecnologias</a> • 
- <a href="#contribuicao">Autores</a> • 
+ <a href="#contribuicao">Autores</a>
 </p>
 
-<h1>Objetivo</h1>
+<h1 id="objetivo">Objetivo</h1>
 
 <p> O sistema de emergência carece de tecnologias para o auxílio e melhoria do sistema para maior eficiência do processo. O aplicativo possui o objetivo de requisitar auxilio  de forma remota em uma fração de segundos, além do envio da localização em tempo real e contato direto com o assistente, com isso muitos casos de atraso de serviços de emergência e dificuldade de encontrar o destino serão evitados e mais pessoas serão atendidas e salvas.</p>
 
-<h1>Status do Projeto</h1>
+<h1 id="status">Status do Projeto</h1>
 
 <h4> 
 	🚧 Em construção...  🚧
 </h4>
 
-<h1>Features</h1>
+<h1 id="features">Features</h1>
 
-<h1>Pré-requisitos</h1>
+<h1 id="prerequisitos">Pré-requisitos</h1>
 
-<h1>Tecnologias</h1>
+<h1 id="tecnologias">Tecnologias</h1>
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
@@ -45,11 +44,9 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [Socket.io](https://socket.io/)
 - [Insomnia](https://insomnia.rest/)
 
-<h1>Autores</h1>
+## Autores
 
-## Contributors ✨
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+Obrigado a essas pessoas maravilhosas:
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -64,4 +61,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+## License
+
+See  [LICENSE](https://github.com/Ph-FMM/S.O.S-Flutter-TCC/blob/master/LICENSE).
+
+Copyright © 2020 SOS Brasil. All Rights Reserved.
