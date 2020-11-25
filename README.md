@@ -79,5 +79,3 @@ SOS Brasil é um aplicativo mobile que reduz o tempo de atendimento à vítimas 
 <p>Este projeto está lincenciado sob a GNU General Public License - veja o arquivo <a href="LICENSE">LICENSE</a> para detalhes.</p>
 <!--See  [LICENSE](https://github.com/Ph-FMM/S.O.S-Flutter-TCC/blob/master/LICENSE).-->
 <p>Copyright © 2020 SOS Brasil. All Rights Reserved.</p>
-
-<h1 id="contribuindo">🤝 Contribuindo</h1>
