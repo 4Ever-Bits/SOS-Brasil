@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:SOS_Brasil/main.dart';
-
 import 'package:SOS_Brasil/controllers/notification_controller.dart';
 
 import 'package:SOS_Brasil/models/call.dart';

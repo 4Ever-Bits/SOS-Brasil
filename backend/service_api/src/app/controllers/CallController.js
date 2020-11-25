@@ -70,8 +70,6 @@ module.exports = {
       Validate.isEmpty(latitude, "Latitude is empty");
       Validate.isEmpty(longitude, "Longitude is empty");
       Validate.isEmpty(user_id, "User_id is empty");
-      //TODO:   Validate.coordinates(latitude, "Latitude is bad formated");
-      //TODO:   Validate.coordinates(longitude, "Longitude is bad formated");
 
       //Convert string of MultipartForm to boolean
       if (isPersonal === "true") isPersonal = true;
@@ -85,7 +83,7 @@ module.exports = {
       //Compare if the files are audio ou image
       // and store them in respective var
       if (req.files) {
-        for (file of fileArray) {
+        for (var file of fileArray) {
           if (
             file.mimetype.includes("image") ||
             file.fieldname.includes("image")

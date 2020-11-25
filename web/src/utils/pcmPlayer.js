@@ -119,6 +119,8 @@ export default class PCMPlayer {
       // 所以对数据进行除法
       // 除以对应的位数范围，得到-1到+1的数据
       // float32[i] = data[i] / 0x8000;
+
+      /* eslint-disable-next-line security/detect-object-injection -- Safe as no value holds user input */
       float32[i] = data[i] / this.convertValue;
     }
     return float32;
@@ -152,13 +154,16 @@ export default class PCMPlayer {
       let offset = channel;
       let decrement = 50;
       for (let i = 0; i < length; i++) {
+        /* eslint-disable-next-line security/detect-object-injection -- Safe as no value holds user input */
         audioData[i] = this.samples[offset];
         /* fadein */
         if (i < 50) {
+          /* eslint-disable-next-line security/detect-object-injection -- Safe as no value holds user input */
           audioData[i] = (audioData[i] * i) / 50;
         }
         /* fadeout*/
         if (i >= length - 51) {
+          /* eslint-disable-next-line security/detect-object-injection -- Safe as no value holds user input */
           audioData[i] = (audioData[i] * decrement--) / 50;
         }
         offset += this.option.channels;

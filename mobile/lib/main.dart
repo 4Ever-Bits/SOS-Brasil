@@ -4,13 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import 'package:SOS_Brasil/screens/CallTrackingScreen/call_tracking_screen.dart';
 import 'package:SOS_Brasil/screens/LandingScreen/landing_screen.dart';
 import 'package:SOS_Brasil/screens/ForgotPasswordScreen/fp_emailsend.dart';
 import 'package:SOS_Brasil/screens/HomeScreen/home_screen.dart';
 import 'package:SOS_Brasil/screens/InfoScreen/info_screen.dart';
 import 'package:SOS_Brasil/screens/MapScreen/map_screen.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 // Create storage
 final storage = new FlutterSecureStorage();
