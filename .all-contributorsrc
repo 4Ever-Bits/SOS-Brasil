@@ -1,0 +1,46 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "Ph-FMM",
+      "name": "Pedro Henrique Souza Araújo",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/38022427?v=4",
+      "profile": "https://www.linkedin.com/in/pedroharaujo1952/",
+      "contributions": [
+        "code",
+        "design",
+        "projectManagement"
+      ]
+    },
+    {
+      "login": "Mei-Cavalcante",
+      "name": "Meily Cristini Frois Ribeiro Cavalcante",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/60802498?v=4",
+      "profile": "https://github.com/Mei-Cavalcante",
+      "contributions": [
+        "design",
+        "doc"
+      ]
+    },
+    {
+      "login": "EmillyArruda",
+      "name": "Emilly Arruda",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/65552749?v=4",
+      "profile": "https://github.com/EmillyArruda",
+      "contributions": [
+        "design",
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "S.O.S-Flutter-TCC",
+  "projectOwner": "Ph-FMM",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
