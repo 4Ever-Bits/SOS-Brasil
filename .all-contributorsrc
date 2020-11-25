@@ -1,0 +1,26 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "Ph-FMM",
+      "name": "Pedro Henrique Souza Araújo",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/38022427?v=4",
+      "profile": "https://www.linkedin.com/in/pedroharaujo1952/",
+      "contributions": [
+        "code",
+        "design",
+        "projectManagement"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "S.O.S-Flutter-TCC",
+  "projectOwner": "Ph-FMM",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
