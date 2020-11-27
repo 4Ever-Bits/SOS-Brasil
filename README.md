@@ -38,7 +38,6 @@ SOS Brasil é um aplicativo mobile que reduz o tempo de atendimento à vítimas 
 <p>✔️Solicitar Bombeiros, Polícia e Ambulância</p>
 <p>✔️Números dos serviços de emergência offline</p>
 <p>✔️Botão de emergência</p>
-<p>✔️Emissão de mensagem de resposta</p>
 <p>✔️Enviar especificações da ocorrência</p>
 <p>✔️Solicitar para outra pessoa</p>
 
