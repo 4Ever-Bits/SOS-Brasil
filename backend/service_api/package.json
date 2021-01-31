@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon -r dotenv/config index.js ",
-    "start": "node -r dotenv/config index.js "
+    "start": "node index.js "
   },
   "keywords": [],
   "author": "",
@@ -22,6 +22,7 @@
     "mysql2": "^2.1.0",
     "nodemon": "^2.0.4",
     "path": "^0.12.7",
+    "pm2": "^4.5.0",
     "sequelize": "^6.2.3",
     "sequelize-cli": "^6.1.0",
     "socket.io": "^2.3.0"

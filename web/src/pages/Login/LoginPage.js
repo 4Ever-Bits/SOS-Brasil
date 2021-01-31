@@ -63,6 +63,7 @@ export default class Login extends Component {
       });
 
       if (token) {
+        console.log(token);
         this.setState({ isLoading: false });
 
         localStorage.setItem("token", token);

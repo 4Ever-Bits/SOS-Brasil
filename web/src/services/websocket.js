@@ -3,7 +3,7 @@ import io from "socket.io-client";
 const userRaw = localStorage.getItem("user");
 
 const { id } = JSON.parse(userRaw ? userRaw : '{"id": 0}');
-const socket = io("http://201.75.9.143:3334/admin", {
+const socket = io("http://54.94.116.208:3334/admin", {
   query: { id: id ? id : 0 },
 });
 

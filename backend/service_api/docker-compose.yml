@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  sosbrasilservices:
+    build: .
+    ports:
+      - "3334:3334"
+    restart: on-failure
+    environment:
+      APP_NAME: "SOS Brasil"
+      APP_PORT: 3334
+      DB_NAME: sosbrasil_service
+      DB_HOST: 54.94.116.208
+      DB_PASSWORD: ph261202
+      DB_DIST: mysql
+      AUTH_SECRET: 853a76f7c8d5f4a1ee8bf10a4e0d1f13
+    command: yarn start
+
+  mysqlsrv:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ph261202
+    ports:
+      - "3306:3306"
+    volumes:
+      - /home/ph-ubuntu/developing/docker/volumes/mysql:/var/lib/mysql
+    networks:
+      - mysql-compose-network
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - mysql-compose-network
+
+networks:
+  mysql-compose-network:
+    driver: bridge

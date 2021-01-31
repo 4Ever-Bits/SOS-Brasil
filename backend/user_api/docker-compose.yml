@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  sosbrasiluser:
+    build: .
+    ports:
+      - "3333:3333"
+    restart: on-failure
+    environment:
+      APP_NAME: SOS Brasil
+      APP_PORT: 3333
+      DB_NAME: sosbrasil_user
+      DB_HOST: 54.94.116.208
+      DB_USER: root
+      DB_PASSWORD: ph261202
+      BD_DIST: mysql
+      MAIL_HOST: smtp.mailtrap.io
+      MAIL_PORT: 2525
+      MAIL_AUTH_USER: f01a8fa433023c
+      MAIL_AUTH_PASS: 2bf9f21e8b36ae
+
+      AUTH_SECRET: 853a76f7c8d5f4a1ee8bf10a4e0d1f13
+    command: yarn start

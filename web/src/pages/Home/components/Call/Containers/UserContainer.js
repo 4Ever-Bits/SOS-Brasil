@@ -46,14 +46,14 @@ export default function UserContainer({ data }) {
     borderRadius: 30,
   };
 
+  const [open, setOpen] = React.useState(false);
+
   const iframeURL =
     "https://maps.google.com/maps?q=" +
     data.latitude +
     "," +
     data.longitude +
     "&hl=pt&z=14&amp&output=embed";
-
-  const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
     setOpen(true);

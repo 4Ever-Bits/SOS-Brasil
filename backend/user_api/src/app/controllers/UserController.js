@@ -85,8 +85,7 @@ module.exports = {
 
       return res.status(200).json({ user });
     } catch (e) {
-      if (typeof e === "string") return res.status(400).json({ error: e });
-      else return res.status(400).json({ error: e.errors[0].message });
+      return res.status(400).json({ error: e });
     }
   },
 
@@ -172,24 +171,24 @@ module.exports = {
   },
 
   //Update specified user
-  async update(req,res){
-    try{
+  async update(req, res) {
+    try {
       const userData = req.params.data;
 
-      
       // delete user and account field
       const [account] = await Account.update(
-        {active: false},
-        {where: {
-          id: userData,
-        },  
-      });
+        { active: false },
+        {
+          where: {
+            id: userData,
+          },
+        }
+      );
       console.log(account);
 
       if (account) return res.status(200).send();
       else return res.status(404).json({ error: "User not found" });
-
-    }catch(e){
+    } catch (e) {
       return res.status(404).json({ error: "User not found" });
     }
   },

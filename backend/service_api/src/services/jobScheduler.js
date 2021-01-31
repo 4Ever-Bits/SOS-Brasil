@@ -1,7 +1,7 @@
 const { Call, User } = require("../app/models");
 const axios = require("axios");
 
-const URL = process.env.USER_API_URL || "http://localhost:3001";
+const URL = process.env.USER_API_URL || "http://54.94.116.208:3333";
 
 module.exports = async function (attendantArray, call, io) {
   attendantArray.sort(function (att1, att2) {
